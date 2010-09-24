@@ -48,7 +48,7 @@ run_thunderbird()
     BCC=$(echo "$MAILTO" | grep '^bcc=' | sed 's/^bcc=//' | awk '{ printf "%s,",$0 }')
     SUBJECT=$(echo "$MAILTO" | grep '^subject=' | tail -n 1)
     BODY=$(echo "$MAILTO" | grep '^body=' | tail -n 1)
-    ATTACH=$(echo "$MAILTO" | sed 's/^attach=/\n\nfile:\/\//g' | awk '/^file:/ { printf "%s,",$0 }')
+    ATTACH=$(echo "$MAILTO" | sed 's/^attach=/\n\nfile:\/\//g' | awk '/^file:/ { printf "%s,",$0 }' | sed 's/,$//')
 
     if [ -z "$TO" ] ; then
         NEWMAILTO=
