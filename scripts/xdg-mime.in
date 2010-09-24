@@ -141,21 +141,78 @@ make_default_kde()
     mkdir -p "$default_dir"
     [ -f $default_file ] || touch $default_file
     if [ x"$KDE_SESSION_VERSION" = x"4" ]; then
-        # FIXME update the required section "[Added Associations]"
-        DEBUG 1 "NOT IMPLEMENTED YET"
+        [ -f $default_file ] || touch $default_file
+        awk -v application="$vendor" -v mimetype="$mimetype" '
+    BEGIN {
+        prefix=mimetype "="
+        associations=0
+        found=0
+        blanks=0
+    }
+    {
+        suppress=0
+        if (index($0, "[Added Associations]") == 1) {
+            associations=1
+        } else if (index($0, "[") == 1) {
+            if (associations && !found) {
+                print prefix application
+                found=1
+            }
+            associations=0
+        } else if ($0 == "") {
+            blanks++
+            suppress=1
+        } else if (associations && index($0, prefix) == 1) {
+            value=substr($0, length(prefix) + 1, length)
+            split(value, apps, ";")
+            value=application ";"
+            count=0
+            for (i in apps) {
+              count++
+            }
+            for (i=0; i < count; i++) {
+                if (apps[i] != application && apps[i] != "") {
+                    value=value apps[i] ";"
+                }
+            }
+            $0=prefix value
+            found=1
+        }
+        if (!suppress) {
+            while (blanks > 0) {
+                print ""
+                blanks--
+            }
+            print $0
+        }
+    }
+    END {
+        if (!found) {
+            if (!associations) {
+                print "[Added Associations]"
+            }
+            print prefix application
+        }
+        while (blanks > 0) {
+            print ""
+            blanks--
+        }
+    }
+' $default_file > ${default_file}.new && mv ${default_file}.new $default_file
+        eval 'kbuildsycoca4'$xdg_redirect_output
     else
         awk -v application="$vendor" -v mimetype="$mimetype" '
     BEGIN {
         header_start="[" mimetype " - "
-        supress=0
+        suppress=0
     }
     {
         if (index($0, header_start) == 1 )
-            supress=1
+            suppress=1
         else
-            if (/^\[/) { supress=0 }
+            if (/^\[/) { suppress=0 }
 
-        if (!supress) {
+        if (!suppress) {
             print $0
         }
     }
@@ -540,14 +597,14 @@ if [ -n "$kde_dir" ] ; then
     mimetypes=`awk < "$filename" '
 # Strip XML comments
 BEGIN {
- supress=0
+ suppress=0
 }
 {
  do
-    if (supress) {
+    if (suppress) {
        if (match($0,/-->/)) {
            $0=substr($0,RSTART+RLENGTH)
-           supress=0
+           suppress=0
        }
        else {
            break
@@ -557,7 +614,7 @@ BEGIN {
        if (match($0,/<!--/)) {
            if (RSTART>1) print substr($0,0,RSTART)
            $0=substr($0,RSTART+RLENGTH)
-           supress=1
+           suppress=1
        }
        else {
            if ($0) print $0
@@ -600,14 +657,14 @@ case $action in
                 awk < "$filename" '
 # Strip XML comments
 BEGIN {
- supress=0
+ suppress=0
 }
 {
  do
-    if (supress) {
+    if (suppress) {
        if (match($0,/-->/)) {
            $0=substr($0,RSTART+RLENGTH)
-           supress=0
+           suppress=0
        }
        else {
            break
@@ -617,7 +674,7 @@ BEGIN {
        if (match($0,/<!--/)) {
            if (RSTART>1) print substr($0,0,RSTART)
            $0=substr($0,RSTART+RLENGTH)
-           supress=1
+           suppress=1
        }
        else {
            if ($0) print $0
