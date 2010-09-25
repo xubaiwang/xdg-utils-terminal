@@ -1,5 +1,10 @@
 === xdg-utils 1.x.x ===
 
+2010-09-25 Fathi Boudra <fabo@freedesktop.org>
+   * xdg-settings: Only run KDE browser fallback when necessary. Otherwise,
+     in some circumstances, read_kde_browser incorrectly prints the result
+     twice. Thanks to David Benjamin.
+
 2010-09-24 Fathi Boudra <fabo@freedesktop.org>
     * xdg-email: Fix e-mail attachements support with Thunderbird3 (BR13435) 
 
