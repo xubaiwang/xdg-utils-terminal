@@ -1,5 +1,8 @@
 === xdg-utils 1.x.x ===
 
+2010-10-28 Rex Dieter <rdieter@fedoraproject.org> 
+   * add lxde support (BR26058)
+
 2010-09-25 Fathi Boudra <fabo@freedesktop.org>
    * xdg-settings: Only run KDE browser fallback when necessary. Otherwise,
      in some circumstances, read_kde_browser incorrectly prints the result

@@ -117,6 +117,19 @@ terminal_generic()
     fi
 }
 
+terminal_lxde()
+{
+    if which lxterminal &>/dev/null; then
+        if [ x"$1" == x"" ]; then
+            lxterminal
+        else
+            lxterminal -e "$1"
+        fi
+    else
+        terminal_generic "$1"
+    fi
+}
+
 #[ x"$1" != x"" ] || exit_failure_syntax
 
 command=
@@ -159,6 +172,10 @@ case "$DE" in
 
     xfce)
     terminal_xfce "$command"
+    ;;
+
+    lxde)
+    terminal_lxde "$command"
     ;;
 
     generic)

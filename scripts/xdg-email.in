@@ -363,7 +363,7 @@ case "$DE" in
     open_xfce "${mailto}"
     ;;
 
-    generic)
+    generic|lxde)
     open_generic "${mailto}"
     ;;
 
