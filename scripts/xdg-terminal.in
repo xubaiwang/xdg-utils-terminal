@@ -166,7 +166,7 @@ case "$DE" in
     terminal_kde "$command"
     ;;
 
-    gnome)
+    gnome*)
     terminal_gnome "$command"
     ;;
 
