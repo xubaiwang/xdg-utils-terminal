@@ -84,8 +84,9 @@ run_thunderbird()
 
 open_kde()
 {
-    local client
-    client=`kreadconfig --file emaildefaults --group PROFILE_Default --key EmailClient | cut -d ' ' -f 1`
+    local client kde_email_profile_name
+    kde_email_profile_name=`kreadconfig --file emaildefaults --group Defaults --key Profile`
+    client=`kreadconfig --file emaildefaults --group PROFILE_"$kde_email_profile_name" --key EmailClient | cut -d ' ' -f 1`
     echo $client | grep thunderbird > /dev/null 2>&1
     if [ $? -eq 0 ] ; then
         run_thunderbird "$client" "$1"
