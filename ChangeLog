@@ -5,8 +5,9 @@
      Thanks to Christopher Yeleighton. (BR31441)
 
 2010-11-18 Rex Dieter <rdieter@fedoraproject.org>
-   * fixup kfmclient_fix_exit_code() for newer kde-config output
-   * fix typo in xdg-mime manpage 
+   * xdg-utils-common: fixup kfmclient_fix_exit_code() for newer kde-config
+     output
+   * xdg-mime: fix typo in manpage
    * xdg-email: Thunderbird is not detected with localized (BR31740)
 
 2010-10-28 Rex Dieter <rdieter@fedoraproject.org>
