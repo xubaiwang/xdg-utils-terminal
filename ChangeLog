@@ -1,11 +1,11 @@
 === xdg-utils 1.x.x ===
 
-2010-11-18 Rex Dieter <rdieter@fedoraproject.org> 
+2010-11-18 Rex Dieter <rdieter@fedoraproject.org>
    * fixup kfmclient_fix_exit_code() for newer kde-config output
    * fix typo in xdg-mime manpage 
    * xdg-email: Thunderbird is not detected with localized (BR31740)
 
-2010-10-28 Rex Dieter <rdieter@fedoraproject.org> 
+2010-10-28 Rex Dieter <rdieter@fedoraproject.org>
    * add lxde support (BR26058)
 
 2010-09-25 Fathi Boudra <fabo@freedesktop.org>
@@ -14,7 +14,7 @@
      twice. Thanks to David Benjamin.
 
 2010-09-24 Fathi Boudra <fabo@freedesktop.org>
-    * xdg-email: Fix e-mail attachements support with Thunderbird3 (BR13435) 
+    * xdg-email: Fix e-mail attachements support with Thunderbird3 (BR13435)
 
 2010-09-24 Fathi Boudra <fabo@freedesktop.org>
     * xdg-mime: update the required section "[Added Associations]"
