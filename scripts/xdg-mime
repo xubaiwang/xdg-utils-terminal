@@ -102,10 +102,11 @@ install
     environment. mimetypes-file must be a XML file that follows the
     freedesktop.org Shared MIME-info Database specification and that has a
     mime-info element as its document root. For each new file type one or more
-    icons with name major-minor must be installed with the xdg-icon-resource
-    command in the mimetypes context. For example the application/
-    vnd.oasis.opendocument.text filetype requires an icon by the name of
-    application-vnd.oasis.opendocument.text to be installed.
+    icons with name type-subtype must be installed with the xdg-icon-resource
+    command in the mimetypes context. For example the filetype application/
+    vnd.oasis.opendocument.text requires an icon named
+    application-vnd.oasis.opendocument.text to be installed (unless the file
+    type recommends another icon name).
 uninstall
     Removes the file type descriptions provided in mimetypes-file and
     previously added with xdg-mime install from the desktop environment.
