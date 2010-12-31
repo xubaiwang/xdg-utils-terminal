@@ -635,7 +635,7 @@ screensaver_freedesktop()
         ;;
 
         *)
-        echo "ERROR:  Unknown command '$1'" >&2
+        echo "ERROR: Unknown command '$1'" >&2
         return 1
         ;;
     esac
@@ -678,13 +678,13 @@ screensaver_kde()
         elif [ x"$status" = "xfalse" ]; then
             echo "disabled"
         else
-            echo "ERROR:  kdesktop KScreensaverIface isEnabled returned '$status'" >&2
+            echo "ERROR: kdesktop KScreensaverIface isEnabled returned '$status'" >&2
             return 1
         fi
         ;;
 
         *)
-        echo "ERROR:  Unknown command '$1'" >&2
+        echo "ERROR: Unknown command '$1'" >&2
         return 1
         ;;
     esac
@@ -721,13 +721,13 @@ screensaver_xserver()
         elif [ "$timeout" -eq 0 ]; then
             echo "disabled"
         else
-            echo "ERROR:  xset q did not report the screensaver timeout" >&2
+            echo "ERROR: xset q did not report the screensaver timeout" >&2
             return 1
         fi
         ;;
 
         *)
-        echo "ERROR:  Unknown command '$1'" >&2
+        echo "ERROR: Unknown command '$1'" >&2
         return 1
         ;;
     esac
@@ -808,7 +808,7 @@ screensaver_gnome_screensaver()
         ;;
 
         *)
-        echo "ERROR:  Unknown command '$1" >&2
+        echo "ERROR: Unknown command '$1" >&2
         return 1
         ;;
     esac
@@ -853,7 +853,7 @@ screensaver_xscreensaver()
         ;;
 
         *)
-        echo "ERROR:  Unknown command '$1" >&2
+        echo "ERROR: Unknown command '$1" >&2
         return 1
         ;;
     esac
