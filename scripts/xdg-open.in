@@ -94,7 +94,7 @@ open_generic_xdg_mime()
         [ -n "$xdg_system_dirs" ] || xdg_system_dirs=/usr/local/share/:/usr/share/
 
         for x in `echo "$xdg_user_dir:$xdg_system_dirs" | sed 's/:/ /g'`; do
-            file="$x/applications/$default"
+            local file="$x/applications/$default"
             if [ -r "$file" ] ; then
                 command="`grep -E "^Exec(\[[^]=]*])?=" "$file" | cut -d= -f 2- | first_word`"
                 command_exec=`which $command 2>/dev/null`

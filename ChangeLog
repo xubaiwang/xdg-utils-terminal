@@ -3,6 +3,7 @@
 2010-12-31 Fathi Boudra <fabo@freedesktop.org>
    * xdg-mime: correct install text to use type/subtype.
      Thanks to Christopher Yeleighton. (BR31441)
+   * xdg-open: declare file variable as local. (BR32487)
    * xdg-open: decode file:// urls. Thanks to Henning Garus.
 
 2010-11-18 Rex Dieter <rdieter@fedoraproject.org>
