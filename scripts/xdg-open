@@ -307,6 +307,7 @@ detectDE()
     elif [ x"$GNOME_DESKTOP_SESSION_ID" != x"" ]; then DE=gnome;
     elif `dbus-send --print-reply --dest=org.freedesktop.DBus /org/freedesktop/DBus org.freedesktop.DBus.GetNameOwner string:org.gnome.SessionManager > /dev/null 2>&1` ; then DE=gnome;
     elif xprop -root _DT_SAVE_MODE 2> /dev/null | grep ' = \"xfce4\"$' >/dev/null 2>&1; then DE=xfce;
+    elif [ x"$DESKTOP_SESSION" == x"LXDE" ]; then DE=lxde;
     fi
 }
 
@@ -317,10 +318,10 @@ detectDE()
 
 kfmclient_fix_exit_code()
 {
-    version=`kde${KDE_SESSION_VERSION}-config --version 2>/dev/null | grep KDE`
-    major=`echo $version | sed 's/KDE: \([0-9]\).*/\1/'`
-    minor=`echo $version | sed 's/KDE: [0-9]*\.\([0-9]\).*/\1/'`
-    release=`echo $version | sed 's/KDE: [0-9]*\.[0-9]*\.\([0-9]\).*/\1/'`
+    version=`kde${KDE_SESSION_VERSION}-config --version 2>/dev/null | grep '^KDE'`
+    major=`echo $version | sed 's/KDE.*: \([0-9]\).*/\1/'`
+    minor=`echo $version | sed 's/KDE.*: [0-9]*\.\([0-9]\).*/\1/'`
+    release=`echo $version | sed 's/KDE.*: [0-9]*\.[0-9]*\.\([0-9]\).*/\1/'`
     test "$major" -gt 3 && return $1
     test "$minor" -gt 5 && return $1
     test "$release" -gt 4 && return $1
@@ -461,6 +462,32 @@ open_generic()
     exit_failure_operation_impossible "no method available for opening '$1'"
 }
 
+open_lxde()
+{
+    # pcmanfm only knows how to handle file:// urls and filepaths, it seems.
+    if (echo "$1" | grep -q '^file://' ||
+        ! echo "$1" | egrep -q '^[a-zA-Z+\.\-]+:')
+    then
+        local file="$(echo "$1" | sed 's%^file://%%')"
+
+        # handle relative paths
+        if ! echo "$file" | grep -q '^/'; then
+            file="$(pwd)/$file"
+        fi
+
+        pcmanfm "$file"
+
+    else
+        open_generic "$1"
+    fi
+
+    if [ $? -eq 0 ]; then
+        exit_success
+    else
+        exit_failure_operation_failed
+    fi
+}
+
 [ x"$1" != x"" ] || exit_failure_syntax
 
 url=
@@ -511,6 +538,10 @@ case "$DE" in
 
     xfce)
     open_xfce "$url"
+    ;;
+
+    lxde)
+    open_lxde "$url"
     ;;
 
     generic)
