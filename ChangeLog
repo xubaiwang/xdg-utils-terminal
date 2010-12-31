@@ -5,6 +5,7 @@
      Thanks to Christopher Yeleighton. (BR31441)
    * xdg-open: declare file variable as local. (BR32487)
    * xdg-open: decode file:// urls. Thanks to Henning Garus.
+   * xdg-screensaver: support X server blanking. Thanks to Ben Hutchings.
 
 2010-11-18 Rex Dieter <rdieter@fedoraproject.org>
    * xdg-utils-common: fixup kfmclient_fix_exit_code() for newer kde-config
