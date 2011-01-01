@@ -1,4 +1,4 @@
-=== xdg-utils 1.x.x ===
+=== xdg-utils 1.1.0-rc1 ===
 
 2010-12-31 Fathi Boudra <fabo@freedesktop.org>
    * xdg-mime: correct install text to use type/subtype.
