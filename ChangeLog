@@ -1,6 +1,11 @@
 === xdg-utils 1.1.x ===
 
 2011-01-09 Fathi Boudra <fabo@freedesktop.org>
+   * xdg-email: call kfmclient_fix_exit_code() under KDE 3 only.
+     Thanks to Luc Menut. (BR32924)
+   * xdg-utils-common: set C.UTF-8 locale to make sure the version parsing is
+     done as expected. Under some locales the KDE version string doesn't start
+     with "KDE".
    * xdg-terminal: Fix failure because the which std output is wrongly
      redirected to /dev/null in terminal_kde(). Thanks to Luc Menut.
      (BR32927)
