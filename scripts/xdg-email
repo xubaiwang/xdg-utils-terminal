@@ -332,7 +332,7 @@ check_common_commands()
             ;;
 
             --version)
-            echo "xdg-email 1.0.2"
+            echo "xdg-email 1.1.0 rc1"
             exit_success
             ;;
         esac
