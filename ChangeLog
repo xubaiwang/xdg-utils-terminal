@@ -1,3 +1,10 @@
+=== xdg-utils 1.1.x ===
+
+2011-01-09 Fathi Boudra <fabo@freedesktop.org>
+   * xdg-terminal: Fix failure because the which std output is wrongly
+     redirected to /dev/null in terminal_kde(). Thanks to Luc Menut.
+     (BR32927)
+
 === xdg-utils 1.1.0-rc1 ===
 
 2010-12-31 Fathi Boudra <fabo@freedesktop.org>
