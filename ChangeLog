@@ -1,5 +1,8 @@
 === xdg-utils 1.1.x ===
 
+2011-02-01 Rex Dieter <rdieter@fedoraproject.org>
+   * add support for GNOME 3.x
+
 2011-01-09 Fathi Boudra <fabo@freedesktop.org>
    * xdg-email: call kfmclient_fix_exit_code() under KDE 3 only.
      Thanks to Luc Menut. (BR32924)
