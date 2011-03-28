@@ -4,6 +4,8 @@
    * xdg-open cannot detect xfce 4.8 correctly (BR33321)
    * xdg-mime's info_generic doesn't normalize symlinks (BR33097)
    * mimetype support for xdg-mime (generic) (BR33094)
+   * open_generic_xdg_mime is broken when a .desktop file 
+     Exec has arguments (BR30453)
 
 2011-02-01 Rex Dieter <rdieter@fedoraproject.org>
    * add support for GNOME 3.x
