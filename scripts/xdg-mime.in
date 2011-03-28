@@ -76,9 +76,14 @@ info_gnome()
     if gvfs-info --help 2>/dev/null 1>&2; then
         DEBUG 1 "Running gvfs-info \"$1\""
         gvfs-info "$1" 2> /dev/null | grep standard::content-type | cut -d' ' -f4
-    else
+    elif gnomevfs-info --help 2>/dev/null 1>&2; then
        DEBUG 1 "Running gnomevfs-info \"$1\""
        gnomevfs-info --slow-mime "$1" 2> /dev/null | grep "^MIME" | cut -d ":" -f 2 | sed s/"^ "//
+    else
+       # according to https://bugs.freedesktop.org/show_bug.cgi?id=33094#c5
+       # neither gvfs-info or gnomevfs-info are present in a default Ubuntu Natty
+       # install, so fallback to info_generic
+       info_generic "$1"
     fi
 
     if [ $? -eq 0 ]; then
@@ -90,8 +95,13 @@ info_gnome()
 
 info_generic()
 {
-    DEBUG 1 "Running file -i \"$1\""
-    /usr/bin/file -i "$1" 2> /dev/null | cut -d ":" -f 2 | sed s/"^ "//
+    if mimetype --version >/dev/null 2>&1; then
+        DEBUG 1 "Running mimetype -b \"$1\""
+        mimetype -b "$1"
+    else
+        DEBUG 1 "Running file -i \"$1\""
+        /usr/bin/file -i "$1" 2> /dev/null | cut -d ":" -f 2 | sed s/"^ "//
+    fi
 
     if [ $? -eq 0 ]; then
         exit_success
