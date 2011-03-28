@@ -1,5 +1,8 @@
 === xdg-utils 1.1.x ===
 
+2011-03-28 Rex Dieter <rdieter@fedoraproject.org>
+   * xdg-open cannot detect xfce 4.8 correctly (BR33321)
+
 2011-02-01 Rex Dieter <rdieter@fedoraproject.org>
    * add support for GNOME 3.x
 
