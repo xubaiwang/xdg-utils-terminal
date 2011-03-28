@@ -73,14 +73,12 @@ info_kde()
 
 info_gnome()
 {
-    file=`readlink -f "$1"` # Normalize path
-
     if gvfs-info --help 2>/dev/null 1>&2; then
-        DEBUG 1 "Running gvfs-info \"$file\""
-        gvfs-info "$file" 2> /dev/null | grep standard::content-type | cut -d' ' -f4
+        DEBUG 1 "Running gvfs-info \"$1\""
+        gvfs-info "$1" 2> /dev/null | grep standard::content-type | cut -d' ' -f4
     else
-       DEBUG 1 "Running gnomevfs-info \"$file\""
-       gnomevfs-info --slow-mime "$file" 2> /dev/null | grep "^MIME" | cut -d ":" -f 2 | sed s/"^ "//
+       DEBUG 1 "Running gnomevfs-info \"$1\""
+       gnomevfs-info --slow-mime "$1" 2> /dev/null | grep "^MIME" | cut -d ":" -f 2 | sed s/"^ "//
     fi
 
     if [ $? -eq 0 ]; then
@@ -329,6 +327,7 @@ case $1 in
             ;;
         esac
         check_input_file "$filename"
+        filename=`readlink -f -- "$filename"`
         ;;
 
       default)
