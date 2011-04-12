@@ -1,5 +1,8 @@
 === xdg-utils 1.1.x ===
 
+2011-04-12 Rex Dieter <rdieter@fedoraproject.org>
+   * suppress 'which gnome-default-applications-properties' output.  Thanks to Mike Mammarella.
+
 2011-04-08 Rex Dieter <rdieter@fedoraproject.org>
    * xdg-mime: add mimeapps.list support. Thanks to Chris Coulson.
 
