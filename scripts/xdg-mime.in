@@ -56,12 +56,10 @@ info_kde()
 {
     if [ x"$KDE_SESSION_VERSION" = x"4" ]; then
         DEBUG 1 "Running kmimetypefinder \"$1\""
-        KMIMETYPEFINDER=`which kmimetypefinder 2>/dev/null`
-        $KMIMETYPEFINDER "$1" 2>/dev/null | head -n 1
+        kmimetypefinder "$1" 2>/dev/null | head -n 1
     else
         DEBUG 1 "Running kfile \"$1\""
-        KFILE=`which kfile 2>/dev/null`
-        $KFILE "$1" 2> /dev/null | head -n 1 | cut -d "(" -f 2 | cut -d ")" -f 1
+        kfile "$1" 2> /dev/null | head -n 1 | cut -d "(" -f 2 | cut -d ")" -f 1
     fi
 
     if [ $? -eq 0 ]; then
