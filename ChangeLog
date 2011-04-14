@@ -3,6 +3,7 @@
 2011-04-14 Rex Dieter <rdieter@fedoraproject.org>
    * xdg-open does not detect xfce (BR25941)
    * xdg-open's list of fallback browsers excludes seamonkey (BR33699)
+   * update 
 
 2011-04-12 Rex Dieter <rdieter@fedoraproject.org>
    * suppress 'which gnome-default-applications-properties' output.  Thanks to Mike Mammarella.
