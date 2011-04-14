@@ -6,6 +6,8 @@
    * text BROWSER=+elinks
    * xdg-open is sensitive to default grep options (BR34164)
    * xdg-{open,email} should try x-www-browser (BR33095)
+   * xdg-email outputs errors with localized KDE4 (BR32924)
+   * xdg-email runs kmailservice with incorrect locale (BR33106)
 
 2011-04-12 Rex Dieter <rdieter@fedoraproject.org>
    * suppress 'which gnome-default-applications-properties' output.  Thanks to Mike Mammarella.
