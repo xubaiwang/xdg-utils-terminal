@@ -1,5 +1,8 @@
 === xdg-utils 1.1.x ===
 
+2011-05-05 Rex Dieter <rdieter@fedoraproject.org>
+   * xdg-utils-common.in : add missing ;;
+
 2011-05-04 Rex Dieter <rdieter@fedoraproject.org>
    * xdg-utils-common.in : move a couple of utility functions here (from
    xdg-settings), needed for xdg-email
