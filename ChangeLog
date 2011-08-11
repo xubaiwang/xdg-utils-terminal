@@ -3,6 +3,9 @@
 2011-08-11 Rex Dieter <rdieter@fedoraproject.org>
    * xdg-terminal : remove remaining '==' bash'isms (BR38959)
 
+2011-07-19 Rex Dieter <rdieter@fedoraproject.org>
+   * xdg-utils-common.in: support $XDG_CURRENT_DESKTOP
+
 2011-07-13 Rex Dieter <rdieter@fedoraproject.org>
    * xdg-mime : use 'file --mime-type' instead of 'file -i' (BR39166)
 
