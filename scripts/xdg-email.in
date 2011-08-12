@@ -207,7 +207,12 @@ open_generic()
 
 url_encode()
 {
-result=$(echo "$1" | $utf8 | awk '
+str=$(echo "$1" | $utf8)
+local ORIG_LANG="$LANG"
+local ORIG_LC_ALL="$LC_ALL"
+LANG=C
+LC_ALL=C
+result=$(echo "$str" | awk '
     BEGIN {
         for ( i=1; i<=255; ++i ) ord [ sprintf ("%c", i) "" ] = i + 0
         e = ""
@@ -232,6 +237,8 @@ result=$(echo "$1" | $utf8 | awk '
         print e
     }
 ')
+LANG="$ORIG_LANG"
+LC_ALL="$ORIG_LC_ALL"
 }
 
 options=

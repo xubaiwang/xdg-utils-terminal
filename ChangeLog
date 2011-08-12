@@ -1,5 +1,8 @@
 === xdg-utils 1.1.x ===
 
+2011-08-12 Rex Dieter <rdieter@fedoraproject.org>
+   * xdg-email fails with unicode strings if using gawk (BR13139)
+
 2011-08-11 Rex Dieter <rdieter@fedoraproject.org>
    * xdg-terminal : remove remaining '==' bash'isms (BR38959)
 
