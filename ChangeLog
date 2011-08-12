@@ -2,6 +2,7 @@
 
 2011-08-12 Rex Dieter <rdieter@fedoraproject.org>
    * xdg-email fails with unicode strings if using gawk (BR13139)
+   * xdg-email: Thunderbird 5 needs unescaped addresses (BR40041)
 
 2011-08-11 Rex Dieter <rdieter@fedoraproject.org>
    * xdg-terminal : remove remaining '==' bash'isms (BR38959)
