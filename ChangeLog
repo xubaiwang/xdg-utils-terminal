@@ -1,5 +1,9 @@
 === xdg-utils 1.1.x ===
 
+2011-08-29 Rex Dieter <rdieter@fedoraproject.org>
+   * xdg-open cant open some valid urls if URL doesnt match existing
+   filename (BR34915).  Thanks to Leho Kraav.
+
 2011-08-27 Rex Dieter <rdieter@fedoraproject.org>
    * xdg-terminal fails to open terminal on generic desktop (BR40418)
 

@@ -144,7 +144,7 @@ open_generic()
 {
     # Paths or file:// URLs
     if (echo "$1" | grep -q '^file://' ||
-        ! echo "$1" | egrep -q '^[a-zA-Z+\.\-]+:'); then
+        ! echo "$1" | egrep -q '^[[:alpha:]+\.\-]+:'); then
 
         local file="$1"
 
