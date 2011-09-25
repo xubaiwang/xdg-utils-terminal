@@ -304,7 +304,7 @@ while [ $# -gt 0 ] ; do
         fi
         check_input_file "$1"
         file=`readlink -f "$1"` # Normalize path
-        if [ -z "$file" -o ! -f "$file" ] ; then
+        if [ -z "$file" ] || [ ! -f "$file" ] ; then
             exit_failure_file_missing "file '$1' does not exist"
         fi
 

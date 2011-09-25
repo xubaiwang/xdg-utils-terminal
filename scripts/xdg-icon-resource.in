@@ -254,7 +254,7 @@ if [ x"$action" = x"forceupdate" ] ; then
     fi
     update_icon_database $xdg_base_dir
     if [ -n "$dot_icon_dir" ] ; then
-        if [ -d "$dot_icon_dir/" -a ! -L "$dot_icon_dir" ] ; then
+        if [ -d "$dot_icon_dir/" ] && [ ! -L "$dot_icon_dir" ] ; then
             update_icon_database $dot_base_dir
         fi
     fi
@@ -394,7 +394,7 @@ icon_icon_file=`echo "$icon_file" | sed 's/\.[a-z][a-z][a-z]$/.icon/'`
 icon_icon_name="$icon_name.icon"
 
 DEBUG 1 "$action icon in $xdg_dir"
-[ $action = "install" -a -f $icon_icon_file ] && DEBUG 1 "install $icon_icon_name meta file in $xdg_dir"
+[ $action = "install" ] && [ -f $icon_icon_file ] && DEBUG 1 "install $icon_icon_name meta file in $xdg_dir"
 [ -n "$kde_dir" ] && DEBUG 1 "$action symlink in $kde_dir (KDE 3.x support)"
 [ -n "$need_gnome_mime" ] && DEBUG 1 "$action gnome-mime-$icon_name symlink (GNOME 2.x support)"
 [  $action = "install" -a -n "$dot_icon_dir" ] && DEBUG 1 "$action ~/.icons symlink (GNOME 2.8 support)"
@@ -441,7 +441,7 @@ esac
 if [ x"$update" = x"yes" ] ; then
     update_icon_database "$xdg_base_dir"
     if [ -n "$dot_icon_dir" ] ; then
-        if [ -d "$dot_icon_dir/" -a ! -L "$dot_icon_dir" ] ; then
+        if [ -d "$dot_icon_dir/" ] && [ ! -L "$dot_icon_dir" ] ; then
             update_icon_database $dot_base_dir
         fi
     fi

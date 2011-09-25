@@ -158,7 +158,7 @@ update_submenu()
         return
     fi
 
-    if [ $action = "install" -a -f "/etc/xdg/menus/gnome-applications.menu" ] ; then
+    if [ $action = "install" ] && [ -f "/etc/xdg/menus/gnome-applications.menu" ] ; then
         # Work around for Debian Gnome
         gnome_xdg_dir=`echo "$xdg_dir" | sed -e 's^/applications-merged^/gnome-applications-merged^'`
         if [ ! -e "$gnome_xdg_dir" ] ; then
@@ -167,7 +167,7 @@ update_submenu()
             eval 'ln -s "applications-merged" "$gnome_xdg_dir"'$xdg_redirect_output
         fi
     fi
-    if [ $action = "install" -a -f "/etc/mandrake-release" ] ; then
+    if [ $action = "install" ] && [ -f "/etc/mandrake-release" ] ; then
         # Work around for Mandriva 2006
         mandrake_xdg_dir=`echo "$xdg_dir" | sed -e 's^/applications-merged^/applications-mdk-merged^'`
         if [ ! -e "$mandrake_xdg_dir" ] ; then
@@ -176,7 +176,7 @@ update_submenu()
             eval 'ln -s "applications-merged" "$mandrake_xdg_dir"'$xdg_redirect_output
         fi
     fi
-    if [ $action = "install" -a x"$mode" = x"user" -a -d "/etc/xdg/menus/kde-applications-merged" ] ; then
+    if [ $action = "install" -a x"$mode" = x"user" ] && [ -d "/etc/xdg/menus/kde-applications-merged" ] ; then
         # Work around for Fedora Core 5 + patched KDE
         kde_xdg_dir=`echo "$xdg_dir" | sed -e 's^/applications-merged^/kde-applications-merged^'`
         if [ ! -e "$kde_xdg_dir" ] ; then
@@ -185,7 +185,7 @@ update_submenu()
             eval 'ln -s "applications-merged" "$kde_xdg_dir"'$xdg_redirect_output
         fi
     fi
-    if [ $action = "install" -a x"$mode" = x"system" -a -d "/etc/xdg/menus/kde-applications-merged" -a ! -d "/etc/xdg/menus/applications-merged" ] ; then
+    if [ $action = "install" -a x"$mode" = x"system" ] && [ -d "/etc/xdg/menus/kde-applications-merged" ] && [ ! -d "/etc/xdg/menus/applications-merged" ] ; then
         # Work around for Kubuntu 6.06
         kde_xdg_dir=`echo "$xdg_dir" | sed -e 's^/applications-merged^/kde-applications-merged^'`
         DEBUG 1 "Kubuntu Workaround: Link '$xdg_dir' to 'kde-applications-merged'"

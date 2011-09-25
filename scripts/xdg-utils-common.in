@@ -30,7 +30,7 @@ binary_to_desktop_file()
     for dir in $search; do
         unset IFS
         [ "$dir" ] || continue
-        [ -d "$dir/applications" -o -d "$dir/applnk" ] || continue
+        [ -d "$dir/applications" ] || [ -d "$dir/applnk" ] || continue
         for file in "$dir"/applications/*.desktop "$dir"/applications/*/*.desktop "$dir"/applnk/*.desktop "$dir"/applnk/*/*.desktop; do
             [ -r "$file" ] || continue
             # Check to make sure it's worth the processing.
@@ -58,7 +58,7 @@ desktop_file_to_binary()
     IFS=:
     for dir in $search; do
         unset IFS
-        [ "$dir" -a -d "$dir/applications" ] || continue
+        [ "$dir" ] && [ -d "$dir/applications" ] || continue
         file="$dir/applications/$desktop"
         [ -r "$file" ] || continue
         # Remove any arguments (%F, %f, %U, %u, etc.).
@@ -199,7 +199,7 @@ check_output_file()
         fi
     else
         DIR=`dirname "$1"`
-        if [ ! -w "$DIR" -o ! -x "$DIR" ]; then
+        if [ ! -w "$DIR" ] || [ ! -x "$DIR" ]; then
             exit_failure_file_permission_write "no permission to create file '$1'"
         fi
     fi

@@ -349,7 +349,7 @@ get_browser_xfce()
     IFS=:
     for dir in $search; do
         unset IFS
-        [ "$dir" -a -d "$dir/xfce4" ] || continue
+        [ "$dir" ] && [ -d "$dir/xfce4" ] || continue
         file="$dir/xfce4/helpers.rc"
         [ -r "$file" ] || continue
         grep -q "^WebBrowser=" "$file" || continue
@@ -382,7 +382,7 @@ check_xfce_desktop_file()
     IFS=:
     for dir in $search; do
         unset IFS
-        [ "$dir" -a -d "$dir/xfce4/helpers" ] || continue
+        [ "$dir" ] && [ -d "$dir/xfce4/helpers" ] || continue
         file="$dir/xfce4/helpers/$1"
         # We have the file, no need to create it.
         [ -r "$file" ] && return
@@ -390,7 +390,7 @@ check_xfce_desktop_file()
     IFS=:
     for dir in $search; do
         unset IFS
-        [ "$dir" -a -d "$dir/applications" ] || continue
+        [ "$dir" ] && [ -d "$dir/applications" ] || continue
         file="$dir/applications/$1"
         if [ -r "$file" ]; then
             # Found a file to convert.
