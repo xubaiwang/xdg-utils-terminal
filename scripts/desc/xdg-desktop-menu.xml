@@ -123,7 +123,7 @@
 	  </simpara>
 	  <simpara>
 	    If multiple directory files are provided each file will
-	    represent a submenu within the menu that preceeds it, creating
+	    represent a submenu within the menu that precedes it, creating
 	    a nested menu hierarchy (sub-sub-menus).
 	    The menu entries themselves will be added to the last submenu.
 	  </simpara>
@@ -172,7 +172,7 @@
 	    Postpone updating the menu system. If multiple updates to the
             menu system are made in sequence this flag can be used to
             indicate that additional changes will follow and that it is not
-            necassery to update the menu system right away.
+            necessary to update the menu system right away.
 	  </simpara>
 	</listitem>
       </varlistentry>
@@ -226,7 +226,7 @@
 	<term><option>--manual</option></term>
 	<listitem>
 	  <simpara>
-	    Show this manualpage.
+	    Show this manual page.
 	  </simpara>
 	</listitem>
       </varlistentry>
@@ -353,7 +353,7 @@
 	    a keyword that describes and classifies the application.
 	    By default applications are organized in the application menu
             based on category. When menu entries are explicitly assigned
-            to a new submenu it is not necassery to list any categories.
+            to a new submenu it is not necessary to list any categories.
           </simpara>
           <simpara>
             When using categories it is recommended to include
@@ -381,7 +381,7 @@
       </varlistentry>
     </variablelist>
     <para>
-      For a complete oveview of the *.desktop file format please
+      For a complete overview of the *.desktop file format please
       visit http://www.freedesktop.org/wiki/Standards/desktop-entry-spec
     </para>
   </refsect1>
@@ -403,7 +403,7 @@
       currently selected language.
     </para>
     <para>
-      The following keys are relevqnt for submenus:
+      The following keys are relevant for submenus:
     </para>
     <variablelist>
       <varlistentry>
@@ -602,7 +602,7 @@ xdg-desktop-menu install ./shinythings-webmirror.desktop
     <para>
       First the company needs to create two .desktop files that describe
       the two menu items. Since the items are to be added to a new submenu
-      it is not necassery to include a Categories= line:
+      it is not necessary to include a Categories= line:
 <programlisting>
 shinythings-webmirror.desktop:
 

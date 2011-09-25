@@ -122,7 +122,7 @@ and adding descriptions for new file types</refpurpose>
 	    id of the application and has the form vendor-name.desktop
 	    <replaceable>application</replaceable> must already be installed
 	    in the desktop menu before it can be made the default handler.
-	    The aplication's desktop file must list support for all the
+	    The application's desktop file must list support for all the
 	    MIME types that it wishes to be the default handler for.
 	  </simpara>
 	  <simpara>
@@ -226,7 +226,7 @@ and adding descriptions for new file types</refpurpose>
 	<term><option>--manual</option></term>
 	<listitem>
 	  <simpara>
-	    Show this manualpage.
+	    Show this manual page.
 	  </simpara>
 	</listitem>
       </varlistentry>
@@ -351,7 +351,7 @@ xdg-mime query default image/png
 xdg-mime install shinythings-shiny.xml
 </programlisting>Adds a file type description for "shiny"-files.
       "shinythings-" is used as the vendor prefix.
-      The file type description could look as folows.  
+      The file type description could look as follows.  
 <programlisting>
 shinythings-shiny.xml:
 

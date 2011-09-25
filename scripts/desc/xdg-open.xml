@@ -81,7 +81,7 @@
 	<term><option>--manual</option></term>
 	<listitem>
 	  <simpara>
-	    Show this manualpage.
+	    Show this manual page.
 	  </simpara>
 	</listitem>
       </varlistentry>
@@ -143,7 +143,7 @@
 <programlisting>
 xdg-open 'http://www.freedesktop.org/'
 </programlisting>
-      Opens the Freedesktop.org website in the user's default browser
+      Opens the freedesktop.org website in the user's default browser.
     </para>
     <para>
 <programlisting>

@@ -90,7 +90,7 @@ putting your copy of the xdg-utils at the end of the path,
 and then invoking them without a specific path name.
 
 That will allow your users and their system providers to
-use custom versions of the xdg-utils to adjust for system spsecific
+use custom versions of the xdg-utils to adjust for system specific
 differences.
 
 If you wish to absolutely force the issue and only use the versions

@@ -114,7 +114,7 @@
         <term>directory</term>
         <listitem>
           <simpara>
-            Returns the path for an exsiting directory.
+            Returns the path for an existing directory.
             <replaceable>DIRNAME</replaceable> can optionally be used to
             specify a path of a preselection.
             </simpara>
@@ -147,7 +147,7 @@
 	<term><option>--manual</option></term>
 	<listitem>
 	  <simpara>
-	    Show this manualpage.
+	    Show this manual page.
 	  </simpara>
 	</listitem>
       </varlistentry>
