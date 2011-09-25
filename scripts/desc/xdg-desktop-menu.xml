@@ -75,7 +75,7 @@
     <para>
       The application menu works according to the
       XDG Desktop Menu Specification at
-      http://www.freedesktop.org/Standards/menu-spec
+      <ulink url="http://www.freedesktop.org/wiki/Specifications/menu-spec"/>
     </para>
   </refsect1>
   <refsect1 id="commands">
@@ -363,8 +363,8 @@
           </simpara>
           <simpara>
             See Appendix A of the XDG Desktop Menu Specification
-            for information about additional categories. 
-            http://standards.freedesktop.org/menu-spec/menu-spec-1.0.html
+            for information about additional categories:
+            <ulink url="http://standards.freedesktop.org/menu-spec/menu-spec-1.0.html#category-registry"/>
 	  </simpara>
 	</listitem>
       </varlistentry>
@@ -382,7 +382,7 @@
     </variablelist>
     <para>
       For a complete overview of the *.desktop file format please
-      visit http://www.freedesktop.org/wiki/Standards/desktop-entry-spec
+      visit <ulink url="http://www.freedesktop.org/wiki/Specifications/desktop-entry-spec"/>
     </para>
   </refsect1>
   <refsect1 id="directoryfiles">

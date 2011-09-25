@@ -249,7 +249,7 @@
     </variablelist>
     <para>
       For a complete overview of the *.desktop file format please
-      visit http://www.freedesktop.org/wiki/Standards/desktop-entry-spec
+      visit <ulink url="http://www.freedesktop.org/wiki/Specifications/desktop-entry-spec"/>
     </para>
   </refsect1>
   <refsect1 id="env_vars">
