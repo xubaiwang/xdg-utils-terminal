@@ -2,6 +2,8 @@
 
 2011-09-28 Rex Dieter <rdieter@fedoraproject.org>
    * Documentation spelling fixes (BR41193).  Thanks to Ville Skyttä
+   * Fix external links in docs, use <ulink> for them (BR41194). Thanks to
+     Ville Skyttä
 
 2011-08-29 Rex Dieter <rdieter@fedoraproject.org>
    * xdg-open cant open some valid urls if URL doesnt match existing
