@@ -6,6 +6,7 @@
      Ville Skyttä
    * Avoid some unnecessary stat calls (BR41195). Thanks to Ville Skyttä
    * xdg-open: improve debugging output (BR40959)
+   * xdg-open: look up default applications by URI scheme (BR35700) 
 
 2011-08-29 Rex Dieter <rdieter@fedoraproject.org>
    * xdg-open cant open some valid urls if URL doesnt match existing

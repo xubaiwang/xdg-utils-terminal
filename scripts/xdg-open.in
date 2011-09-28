@@ -101,7 +101,7 @@ open_xfce()
 
 open_generic_xdg_mime()
 {
-    filetype=`xdg-mime query filetype "$1" | sed "s/;.*//"`
+    filetype="$2"
     default=`xdg-mime query default "$filetype"`
     if [ -n "$default" ] ; then
         xdg_user_dir="$XDG_DATA_HOME"
@@ -110,6 +110,7 @@ open_generic_xdg_mime()
         xdg_system_dirs="$XDG_DATA_DIRS"
         [ -n "$xdg_system_dirs" ] || xdg_system_dirs=/usr/local/share/:/usr/share/
 
+DEBUG 3 "$xdg_user_dir:$xdg_system_dirs"
         for x in `echo "$xdg_user_dir:$xdg_system_dirs" | sed 's/:/ /g'`; do
             local file
             # look for both vendor-app.desktop, vendor/app.desktop
@@ -140,6 +141,21 @@ open_generic_xdg_mime()
     fi
 }
 
+open_generic_xdg_file_mime()
+{
+    filetype=`xdg-mime query filetype "$1" | sed "s/;.*//"`
+    open_generic_xdg_mime "$1" "$filetype"
+}
+
+open_generic_xdg_uri_mime()
+{
+    scheme="`echo $1 | sed -n 's/\(^[[:alnum:]+\.-]*\):.*$/\1/p'`"
+    if [ -n $scheme ]; then
+        filetype="uri/$scheme"
+        open_generic_xdg_mime "$1" "$filetype"
+    fi
+}
+
 open_generic()
 {
     # Paths or file:// URLs
@@ -155,7 +171,7 @@ open_generic()
         fi
         check_input_file "$file"
 
-        open_generic_xdg_mime "$file"
+        open_generic_xdg_file_mime "$file"
 
         if [ -f /etc/debian_version ] &&
             which run-mailcap 2>/dev/null 1>&2; then
@@ -172,6 +188,8 @@ open_generic()
             fi
         fi
     fi
+
+    open_generic_xdg_uri_mime "$1"
 
     IFS=":"
     for browser in $BROWSER; do
