@@ -218,7 +218,7 @@ open_lxde()
 {
     # pcmanfm only knows how to handle file:// urls and filepaths, it seems.
     if (echo "$1" | grep -q '^file://' ||
-        ! echo "$1" | egrep -q '^[[:alpha:]+\.\-]+:'); then
+        ! echo "$1" | egrep -q '^[[:alpha:]+\.\-]+:')
     then
         local file="$(echo "$1" | sed 's%^file://%%')"
 
