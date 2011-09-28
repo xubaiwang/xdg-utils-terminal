@@ -1,5 +1,8 @@
 === xdg-utils 1.1.x ===
 
+2011-09-28 Rex Dieter <rdieter@fedoraproject.org>
+   * Documentation spelling fixes (BR41193).  Thanks to Ville Skyttä
+
 2011-08-29 Rex Dieter <rdieter@fedoraproject.org>
    * xdg-open cant open some valid urls if URL doesnt match existing
    filename (BR34915).  Thanks to Leho Kraav.
