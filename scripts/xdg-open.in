@@ -253,6 +253,8 @@ if [ x"$DE" = x"" ]; then
     DE=generic
 fi
 
+DEBUG 2 "Selected DE $DE"
+
 # if BROWSER variable is not set, check some well known browsers instead
 if [ x"$BROWSER" = x"" ]; then
     BROWSER=links2:elinks:links:lynx:w3m

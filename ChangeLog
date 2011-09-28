@@ -5,6 +5,7 @@
    * Fix external links in docs, use <ulink> for them (BR41194). Thanks to
      Ville Skyttä
    * Avoid some unnecessary stat calls (BR41195). Thanks to Ville Skyttä
+   * xdg-open: improve debugging output (BR40959)
 
 2011-08-29 Rex Dieter <rdieter@fedoraproject.org>
    * xdg-open cant open some valid urls if URL doesnt match existing
