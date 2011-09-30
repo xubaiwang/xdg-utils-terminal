@@ -147,11 +147,11 @@ open_generic_xdg_file_mime()
     open_generic_xdg_mime "$1" "$filetype"
 }
 
-open_generic_xdg_uri_mime()
+open_generic_xdg_x_scheme_handler()
 {
     scheme="`echo $1 | sed -n 's/\(^[[:alnum:]+\.-]*\):.*$/\1/p'`"
     if [ -n $scheme ]; then
-        filetype="uri/$scheme"
+        filetype="x-scheme-handler/$scheme"
         open_generic_xdg_mime "$1" "$filetype"
     fi
 }
@@ -189,7 +189,7 @@ open_generic()
         fi
     fi
 
-    open_generic_xdg_uri_mime "$1"
+    open_generic_xdg_x_scheme_handler "$1"
 
     IFS=":"
     for browser in $BROWSER; do
