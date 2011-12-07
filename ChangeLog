@@ -2,6 +2,7 @@
 
 2011-12-07 Rex Dieter <rdieter@fedoraproject.org>
    * xdg-screensaver: gnome-screensaver detection broken (BR43575)
+   * xdg-open: fix spurious 'x-www-browser: command not found' (RH755553)
 
 2011-09-30 Rex Dieter <rdieter@fedoraproject.org>
    * xdg-open: use x-scheme-handler/ instead of uri/ (BR35700)
