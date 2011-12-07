@@ -606,7 +606,7 @@ detectDE
 # Consider "xscreensaver" a separate DE
 xscreensaver-command -version 2> /dev/null | grep XScreenSaver > /dev/null && DE="xscreensaver"
 # Consider "gnome-screensaver" a separate DE
-gnome-screensaver-command -q > /dev/null 2>&1 && DE="gnome_screensaver"
+dbus-send --print-reply --dest=org.freedesktop.DBus /org/freedesktop/DBus org.freedesktop.DBus.GetNameOwner string:org.gnome.ScreenSaver > /dev/null 2>&1 && DE="gnome_screensaver"
 
 if [ "$action" = "resume" ] ; then
     do_resume
