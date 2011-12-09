@@ -88,6 +88,21 @@ open_gnome()
     fi
 }
 
+open_mate()
+{
+    if gvfs-open --help 2>/dev/null 1>&2; then
+        gvfs-open "$1"
+    else
+        mate-open "$1"
+    fi
+
+    if [ $? -eq 0 ]; then
+        exit_success
+    else
+        exit_failure_operation_failed
+    fi
+}
+
 open_xfce()
 {
     exo-open "$1"
@@ -288,6 +303,10 @@ case "$DE" in
 
     gnome*)
     open_gnome "$url"
+    ;;
+
+    mate)
+    open_mate "$url"
     ;;
 
     xfce)
