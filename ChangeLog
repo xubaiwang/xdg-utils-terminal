@@ -5,6 +5,7 @@
    * xdg-terminal incompatible with TERM=screen and TERM=rxvt-unicode (BR44357)
    * xdg-terminal doesn't handle TERM values like TERM=linux (BR44358)
    * add lubuntu support (BR44775)
+   * xdg-open replaces "&" with "%U" in URLs (BR46002)
 
 2011-12-09 Rex Dieter <rdieter@fedoraproject.org>
    * initial DE=mate support (mostly just xdg-open so far)
