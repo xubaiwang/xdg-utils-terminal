@@ -38,7 +38,17 @@ terminal_kde()
         if [ x"$1" = x"" ]; then
             $terminal_exec
         else
-            $terminal_exec -e "$1"
+            # screen and urxvt won't do their own parsing of quoted arguments
+            if [ x"$TERM" = x"screen" ]; then
+                # screen has an incompatible meaning for -e
+                sh -c "exec $terminal_exec $1"
+            elif [ x"$TERM" = x"urxvt" ] || [ x"$TERM" = x"rxvt-unicode" ] || [ x"$TERM" = x"rxvt" ]; then
+                #TODO: Use whatever mechanism dash supports to test for
+                #      rxvt-* to match things like rxvt-unicode-256color
+                sh -c "exec $terminal_exec -e $1"
+            else
+                $terminal_exec -e "$1"
+            fi
         fi
 
         if [ $? -eq 0 ]; then
