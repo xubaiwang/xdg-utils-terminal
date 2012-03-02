@@ -1,5 +1,8 @@
 === xdg-utils 1.1.x ===
 
+2012-03-02 Rex Dieter <rdieter@fedoraproject.org>
+   * "unknown DE" improvements (BR45295)
+
 2011-12-09 Rex Dieter <rdieter@fedoraproject.org>
    * initial DE=mate support (mostly just xdg-open so far)
 

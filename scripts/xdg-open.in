@@ -114,6 +114,49 @@ open_xfce()
     fi
 }
 
+#-----------------------------------------
+# Recursively search .desktop file
+
+search_desktop_file()
+{
+    local default="$1"
+    local dir="$2"
+    local arg="$3"
+
+    local file=""
+    # look for both vendor-app.desktop, vendor/app.desktop
+    if [ -r "$dir/$default" ]; then
+      file="$dir/$default"
+    elif [ -r "$dir/`echo $default | sed -e 's|-|/|'`" ]; then
+      file="$dir/`echo $default | sed -e 's|-|/|'`"
+    fi
+
+    if [ -r "$file" ] ; then
+        command="`grep -E "^Exec(\[[^]=]*])?=" "$file" | cut -d= -f 2- | first_word`"
+        command_exec=`which $command 2>/dev/null`
+        arguments="`grep -E "^Exec(\[[^]=]*])?=" "$file" | cut -d= -f 2- | last_word`"
+        arguments_exec="`echo $arguments | sed -e 's*%[fFuU]*"'"$arg"'"*g'`"
+        if [ -x "$command_exec" ] ; then
+            if echo $arguments | grep -iq '%[fFuU]' ; then
+                echo START $command_exec $arguments_exec
+                eval $command_exec $arguments_exec
+            else
+                echo START $command_exec $arguments_exec "$arg"
+                eval $command_exec $arguments_exec "$arg"
+            fi
+
+            if [ $? -eq 0 ]; then
+                exit_success
+            fi
+        fi
+    fi
+
+    for d in $dir/*/; do
+        [ -d "$d" ] && search_desktop_file "$default" "$d" "$arg"
+    done
+}
+
+
 open_generic_xdg_mime()
 {
     filetype="$2"
@@ -127,31 +170,7 @@ open_generic_xdg_mime()
 
 DEBUG 3 "$xdg_user_dir:$xdg_system_dirs"
         for x in `echo "$xdg_user_dir:$xdg_system_dirs" | sed 's/:/ /g'`; do
-            local file
-            # look for both vendor-app.desktop, vendor/app.desktop
-            if [ -r "$x/applications/$default" ]; then
-              file="$x/applications/$default"
-            elif [ -r "$x/applications/`echo $default | sed -e 's|-|/|'`" ]; then
-              file="$x/applications/`echo $default | sed -e 's|-|/|'`"
-            fi
-
-            if [ -r "$file" ] ; then
-                command="`grep -E "^Exec(\[[^]=]*])?=" "$file" | cut -d= -f 2- | first_word`"
-                command_exec=`which $command 2>/dev/null`
-                arguments="`grep -E "^Exec(\[[^]=]*])?=" "$file" | cut -d= -f 2- | last_word`"
-                arguments_exec="`echo $arguments | sed -e 's*%[fFuU]*"'"$1"'"*g'`"
-                if [ -x "$command_exec" ] ; then
-                    if echo $arguments | grep -iq '%[fFuU]' ; then
-                        eval $command_exec $arguments_exec
-                    else
-                        eval $command_exec $arguments_exec "$1"
-                    fi
-
-                    if [ $? -eq 0 ]; then
-                        exit_success
-                    fi
-                fi
-            fi
+            search_desktop_file "$default" "$x/applications/" "$1"
         done
     fi
 }

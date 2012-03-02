@@ -296,6 +296,49 @@ make_default_generic()
 ' "$default_file" > "${default_file}.new" && mv "${default_file}.new" "$default_file"
 }
 
+search_desktop_file()
+{
+    local MIME="$1"
+    local dir="$2"
+
+    grep -l "$MIME;" "$dir/"*.desktop 2>/dev/null
+
+    for f in $dir/*/; do
+      [ -d "$f" ] && search_desktop_file "$MIME" "$f"
+    done
+}
+
+defapp_fallback()
+{
+    MIME="$1"
+
+    xdg_user_dir="$XDG_DATA_HOME"
+    [ -n "$xdg_user_dir" ] || xdg_user_dir="$HOME/.local/share"
+
+    xdg_system_dirs="$XDG_DATA_DIRS"
+    [ -n "$xdg_system_dirs" ] || xdg_system_dirs=/usr/local/share/:/usr/share/
+
+    preference=-1
+    desktop_file=""
+    for d in `echo "$xdg_user_dir:$xdg_system_dirs" | sed 's/:/ /g'`; do
+       for x in `search_desktop_file "$MIME" "$d/applications"`; do
+          pref=0`awk -F"=" '/InitialPreference=/ {print($2)}' "$x"`
+          DEBUG 2 " Checking $x"
+
+          if [ $pref -gt $preference ]; then
+             DEBUG 2 "   Select $x [ $preference => $pref ]"
+             preference=$pref
+             desktop_file=$x
+          fi
+       done
+    done
+
+    if [ -n "$desktop_file" ] ; then
+       echo `basename $desktop_file`
+       exit_success
+    fi
+}
+
 defapp_generic()
 {
     MIME="$1"
@@ -334,13 +377,17 @@ defapp_generic()
     done
 
     for x in `echo "$xdg_system_dirs" | sed 's/:/ /g'`; do
-       DEBUG 2 "Checking $x/applications/defaults.list"
-       trader_result=`grep "$MIME=" $x/applications/defaults.list 2> /dev/null | cut -d '=' -f 2 | cut -d ';' -f 1`
-       if [ -n "$trader_result" ] ; then
-          echo $trader_result
-          exit_success
-       fi
+       for prefix in "$XDG_MENU_PREFIX" ""; do
+          DEBUG 2 "Checking $x/applications/${prefix}defaults.list"
+          trader_result=`grep "$MIME=" $x/applications/${prefix}defaults.list 2> /dev/null | cut -d '=' -f 2 | cut -d ';' -f 1`
+          if [ -n "$trader_result" ] ; then
+              echo $trader_result
+              exit_success
+          fi
+       done
     done
+
+    defapp_fallback $MIME
     exit_success
 }
 
