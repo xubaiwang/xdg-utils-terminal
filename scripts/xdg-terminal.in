@@ -117,7 +117,7 @@ terminal_generic()
     terminal_exec=`which $TERM 2>/dev/null`
 
     if [ -x "$terminal_exec" ]; then
-        if [ x"$1" == x"" ]; then
+        if [ x"$1" = x"" ]; then
             $terminal_exec
         else
             $terminal_exec -e "$1"
