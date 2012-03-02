@@ -109,8 +109,8 @@ terminal_xfce()
 
 terminal_generic()
 {
-    # if $TERM is not set, try xterm
-    if [ x"$TERM" = x"" ]; then
+    # if $TERM is a known non-command, use hard-coded fallbacks
+    if [ x"$TERM" = x"" ] || [ x"$TERM" = x"linux" ] || [ x"$TERM" = x"vt100" ]; then
         TERM=xterm
     fi
 
@@ -170,10 +170,6 @@ done
 detectDE
 
 if [ x"$DE" = x"" ]; then
-    # if TERM variable is not set, try xterm
-    if [ x"$TERM" = x"" ]; then
-        TERM=xterm
-    fi
     DE=generic
 fi
 
