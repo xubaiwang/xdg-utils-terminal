@@ -1,5 +1,8 @@
 === xdg-utils 1.1.x ===
 
+2012-03-10 Rex Dieter <rdieter@fedoraproject.org>
+   * allow DESKTOP_SESSION='Xfce Session' to match xfce
+
 2012-03-02 Rex Dieter <rdieter@fedoraproject.org>
    * "unknown DE" improvements (BR45295)
    * xdg-terminal incompatible with TERM=screen and TERM=rxvt-unicode (BR44357)

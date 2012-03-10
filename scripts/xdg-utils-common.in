@@ -290,7 +290,7 @@ detectDE()
          LXDE|Lubuntu)
            DE=lxde; 
            ;;
-         xfce|xfce4)
+         xfce|xfce4|'Xfce Session')
            DE=xfce;
            ;;
       esac
