@@ -308,6 +308,16 @@ fi
 
 DEBUG 2 "Selected DE $DE"
 
+# sanitize BROWSER (avoid caling ourselves in particular)
+case "${BROWSER}" in
+    *:"xdg-open"|"xdg-open":*)
+        BROWSER=$(echo $BROWSER | sed -e 's|:xdg-open||g' -e 's|xdg-open:||g')
+        ;;
+    "xdg-open")
+        BROWSER=
+        ;;
+esac
+
 # if BROWSER variable is not set, check some well known browsers instead
 if [ x"$BROWSER" = x"" ]; then
     BROWSER=links2:elinks:links:lynx:w3m
