@@ -3,6 +3,7 @@
 2012-08-09 Rex Dieter  <rdieter@fedoraproject.org>
    * xdg-open fails to open a url in a "generic" environment (BR45859)
    * xdg-screensaver syntax error if DISPLAY isn't set (BR41144)
+   * do not check for /etc/debian_version before using xdg-open (BR46814)
 
 2012-03-10 Rex Dieter <rdieter@fedoraproject.org>
    * allow DESKTOP_SESSION='Xfce Session' to match xfce

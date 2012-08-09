@@ -209,8 +209,7 @@ open_generic()
 
         open_generic_xdg_file_mime "$file"
 
-        if [ -f /etc/debian_version ] &&
-            which run-mailcap 2>/dev/null 1>&2; then
+        if which run-mailcap 2>/dev/null 1>&2; then
             run-mailcap --action=view "$file"
             if [ $? -eq 0 ]; then
                 exit_success
