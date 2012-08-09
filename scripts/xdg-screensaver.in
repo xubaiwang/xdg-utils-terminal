@@ -102,11 +102,11 @@ perform_action()
       ;;
 
     '')
-      screensaver_xserver "$1"
+      [ -n "$DISPLAY" ] && screensaver_xserver "$1"
       ;;
   esac
 
-  if [ "$1" = "suspend" ] ; then
+  if [ -n "$DISPLAY" -a "$1" = "suspend" ] ; then
       # Save DPMS state
       if xset -q | grep 'DPMS is Enabled' > /dev/null 2> /dev/null; then
           test "${TMPDIR+set}" = set || TMPDIR=/tmp
