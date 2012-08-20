@@ -93,6 +93,15 @@ su_generic()
     fi
 }
 
+su_xfce()
+{
+    if which gnomesu &>/dev/null ; then
+        su_gnome
+    else
+        su_generic
+    fi
+}
+
 [ x"$1" != x"" ] || exit_failure_syntax
 
 user=
@@ -152,6 +161,10 @@ case "$DE" in
 
     generic)
     su_generic
+    ;;
+
+    xfce)
+    su_xfce
     ;;
 
     *)
