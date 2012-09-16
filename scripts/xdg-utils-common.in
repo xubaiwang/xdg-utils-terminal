@@ -265,8 +265,12 @@ detectDE()
          LXDE)
            DE=lxde;
            ;;
+         MATE)
+           DE=mate;
+           ;;
          XFCE)
            DE=xfce
+           ;;
       esac
     fi
 
@@ -289,6 +293,9 @@ detectDE()
            ;;
          LXDE|Lubuntu)
            DE=lxde; 
+           ;;
+         MATE)
+           DE=mate;
            ;;
          xfce|xfce4|'Xfce Session')
            DE=xfce;
