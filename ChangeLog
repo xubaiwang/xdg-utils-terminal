@@ -1,5 +1,8 @@
 === xdg-utils 1.1.x ===
 
+2012-10-08 Rex Dieter <rdieter@fedoraproject.org>
+   * xdg-mime does not search mimeinfo.cache (BR31629)
+
 2012-09-16 Rex Dieter <rdieter@fedoraproject.org>
    * recognize XDG_CURRENT_DESKTOP/DESKTOP_SESSION=MATE (BR54941)
    * xdg-su: use gnomesu for mate (BR54941)
