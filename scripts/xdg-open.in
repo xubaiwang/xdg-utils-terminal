@@ -135,16 +135,16 @@ search_desktop_file()
         command="`grep -E "^Exec(\[[^]=]*])?=" "$file" | cut -d= -f 2- | first_word`"
         command_exec=`which $command 2>/dev/null`
         arguments="`grep -E "^Exec(\[[^]=]*])?=" "$file" | cut -d= -f 2- | last_word`"
-        arg_one="`echo $arg | sed 's/&/\\\\&/g'`"
-        arguments_exec="`echo $arguments | sed -e 's*%[fFuU]*"'"$arg_one"'"*g'`"
+        arg_one="`echo "$arg" | sed 's/[&*\\]/\\\\&/g'`"
+        arguments_exec="`echo "$arguments" | sed -e 's*%[fFuU]*"'"$arg_one"'"*g'`"
 
         if [ -x "$command_exec" ] ; then
-            if echo $arguments | grep -iq '%[fFuU]' ; then
-                echo START $command_exec $arguments_exec
-                eval $command_exec $arguments_exec
+            if echo "$arguments" | grep -iq '%[fFuU]' ; then
+                echo START "$command_exec" "$arguments_exec"
+                eval "$command_exec" "$arguments_exec"
             else
-                echo START $command_exec $arguments_exec "$arg"
-                eval $command_exec $arguments_exec "$arg"
+                echo START "$command_exec" "$arguments_exec" "$arg"
+                eval "$command_exec" "$arguments_exec" "$arg"
             fi
 
             if [ $? -eq 0 ]; then
