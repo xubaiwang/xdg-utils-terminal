@@ -114,6 +114,17 @@ open_xfce()
     fi
 }
 
+open_enlightenment()
+{
+    enlightenment_open "$1"
+
+    if [ $? -eq 0 ]; then
+        exit_success
+    else
+        exit_failure_operation_failed
+    fi
+}
+
 #-----------------------------------------
 # Recursively search .desktop file
 
@@ -345,6 +356,10 @@ case "$DE" in
 
     lxde)
     open_lxde "$url"
+    ;;
+
+    enlightenment)
+    open_enlightenment "$url"
     ;;
 
     generic)
