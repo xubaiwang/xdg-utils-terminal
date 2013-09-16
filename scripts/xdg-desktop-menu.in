@@ -293,7 +293,7 @@ BEGIN {
         test "${TMPDIR+set}" = set || TMPDIR=/tmp
         tmpfile=`mktemp $TMPDIR/tmp.XXXXXXXXXX`
         for menu_file in $xdg_dir/*; do
-            if grep 'generated and managed by @NAME@' $menu_file > /dev/null 2> /dev/null; then
+            if grep 'generated and managed by @NAME@' "$menu_file" > /dev/null 2> /dev/null; then
                 awk '
 # List all files within <Directory> tags
 BEGIN {

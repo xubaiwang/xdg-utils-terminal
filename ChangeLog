@@ -1,7 +1,10 @@
 === xdg-utils 1.1.x ===
 
+2013-09-16 Rex Dieter <rdieter@fedoraproject.org>
+   * xdg-desktop-menu: Unquoted file name (BR69399)
+
 2013-07-13 Igor Murzov <e-mail@date.by>
-   * xdg-open: detect Enlightenment and make use of it
+   * xdg-open: detect Enlightenment and make use of it (BR66944)
 
 2012-10-08 Rex Dieter <rdieter@fedoraproject.org>
    * xdg-mime does not search mimeinfo.cache (BR31629)
