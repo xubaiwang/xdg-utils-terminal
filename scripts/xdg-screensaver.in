@@ -97,6 +97,10 @@ perform_action()
       screensaver_gnome_screensaver "$1"
       ;;
 
+    mate_screensaver)
+      screensaver_mate_screensaver "$1"
+      ;;
+
     xscreensaver)
       screensaver_xscreensaver "$1"
       ;;
@@ -504,6 +508,82 @@ screensaver_gnome_screensaver()
     esac
 }
 
+screensaver_mate_screensaver()
+{
+# DBUS interface for mate-screensaver
+# This is same as gnome's for now but may change in the future as MATE
+# does not follow gnome's developement necessarily.
+    case "$1" in
+        suspend)
+        screensaver_suspend_loop \
+        dbus-send --session \
+                  --dest=org.mate.ScreenSaver \
+                  --type=method_call \
+                  /org/mate/ScreenSaver \
+                  org.mate.ScreenSaver.SimulateUserActivity \
+                  2> /dev/null
+        result=$?
+        ;;
+
+        resume)
+        # Automatic resume when $screensaver_file disappears
+        result=0
+        ;;
+
+        activate)
+        dbus-send --session \
+                  --dest=org.mate.ScreenSaver \
+                  --type=method_call \
+                  /org/mate/ScreenSaver \
+                  org.mate.ScreenSaver.SetActive \
+                  boolean:true \
+                  2> /dev/null
+        result=$?
+        ;;
+
+        lock)
+        mate-screensaver-command --lock > /dev/null 2> /dev/null
+        result=$?
+        ;;
+
+        reset)
+        # Turns the screensaver off right now
+        dbus-send --session \
+                  --dest=org.mate.ScreenSaver \
+                  --type=method_call \
+                  /org/mate/ScreenSaver \
+                  org.mate.ScreenSaver.SimulateUserActivity \
+                 2> /dev/null
+        result=$?
+        ;;
+
+        status)
+        status=`dbus-send --session \
+                          --dest=org.mate.ScreenSaver \
+                          --type=method_call \
+                          --print-reply \
+                          --reply-timeout=2000 \
+                          /org/mate/ScreenSaver \
+                          org.mate.ScreenSaver.GetActive \
+                          | grep boolean | cut -d ' ' -f 5`
+        result=$?
+        if [ x"$status" = "xtrue" -o x"$status" = "xfalse" ]; then
+            echo "enabled"
+        elif [ x"$result" != "x0" ]; then
+            echo "ERROR: dbus org.mate.ScreenSaver.GetActive returned '$status'" >&2
+            return 1
+        else
+            echo "disabled"
+        fi
+        ;;
+
+        *)
+        echo "ERROR: Unknown command '$1" >&2
+        return 1
+        ;;
+    esac
+}
+
 screensaver_xscreensaver()
 {
     case "$1" in
@@ -607,6 +687,8 @@ detectDE
 xscreensaver-command -version 2> /dev/null | grep XScreenSaver > /dev/null && DE="xscreensaver"
 # Consider "gnome-screensaver" a separate DE
 dbus-send --print-reply --dest=org.freedesktop.DBus /org/freedesktop/DBus org.freedesktop.DBus.GetNameOwner string:org.gnome.ScreenSaver > /dev/null 2>&1 && DE="gnome_screensaver"
+# Consider "mate-screensaver" a separate DE
+dbus-send --print-reply --dest=org.freedesktop.DBus /org/freedesktop/DBus org.freedesktop.DBus.GetNameOwner string:org.mate.ScreenSaver > /dev/null 2>&1 && DE="mate_screensaver"
 
 if [ "$action" = "resume" ] ; then
     do_resume
