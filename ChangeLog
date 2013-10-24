@@ -1,5 +1,8 @@
 === xdg-utils 1.1.x ===
 
+2013-10-24 Rex Dieter <rdieter@fedoraproject.org>
+   * xdg-desktop-menu: improperly check for vendor prefix on Estonian locale (BR70742)
+
 2013-09-16 Rex Dieter <rdieter@fedoraproject.org>
    * xdg-desktop-menu: Unquoted file name (BR69399)
 
