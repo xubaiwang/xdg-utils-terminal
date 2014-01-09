@@ -98,7 +98,7 @@ info_generic()
         mimetype -b "$1"
     else
         DEBUG 1 "Running file --mime-type \"$1\""
-        /usr/bin/file --mime-type "$1" 2> /dev/null | cut -d ":" -f 2 | sed s/"^ "//
+        /usr/bin/file -b --mime-type "$1" 2> /dev/null
     fi
 
     if [ $? -eq 0 ]; then
