@@ -47,7 +47,7 @@ release:	scripts html man
 distclean: clean
 	rm -f Makefile
 
-clean:
+clean:		scripts-clean
 
 scripts-clean:
 	rm -f $(SCRIPTS) README man/xdg-*.1 html/xdg-*.html
