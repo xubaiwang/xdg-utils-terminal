@@ -1,5 +1,8 @@
 === xdg-utils 1.1.x ===
 
+2014-02-07 Rex Dieter <rdieter@fedoraproject.org>
+   * Improvement of detecting KDE session (BR63157)
+
 2013-10-24 Rex Dieter <rdieter@fedoraproject.org>
    * xdg-desktop-menu: improperly check for vendor prefix on Estonian locale (BR70742)
 
