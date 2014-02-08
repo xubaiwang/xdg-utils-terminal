@@ -262,15 +262,6 @@
       The following keys are often used:
     </para>
     <variablelist>
-      <varlistentry>
-	<term>Value=1.0</term>
-	<listitem>
-	  <simpara>
-	    This is a mandatory field to indicate that the *.desktop file
-	    follows the 1.0 version of the specification.
-	  </simpara>
-	</listitem>
-      </varlistentry>
 
       <varlistentry>
 	<term>Type=Application</term>
@@ -406,15 +397,6 @@
       The following keys are relevant for submenus:
     </para>
     <variablelist>
-      <varlistentry>
-	<term>Value=1.0</term>
-	<listitem>
-	  <simpara>
-	    This is a mandatory field to indicate that the *.directory file
-	    follows the 1.0 version of the Desktop Entry specification.
-	  </simpara>
-	</listitem>
-      </varlistentry>
 
       <varlistentry>
 	<term>Type=Directory</term>
