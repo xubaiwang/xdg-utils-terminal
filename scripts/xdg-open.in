@@ -30,12 +30,6 @@ _USAGE
 #@xdg-utils-common@
 
 # This handles backslashes but not quote marks.
-first_word()
-{
-    read first rest
-    echo "$first"
-}
-
 last_word()
 {
     read first rest
