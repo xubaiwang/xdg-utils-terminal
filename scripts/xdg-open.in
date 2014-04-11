@@ -36,15 +36,36 @@ last_word()
     echo "$rest"
 }
 
-# Get the value of a key in a .desktop file.
+# Get the value of a key in a desktop file's Desktop Entry group.
 # Example: Use get_key foo.desktop Exec
-# to get the values of the Exec= key
+# to get the values of the Exec= key for the Desktop Entry group.
 get_key()
 {
     local file="${1}"
     local key="${2}"
+    local desktop_entry=""
 
-    grep -E "^${key}=" "${file}" | cut -d= -f 2-
+    IFS_="${IFS}"
+    IFS=""
+    while read line
+    do
+        case "$line" in
+            "[Desktop Entry]")
+                desktop_entry="y"
+            ;;
+            # Reset match flag for other groups
+            [*)
+                desktop_entry=""
+            ;;
+            *)
+                # Only match Desktop Entry group
+                if [ -n "${desktop_entry}" ]
+                then
+                    echo "${line}" | grep -E "^${key}=" "${file}" | cut -d= -f 2-
+                fi
+        esac
+    done < "${file}"
+    IFS="${IFS_}"
 }
 
 open_darwin()
