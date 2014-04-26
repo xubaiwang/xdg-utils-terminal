@@ -2,6 +2,7 @@
 
 2014-04-26 Rex Dieter <rdieter@fedoraproject.org>
    * xdg-open fails to open web browser urls with a query string (BR45857)
+   * xdg-open: use 'kde-open --noninteractive' (BR16295)
 
 2014-02-07 Rex Dieter <rdieter@fedoraproject.org>
    * Improvement of detecting KDE session (BR63157)
