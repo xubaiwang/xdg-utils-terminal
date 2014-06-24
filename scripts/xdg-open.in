@@ -306,10 +306,10 @@ open_lxde()
     if (echo "$1" | grep -q '^file://' ||
         ! echo "$1" | egrep -q '^[[:alpha:]+\.\-]+:')
     then
-        local file="$(echo "$1" | sed 's%^file://%%')"
+        local file="$1"
 
         # handle relative paths
-        if ! echo "$file" | grep -q '^/'; then
+        if ! echo "$file" | egrep -q '^(file://)?/'; then
             file="$(pwd)/$file"
         fi
 
