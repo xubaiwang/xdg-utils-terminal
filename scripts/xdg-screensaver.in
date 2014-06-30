@@ -466,7 +466,12 @@ screensaver_gnome_screensaver()
         ;;
 
         lock)
-        gnome-screensaver-command --lock > /dev/null 2> /dev/null
+        dbus-send --session \
+                  --dest=org.gnome.ScreenSaver \
+                  --type=method_call \
+                  /org/gnome/ScreenSaver \
+                  org.gnome.ScreenSaver.Lock \
+                  2> /dev/null
         result=$?
         ;;
 
