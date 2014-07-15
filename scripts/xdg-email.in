@@ -207,6 +207,9 @@ open_generic()
 
 url_encode()
 {
+# The shell needs the default internal field separator
+# otherwise it would search for $utf8 as a command in whole.
+IFS=" "
 str=$(echo "$1" | $utf8)
 local ORIG_LANG="$LANG"
 local ORIG_LC_ALL="$LC_ALL"
