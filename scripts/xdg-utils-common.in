@@ -226,8 +226,8 @@ check_common_commands()
             exit_success
             ;;
 
-            --version)
-            echo "@NAME@ 1.1.0 rc1"
+            t --version)
+            echo "@NAME@ 1.1.0 rc3"
             exit_success
             ;;
         esac
