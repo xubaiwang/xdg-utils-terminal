@@ -54,7 +54,7 @@ get_key()
                 desktop_entry="y"
             ;;
             # Reset match flag for other groups
-            [*)
+            "["*)
                 desktop_entry=""
             ;;
             *)

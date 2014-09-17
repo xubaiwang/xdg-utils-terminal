@@ -226,7 +226,7 @@ check_common_commands()
             exit_success
             ;;
 
-            t --version)
+            --version)
             echo "@NAME@ 1.1.0 rc3"
             exit_success
             ;;
