@@ -1,4 +1,11 @@
 === xdg-utils 1.1.x ===
+2014-09-19 Rex Dieter <rdieter@fedoraproject.org>
+   * XFCE .desktop file created for browser selection is broken (BR56092)
+   * Unnecessary filtering file:// for pcmanfm (BR63153)
+   * fails if user sets a custom IFS environment variable (BR81386)
+
+2014-09-17 Rex Dieter <rdieter@fedoraproject.org>
+   * xdg-utils-common is broken, xdg-open uses bashism (BR83979)
 
 2014-08-25 Rex Dieter <rdieter@fedoraproject.org>
    * xdg-email: do not encode - character
