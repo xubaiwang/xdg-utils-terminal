@@ -407,13 +407,15 @@ check_xfce_desktop_file()
             # Found a file to convert.
             target="${XDG_DATA_HOME:-$HOME/.local/share}/xfce4/helpers"
             mkdir -p "$target"
-            grep -v "^Type=" "$file" > "$target/$1"
-            echo "Type=X-XFCE-Helper" >> "$target/$1"
+            # Copy file up to first "Exec=" line.
+            sed -e 's/^Type=.*/Type=X-XFCE-Helper/' -e '/^Exec[=[]/,$d' "$file" > "$target/$1"
             echo "X-XFCE-Category=WebBrowser" >> "$target/$1"
             # Change %F, %f, %U, and %u to "%s".
-            command="`grep -E "^Exec(\[[^]=]*])?=" "$file" | cut -d= -f 2- | sed -e 's/%[FfUu]/"%s"/g'`"
+            command="`grep -E "^Exec(\[[^]=]*])?=" "$file" | cut -d= -f 2- | sed -e 's/%[FfUu]/"%s"/g' | head -1`"
             echo "X-XFCE-Commands=`echo "$command" | first_word`" >> "$target/$1"
             echo "X-XFCE-CommandsWithParameter=$command" >> "$target/$1"
+            # Copy rest of file (from first "Exec=" line to end-of-file).
+            sed -n -e 's/^Type=.*/Type=X-XFCE-Helper/' -e '/^Exec[=[]/,$p' "$file" >> "$target/$1"
             return
         fi
     done
