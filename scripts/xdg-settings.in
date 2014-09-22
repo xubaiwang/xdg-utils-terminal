@@ -146,10 +146,15 @@ read_kde_config()
     configfile="$1"
     configsection="$2"
     configkey="$3"
-    application="`kreadconfig --file $configfile --group $configsection --key $configkey`"
+    if [ x"${KDE_SESSION_VERSION}" = x"5" ]; then
+        application="`kreadconfig5 --file $configfile --group $configsection --key $configkey`"
+    else
+        application="`kreadconfig --file $configfile --group $configsection --key $configkey`"
+    fi
     if [ x"$application" != x ]; then
         echo "$application"
     else
+      if [ x"${KDE_SESSION_VERSION}" = x"4" ]; then
         # kreadconfig in KDE 4 may not notice Key[$*]=... localized settings, so
         # check by hand if it didn't find anything (oddly kwriteconfig works
         # fine though).
@@ -158,6 +163,7 @@ read_kde_config()
         [ ! -f "$configfile_path" ] && return
         # This will only take the first value if there is more than one.
         grep "^$configkey"'\[$[^]=]*\]=' "$configfile_path" | head -n 1 | cut -d= -f 2-
+      fi
     fi
 }
 
@@ -239,7 +245,11 @@ check_browser_kde()
 set_browser_kde()
 {
     set_browser_mime "$1" || return
-    kwriteconfig --file kdeglobals --group General --key BrowserApplication "$1"
+    if [ x"${KDE_SESSION_VERSION}" = x"5" ]; then
+        kwriteconfig5 --file kdeglobals --group General --key BrowserApplication "$1"
+    else
+        kwriteconfig --file kdeglobals --group General --key BrowserApplication "$1"
+    fi
 }
 
 # }}} KDE
@@ -516,7 +526,11 @@ set_url_scheme_handler_kde()
     set_browser_mime "$2" "x-scheme-handler/$1" || return
     if [ "$1" = "mailto" ]; then
         binary="`desktop_file_to_binary "$2"`"
-        kwriteconfig --file emaildefaults --group PROFILE_Default --key EmailClient "$binary"
+        if [ x"${KDE_SESSION_VERSION}" = x"5" ]; then
+            kwriteconfig5 --file emaildefaults --group PROFILE_Default --key EmailClient "$binary"
+        else
+            kwriteconfig --file emaildefaults --group PROFILE_Default --key EmailClient "$binary"
+        fi
     fi
 }
 

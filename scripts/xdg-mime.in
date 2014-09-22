@@ -398,10 +398,20 @@ defapp_generic()
 defapp_kde()
 {
     MIME="$1"
-    if [ x"$KDE_SESSION_VERSION" = x"4" ]; then
-        KTRADER=`which ktraderclient 2> /dev/null`
-        MIMETYPE="--mimetype"
-        SERVICETYPE="--servicetype"
+
+    if [ -n "${KDE_SESSION_VERSION}" ]; then
+      case "${KDE_SESSION_VERSION}" in
+        4)
+          KTRADER=`which ktraderclient 2> /dev/null`
+          MIMETYPE="--mimetype"
+          SERVICETYPE="--servicetype"
+        ;;
+        5)
+          KTRADER=`which ktraderclient${KDE_SESSION_VERSION} 2> /dev/null`
+          MIMETYPE="--mimetype"
+          SERVICETYPE="--servicetype"
+        ;;
+      esac
     else
         KTRADER=`which ktradertest 2> /dev/null`
     fi
