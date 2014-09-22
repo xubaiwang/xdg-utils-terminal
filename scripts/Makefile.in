@@ -27,30 +27,29 @@ SCRIPTS		= \
 #    xdg-terminal
 
 MANPAGES=	$(SCRIPTS:%=man/%.1)
-WEBPAGES=	$(SCRIPTS:%=%.html)
+WEBPAGES=	$(SCRIPTS:%=html/%.html)
 XMLFILES=	$(SCRIPTS:%=desc/%.xml)
 
 all:		html man scripts
 
-html:		index.html $(WEBPAGES)
+html:		html/index.html $(WEBPAGES)
 
 scripts:	README $(SCRIPTS)
 
 man:		$(MANPAGES)
 
 release:	scripts html man
-	rm -f xdg-*.in *~ HACKING generate-help-script.awk
-	rm -rf desc/
-	rm -rf xsl/
+	rm -f *~
+	#rm -rf desc/ xsl/
 	rm -f xdg-file-dialog xdg-su xdg-copy xdg-terminal
 
-distclean: clean
-	rm -f Makefile
+distclean:	clean
+	rm -f Makefile man/xdg-*.1 html/xdg-*.html
 
 clean:		scripts-clean
 
 scripts-clean:
-	rm -f $(SCRIPTS) README man/xdg-*.1 html/xdg-*.html
+	rm -f $(SCRIPTS) README
 
 README: $(SCRIPTS)
 	echo > $@
@@ -103,12 +102,12 @@ xdg-terminal: xdg-terminal.in xdg-utils-common.in
 man/%.1: desc/%.xml
 	(cd man;$(XMLTO) man ../$<)
 
-index.html: $(XMLFILES)
+html/index.html: $(XMLFILES)
 	(cat html/index.html.pre; \
          xsltproc xsl/refentry2htmlindex.xsl $(XMLFILES); \
          cat html/index.html.post ) > html/index.html
 
-%.html: desc/%.xml
+html/%.html: desc/%.xml
 	(cd html;$(XMLTO) html-nochunks ../$<)
 
 %.txt: desc/%.xml

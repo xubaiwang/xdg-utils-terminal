@@ -15,7 +15,7 @@ mandir          = @mandir@
 all:
 
 release:
-	rm -rf xdg-su tmp
+	rm -rf tmp
 	rm -f xdg-test.log *~
 
 test:

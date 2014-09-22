@@ -10,7 +10,7 @@ distclean:	clean $(SUBDIRS:%=%/__distclean__)
 	rm -f config.* Makefile
 	rm -rf autom4te.cache
 
-release:	$(SUBDIRS:%=%/__release__) distclean
+release:	$(SUBDIRS:%=%/__release__)
 	rm -f *~
 
 help:	
