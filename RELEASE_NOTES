@@ -2,7 +2,7 @@ Release notes for xdg-utils 1.1.0
 =================================
 
 This release includes:
-* better support for GNOME3, KDE4, LXDE, MATE, XFCE
+* better support for GNOME3, KDE4, Plasma5, LXDE, MATE, XFCE
 * initial support for generic methods (non toolkit-specific, experimental)
 * xdg-settings utility, a script to get various settings from the desktop
   environment

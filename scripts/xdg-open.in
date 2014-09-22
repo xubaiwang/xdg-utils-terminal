@@ -81,15 +81,18 @@ open_darwin()
 
 open_kde()
 {
-    if kde-open -v 2>/dev/null 1>&2; then
-        kde-open "$1"
+    if [ -n "${KDE_SESSION_VERSION}" ]; then
+      case "${KDE_SESSION_VERSION}" in
+        4)
+          kde-open "$1"
+        ;;
+        5)
+          kde-open${KDE_SESSION_VERSION} "$1"
+        ;;
+      esac
     else
-        if [ x"$KDE_SESSION_VERSION" = x"4" ]; then
-            kfmclient openURL "$1"
-        else
-            kfmclient exec "$1"
-            kfmclient_fix_exit_code $?
-        fi
+        kfmclient exec "$1"
+        kfmclient_fix_exit_code $?
     fi
 
     if [ $? -eq 0 ]; then

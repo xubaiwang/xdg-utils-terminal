@@ -36,11 +36,7 @@ update_mime_database()
       detectDE
       if [ x"$DE" = x"kde" ] ; then
          DEBUG 1 "Running kbuildsycoca"
-         if [ x"$KDE_SESSION_VERSION" = x"4" ]; then
-             eval 'kbuildsycoca4'$xdg_redirect_output
-         else
-             eval 'kbuildsycoca'$xdg_redirect_output
-         fi
+         eval 'kbuildsycoca${KDE_SESSION_VERSION}'$xdg_redirect_output
       fi
    fi
    for x in `echo "$PATH:/opt/gnome/bin" | sed 's/:/ /g'`; do
@@ -54,9 +50,17 @@ update_mime_database()
 
 info_kde()
 {
-    if [ x"$KDE_SESSION_VERSION" = x"4" ]; then
-        DEBUG 1 "Running kmimetypefinder \"$1\""
-        kmimetypefinder "$1" 2>/dev/null | head -n 1
+    if [ -n "${KDE_SESSION_VERSION}" ]; then
+      case "${KDE_SESSION_VERSION}" in
+        4)
+          DEBUG 1 "Running kmimetypefinder \"$1\""
+          kmimetypefinder "$1" 2>/dev/null | head -n 1
+        ;;
+        5)
+          DEBUG 1 "Running kmimetypefinder${KDE_SESSION_VERSION} \"$1\""
+          kmimetypefinder${KDE_SESSION_VERSION} "$1" 2>/dev/null | head -n 1
+        ;;
+      esac
     else
         DEBUG 1 "Running kfile \"$1\""
         kfile "$1" 2> /dev/null | head -n 1 | cut -d "(" -f 2 | cut -d ")" -f 1

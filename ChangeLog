@@ -1,4 +1,8 @@
 === xdg-utils 1.1.x ===
+
+2014-09-22 Rex Dieter <rdieter@fedoraproject.org>
+   * Initial support for Plasma5 (largely thanks to Karol Herbst)
+
 2014-09-19 Rex Dieter <rdieter@fedoraproject.org>
    * XFCE .desktop file created for browser selection is broken (BR56092)
    * Unnecessary filtering file:// for pcmanfm (BR63153)
