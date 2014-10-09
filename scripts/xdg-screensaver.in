@@ -86,13 +86,17 @@ perform_action()
 
   case "$DE" in
     kde)
-      if [ x"$KDE_SESSION_VERSION" = x"4" ]; then
-          screensaver_freedesktop "$1"
-      else
-          screensaver_kde "$1"
+      if [ -n "${KDE_SESSION_VERSION}" ]; then
+        case "${KDE_SESSION_VERSION}" in
+          4|5)
+            screensaver_freedesktop "$1"
+          ;;
+          *)
+            screensaver_kde3 "$1"
+          ;;
+        esac
       fi
       ;;
-
     gnome_screensaver)
       screensaver_gnome_screensaver "$1"
       ;;
@@ -314,7 +318,7 @@ screensaver_freedesktop()
     esac
 }
 
-screensaver_kde()
+screensaver_kde3()
 {
     case "$1" in
         suspend)
