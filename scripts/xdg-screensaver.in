@@ -216,7 +216,7 @@ track_window()
   echo "$window_id:$xprop_pid" >> $tmpfile
   $MV "$tmpfile" "$screensaver_file"
   unlockfile
-  # Wait for xprop to edit, it means that the window disappeared
+  # Wait for xprop to exit, it means that the window disappeared
   wait $xprop_pid
   # Clean up the administration and resume the screensaver
   cleanup_suspend
