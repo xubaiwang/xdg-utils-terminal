@@ -1,5 +1,8 @@
 === xdg-utils 1.1.x ===
 
+2015-01-04 Rex Dieter <rdieter@fedoraproject.org>
+   * xdg-screensaver should control X11's screensaver in xfce as fallback (BR80089)
+
 2014-10-09 Rex Dieter <rdieter@fedoraproject.org>
    * xdg-screensaver plasma5 support
 

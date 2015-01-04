@@ -104,6 +104,10 @@ perform_action()
       screensaver_xscreensaver "$1"
       ;;
 
+    xfce)
+      [ -n "$DISPLAY" ] && screensaver_xserver "$1"
+      ;;
+
     '')
       [ -n "$DISPLAY" ] && screensaver_xserver "$1"
       ;;
