@@ -300,13 +300,13 @@ screensaver_freedesktop()
                           org.freedesktop.ScreenSaver.GetActive \
                           | grep boolean | cut -d ' ' -f 5`
         result=$?
-        if [ x"$status" = "xtrue" ]; then
+        if [ x"$status" = "xtrue" -o x"$status" = "xfalse" ]; then
             echo "enabled"
-        elif [ x"$status" = "xfalse" ]; then
-            echo "disabled"
-        else
+        elif [ x"$result" != "x0" ]; then
             echo "ERROR: dbus org.freedesktop.ScreenSaver.GetActive returned '$status'" >&2
             return 1
+        else
+            echo "disabled"
         fi
         ;;
 
