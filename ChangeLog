@@ -1,5 +1,8 @@
 === xdg-utils 1.1.x ===
 
+2015-01-15 Reuben Thomas <rrt@sc3d.org>
+   * xdg-mime: dereference symlinks when using mimetype or file (BR39923)
+
 2015-01-05 Rex Dieter <rdieter@fedoraproject.org>
    * xdg-open: command injection vulnerability (BR66670)
 
