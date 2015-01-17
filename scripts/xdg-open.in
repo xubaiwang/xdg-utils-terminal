@@ -57,11 +57,11 @@ get_key()
             "["*)
                 desktop_entry=""
             ;;
-            *)
+            "${key}="*)
                 # Only match Desktop Entry group
                 if [ -n "${desktop_entry}" ]
                 then
-                    echo "${line}" | grep -E "^${key}=" | cut -d= -f 2-
+                    echo "${line}" | cut -d= -f 2-
                 fi
         esac
     done < "${file}"
