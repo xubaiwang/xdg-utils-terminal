@@ -1,5 +1,8 @@
 === xdg-utils 1.1.x ===
 
+2015-01-19 Rex Dieter <rdieter@fedoraproject.org>
+   * xdg-open: better fix for command injection vulnerability (BR66670)
+
 2015-01-15 Reuben Thomas <rrt@sc3d.org>
    * xdg-mime: dereference symlinks when using mimetype or file (BR39923)
    * xdg-screensaver: Change screensaver_freedesktop's interpretation of GetActive (BR29859)
