@@ -2,6 +2,7 @@
 
 2015-01-19 Rex Dieter <rdieter@fedoraproject.org>
    * xdg-open: better fix for command injection vulnerability (BR66670)
+   * xdg-open is extremely slow because get_key executes grep unnecessarily (BR88524)
 
 2015-01-15 Reuben Thomas <rrt@sc3d.org>
    * xdg-mime: dereference symlinks when using mimetype or file (BR39923)
