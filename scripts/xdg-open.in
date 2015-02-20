@@ -161,7 +161,7 @@ search_desktop_file()
 {
     local default="$1"
     local dir="$2"
-    local arg="$3"
+    local target="$3"
 
     local file=""
     # look for both vendor-app.desktop, vendor/app.desktop
@@ -174,34 +174,49 @@ search_desktop_file()
     if [ -r "$file" ] ; then
         command="$(get_key "${file}" "Exec" | first_word)"
         command_exec=`which $command 2>/dev/null`
-        arguments="$(get_key "${file}" "Exec" | last_word)"
-        arg_one="`echo "$arg" | sed 's/[&*\\]/\\\\&/g'`"
         icon="$(get_key "${file}" "Icon")"
-        if [ "${icon}" != "" ]
-        then
-            icon="--icon '${icon}'"
-        else
-            icon="''"
-        fi
         # FIXME: Actually LC_MESSAGES should be used as described in
         # http://standards.freedesktop.org/desktop-entry-spec/latest/ar01s04.html
-        localised_name="'$(get_key "${file}" "Name")'"
-        arguments_exec="$(echo "$arguments" | sed -e 's*%[fFuU]*'"$arg_one"'*g' \
-                                                  -e 's*%i*'"$icon"'*g' \
-                                                  -e 's*%c*'"$localised_name"'*g')"
+        localised_name="$(get_key "${file}" "Name")"
+        set -- $(get_key "${file}" "Exec" | last_word)
+        # We need to replace any occurrence of "%f", "%F" and
+        # the like by the target file. We examine each
+        # argument and append the modified argument to the
+        # end then shift.
+        local args=$#
+        local replaced=0
+        while [ $args -gt 0 ]; do
+            case $1 in
+                %[c])
+                    replaced=1
+                    arg="${localised_name}"
+                    shift
+                    set -- "$@" "$arg"
+                    ;;
+                %[fFuU])
+                    replaced=1
+                    arg="$(echo $target | sed 's/[&*\\]/\\\\&/g')"
+                    shift
+                    set -- "$@" "$arg"
+                    ;;
+                %[i])
+                    replaced=1
+                    shift
+                    set -- "$@" "--icon" "$icon"
+                    ;;
+                *)
+                    arg="$1"
+                    shift
+                    set -- "$@" "$arg"
+                    ;;
+            esac
+            args=$(( $args - 1 ))
+        done
+        [ $replaced -eq 1 ] || set -- "$@" "$target"
+        "$command_exec" "$@"
 
-        if [ -x "$command_exec" ] ; then
-            if echo "$arguments" | grep -iq '%[fFuU]' ; then
-                echo START "$command_exec" "$arguments_exec"
-                eval "'$command_exec'" "'$arguments_exec'"
-            else
-                echo START "$command_exec" "$arguments_exec" "$arg"
-                eval "'$command_exec'" "'$arguments_exec'" "'$arg'"
-            fi
-
-            if [ $? -eq 0 ]; then
-                exit_success
-            fi
+        if [ $? -eq 0 ]; then
+            exit_success
         fi
     fi
 

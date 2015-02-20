@@ -1,5 +1,8 @@
 === xdg-utils 1.1.x ===
 
+2015-02-20 Rex Dieter <rdieter@fedoraproject.org>
+   * xdg-open: safer xdg-open (BR89130), inspired by patch from Vincent Bernat <bernat@debian.org>
+
 2015-01-19 Rex Dieter <rdieter@fedoraproject.org>
    * xdg-open: better fix for command injection vulnerability (BR66670)
    * xdg-open is extremely slow because get_key executes grep unnecessarily (BR88524)
