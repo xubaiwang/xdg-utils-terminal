@@ -221,7 +221,7 @@ search_desktop_file()
     fi
 
     for d in $dir/*/; do
-        [ -d "$d" ] && search_desktop_file "$default" "$d" "$arg"
+        [ -d "$d" ] && search_desktop_file "$default" "$d" "$target"
     done
 }
 
