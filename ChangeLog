@@ -1,5 +1,8 @@
 === xdg-utils 1.1.x ===
 
+2015-03-02 Rex Dieter <rdieter@fedoraproject.org>
+   * xdg-email: thunderbird launch in xdg-email in gnome3 fails (BR61475)
+
 2015-02-24 Lionel Orry <lionel.orry@gmail.com>
    * xdg-mime: do not report multiple desktop files (BR60329)
 

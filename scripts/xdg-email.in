@@ -130,7 +130,7 @@ open_gnome3()
     local client
     local desktop
     desktop=`xdg-mime query default "x-scheme-handler/mailto"`
-    client=`desktop_file_to_binary "$browser"`
+    client=`desktop_file_to_binary "$desktop"`
     echo $client | grep thunderbird > /dev/null 2>&1
     if [ $? -eq 0 ] ; then
         run_thunderbird "$client" "$1"
