@@ -195,7 +195,7 @@ search_desktop_file()
                     ;;
                 %[fFuU])
                     replaced=1
-                    arg="$(echo $target | sed 's/[&*\\]/\\\\&/g')"
+                    arg="$target"
                     shift
                     set -- "$@" "$arg"
                     ;;

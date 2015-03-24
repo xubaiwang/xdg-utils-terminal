@@ -1,5 +1,8 @@
 === xdg-utils 1.1.x ===
 
+2015-03-23 Rex Dieter <rdieter@fedoraproject.org>
+   * xdg-open:  fix regression where & gets replaced with \\& in URLs
+
 2015-03-02 Rex Dieter <rdieter@fedoraproject.org>
    * xdg-email: thunderbird launch in xdg-email in gnome3 fails (BR61475)
 
