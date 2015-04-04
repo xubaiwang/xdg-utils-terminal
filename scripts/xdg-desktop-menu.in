@@ -231,12 +231,14 @@ BEGIN {
         done
         # Files to uninstall are listed in $tmpfile
         # Existing files are in $orig_desktop_files
+        if [ ! -z "$orig_desktop_files" ]; then
         for desktop_file in $orig_desktop_files; do
             if ! grep '^'$desktop_file'$' $tmpfile > /dev/null 2> /dev/null; then
             	# Keep this file, it's not in the uninstall list
             	new_desktop_files="$new_desktop_files $desktop_file"
             fi
         done
+        fi
     fi
     rm -f "$tmpfile"
 
@@ -303,7 +305,7 @@ BEGIN {
   if (match($0,/>/)) {
      print substr($0,RSTART+1)
   }
-}' $menu_file >> $tmpfile
+}' "$menu_file" >> $tmpfile
             fi
         done
         orig_directory_files="$directory_files"

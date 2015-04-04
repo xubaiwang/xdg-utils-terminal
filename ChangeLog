@@ -1,5 +1,8 @@
 === xdg-utils 1.1.x ===
 
+20`5-04-04 Rex Dieter <rdieter@fedoraproject.org>
+   * xdg-desktop-menu:  does not support filenames with spaces (BR66605)
+
 2015-03-23 Rex Dieter <rdieter@fedoraproject.org>
    * xdg-open:  fix regression where & gets replaced with \\& in URLs
 
