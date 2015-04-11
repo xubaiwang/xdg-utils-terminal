@@ -276,7 +276,7 @@ open_generic()
         file_check=${file_check%%\?*}
         check_input_file "$file_check"
 
-        filetype=`xdg-mime query filetype "$filecheck" | sed "s/;.*//"`
+        filetype=`xdg-mime query filetype "$file_check" | sed "s/;.*//"`
         open_generic_xdg_mime "$file" "$filetype"
 
         if which run-mailcap 2>/dev/null 1>&2; then
