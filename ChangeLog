@@ -1,5 +1,8 @@
 === xdg-utils 1.1.x ===
 
+2015-04-13 Rex Dieter <rdieter@fedoraproject.org>
+   * xdg-mime: search mimeinfo.cache in $xdg_user_dir too (BR31629)
+
 2015-04-06 Rex Dieter <rdieter@fedorparoject.org>
    * xdg-open: does not exit if it does not recognize the mimetype (BR89902)
 
