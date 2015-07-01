@@ -202,6 +202,8 @@ open_generic()
     if [ $? -eq 0 ]; then
         exit_success
     else
+        exit_failure_operation_failed
+    fi
 
     IFS=":"
     for browser in $BROWSER; do
