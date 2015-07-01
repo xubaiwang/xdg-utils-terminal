@@ -190,6 +190,19 @@ open_xfce()
 
 open_generic()
 {
+    local client
+    local desktop
+    desktop=`xdg-mime query default "x-scheme-handler/mailto"`
+    client=`desktop_file_to_binary "$desktop"`
+    echo $client | grep thunderbird > /dev/null 2>&1
+    if [ $? -eq 0 ] ; then
+        run_thunderbird "$client" "$1"
+    fi
+
+    if [ $? -eq 0 ]; then
+        exit_success
+    else
+
     IFS=":"
     for browser in $BROWSER; do
         if [ x"$browser" != x"" ]; then

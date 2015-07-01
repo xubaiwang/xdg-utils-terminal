@@ -1,5 +1,8 @@
 === xdg-utils 1.1.x ===
 
+2015-07-01 Rex Dieter <rdieter@fedoraproject.org>
+   * xdg-email: generic check for assigned mailto (BR79929)
+
 2015-04-13 Rex Dieter <rdieter@fedoraproject.org>
    * xdg-mime: search mimeinfo.cache in $xdg_user_dir too (BR31629)
 
