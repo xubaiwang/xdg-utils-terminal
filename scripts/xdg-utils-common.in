@@ -259,7 +259,8 @@ detectDE()
          ENLIGHTENMENT)
            DE=enlightenment;
            ;;
-         GNOME)
+         # GNOME, GNOME-Classic:GNOME, or GNOME-Flashback:GNOME
+         GNOME*)
            DE=gnome;
            ;;
          KDE)
