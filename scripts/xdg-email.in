@@ -416,7 +416,7 @@ case "$DE" in
     open_gnome "${mailto}"
     ;;
 
-    gnome3)
+    gnome3|cinnamon|lxde|mate)
     open_gnome3 "${mailto}"
     ;;
 
@@ -424,7 +424,7 @@ case "$DE" in
     open_xfce "${mailto}"
     ;;
 
-    generic|lxde)
+    generic)
     open_generic "${mailto}"
     ;;
 
