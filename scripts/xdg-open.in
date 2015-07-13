@@ -401,7 +401,7 @@ case "$DE" in
     open_kde "$url"
     ;;
 
-    gnome*)
+    gnome*|cinnamon)
     open_gnome "$url"
     ;;
 
