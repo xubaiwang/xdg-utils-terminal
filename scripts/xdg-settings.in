@@ -633,17 +633,18 @@ set_url_scheme_handler_xfce()
 
 dispatch_specific()
 {
+    local handler=$1; shift
     # The PROP comments in this function are used to generate the output of
     # the --list option. The formatting is important. Make sure to line up the
     # property descriptions with spaces so that it will look nice.
     if [ x"$op" = x"get" ]; then
         case "$parm" in
           default-web-browser) # PROP:           Default web browser
-            get_browser_$DE
+            get_browser_$handler
             ;;
 
           default-url-scheme-handler) # PROP:    Default handler for URL scheme
-            get_url_scheme_handler_$DE "$1"
+            get_url_scheme_handler_$handler "$1"
             ;;
 
           *)
@@ -654,12 +655,12 @@ dispatch_specific()
         case "$parm" in
           default-web-browser)
             check_desktop_filename "$1"
-            check_browser_$DE "$1"
+            check_browser_$handler "$1"
             ;;
 
           default-url-scheme-handler)
             check_desktop_filename "$2"
-            check_url_scheme_handler_$DE "$1" "$2"
+            check_url_scheme_handler_$handler "$1" "$2"
             ;;
 
           *)
@@ -671,13 +672,13 @@ dispatch_specific()
           default-web-browser)
 	    [ $# -eq 1 ] || exit_failure_syntax "unexpected/missing argument"
             check_desktop_filename "$1"
-            set_browser_$DE "$1"
+            set_browser_$handler "$1"
             ;;
 
           default-url-scheme-handler)
 	    [ $# -eq 2 ] || exit_failure_syntax "unexpected/missing argument"
             check_desktop_filename "$2"
-            set_url_scheme_handler_$DE "$1" "$2"
+            set_url_scheme_handler_$handler "$1" "$2"
             ;;
 
           *)
@@ -754,8 +755,20 @@ fi
 detectDE
 
 case "$DE" in
-    kde|gnome*|xfce)
-    dispatch_specific "$@"
+    kde)
+    dispatch_specific kde "$@"
+    ;;
+
+    gnome)
+    dispatch_specific gnome "$@"
+    ;;
+
+    gnome3|cinnamon|lxde|mate)
+    dispatch_specific gnome3 "$@"
+    ;;
+
+    xfce)
+    dispatch_specific xfce "$@"
     ;;
 
     generic)
