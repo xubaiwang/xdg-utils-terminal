@@ -82,6 +82,36 @@ terminal_gnome()
     fi
 }
 
+terminal_gsettings()
+{
+    term_schema="$1"; shift
+
+    term_exec=`gsettings get ${term_schema} exec`
+    term_exec_arg=`gsettings get ${term_schema} exec-arg`
+
+    terminal_exec=`which $term_exec 2>/dev/null`
+
+    if [ -x "$terminal_exec" ]; then
+        if [ x"$1" = x"" ]; then
+            $terminal_exec
+        else
+            if [ x"$term_exec_arg" = x"" ]; then
+                $terminal_exec "$1"
+            else
+                $terminal_exec "$term_exec_arg" "$1"
+            fi
+        fi
+
+        if [ $? -eq 0 ]; then
+            exit_success
+        else
+            exit_failure_operation_failed
+        fi
+    else
+        exit_failure_operation_impossible "configured terminal program '$term_exec' not found or not executable"
+    fi
+}
+
 terminal_xfce()
 {
     if [ x"$1" = x"" ]; then
@@ -178,8 +208,20 @@ case "$DE" in
     terminal_kde "$command"
     ;;
 
-    gnome*)
+    gnome)
     terminal_gnome "$command"
+    ;;
+
+    gnome3)
+    terminal_gsettings org.gnome.desktop.default-applications.terminal "$command"
+    ;;
+
+    cinnamon)
+    terminal_gsettings org.cinnamon.desktop.default-applications.terminal "$command"
+    ;;
+
+    mate)
+    terminal_gsettings org.mate.applications-terminal "$command"
     ;;
 
     xfce)
