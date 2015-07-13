@@ -68,6 +68,17 @@ get_key()
     IFS="${IFS_}"
 }
 
+open_cygwin()
+{
+    cygstart "$1"
+
+    if [ $? -eq 0 ]; then
+        exit_success
+    else
+        exit_failure_operation_failed
+    fi
+}
+
 open_darwin()
 {
     open "$1"
@@ -419,6 +430,10 @@ case "$DE" in
 
     enlightenment)
     open_enlightenment "$url"
+    ;;
+
+    cygwin)
+    open_cygwin "$url"
     ;;
 
     darwin)
