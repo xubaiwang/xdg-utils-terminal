@@ -256,6 +256,10 @@ detectDE()
 
     if [ -n "${XDG_CURRENT_DESKTOP}" ]; then
       case "${XDG_CURRENT_DESKTOP}" in
+         # only recently added to menu-spec, pre-spec X- still in use
+         Cinnamon|X-Cinnamon)
+           DE=cinnamon;
+           ;;
          ENLIGHTENMENT)
            DE=enlightenment;
            ;;
