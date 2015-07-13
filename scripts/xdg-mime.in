@@ -566,7 +566,7 @@ if [ "$action" = "info" ]; then
         info_kde "$filename"
         ;;
 
-        gnome*)
+        gnome*|cinnamon|lxde|mate|xfce)
         info_gnome "$filename"
         ;;
 
