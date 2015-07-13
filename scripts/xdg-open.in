@@ -421,6 +421,10 @@ case "$DE" in
     open_enlightenment "$url"
     ;;
 
+    darwin)
+    open_darwin "$url"
+    ;;
+
     generic)
     open_generic "$url"
     ;;
