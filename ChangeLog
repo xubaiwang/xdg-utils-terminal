@@ -1,7 +1,7 @@
 === xdg-utils 1.1.x ===
 
 2015-07-15 Rex Dieter <rdieter@fedoraproject.org>
-   * much goodness, mostly better support for more desktops, from Yaakov Selkowitz <yselkowi@redhat.com>
+   * better for other (non-gnome) GVfs-based desktops, from Yaakov Selkowitz <yselkowi@redhat.com>
 
 2015-07-01 Rex Dieter <rdieter@fedoraproject.org>
    * xdg-email: generic check for assigned mailto (BR79929)
