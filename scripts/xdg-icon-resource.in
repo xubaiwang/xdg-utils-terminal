@@ -205,7 +205,7 @@ if [ -n "$XDG_UTILS_INSTALL_MODE" ] ; then
 fi
 
 if [ -z "$mode" ] ; then
-    if [ `whoami` = "root" ] ; then
+    if [ "`whoami`" = "root" ] ; then
        mode="system"
     else
        mode="user"
@@ -224,13 +224,13 @@ xdg_global_prefix=
 xdg_system_dirs="$XDG_DATA_DIRS"
 [ -n "$xdg_system_dirs" ] || xdg_system_dirs="/usr/local/share/:/usr/share/"
 for x in `echo "$xdg_system_dirs" | sed 's/:/ /g'`; do
-   if [ -w $x/$xdg_dir_name ] ; then
+   if [ -w "$x/$xdg_dir_name" ] ; then
       xdg_global_prefix="$x/icons"
       xdg_global_dir="$x/$xdg_dir_name"
       break
    fi
 done
-[ -w $xdg_global_dir ] || xdg_global_dir=
+[ -w "$xdg_global_dir" ] || xdg_global_dir=
 
 dot_icon_dir=
 dot_base_dir=
@@ -255,7 +255,7 @@ if [ x"$action" = x"forceupdate" ] ; then
     update_icon_database $xdg_base_dir
     if [ -n "$dot_icon_dir" ] ; then
         if [ -d "$dot_icon_dir/" ] && [ ! -L "$dot_icon_dir" ] ; then
-            update_icon_database $dot_base_dir
+            update_icon_database "$dot_base_dir"
         fi
     fi
     exit_success
@@ -278,7 +278,7 @@ fi
 xdg_size_name="${size}x${size}"
 
 if [ x"$action" = x"install" ] ; then
-    case $icon_file in
+    case "$icon_file" in
       *.xpm)
         extension="xpm"
         ;;
@@ -292,7 +292,7 @@ if [ x"$action" = x"install" ] ; then
 fi
 
 if [ -n "$icon_name" ] ; then
-    case $icon_name in
+    case "$icon_name" in
       *.png)
          exit_failure_syntax "icon name should not include an extension"
          ;;
@@ -336,8 +336,8 @@ need_kde_icon_path()
     fi
   done
   DEBUG 2 "kde_global_prefix: $kde_global_prefix"
-  [ $needed -eq "1" ] && DEBUG 2 "need_kde_icon_path RETURN $needed (not needed)"
-  [ $needed -eq "0" ] && DEBUG 2 "need_kde_icon_path RETURN $needed (needed)"
+  [ $needed -eq 1 ] && DEBUG 2 "need_kde_icon_path RETURN $needed (not needed)"
+  [ $needed -eq 0 ] && DEBUG 2 "need_kde_icon_path RETURN $needed (needed)"
   return $needed
 }
 
@@ -381,7 +381,7 @@ fi
 
 # Start GNOME legacy workaround section
 need_gnome_mime=
-[ $context = "mimetypes" ] && need_gnome_mime=true
+[ "$context" = "mimetypes" ] && need_gnome_mime=true
 # End GNOME legacy workaround section
 
 [ -n "$icon_name" ] || icon_name=`basename "$icon_file" | sed 's/\.[a-z][a-z][a-z]$//'`
@@ -394,18 +394,18 @@ icon_icon_file=`echo "$icon_file" | sed 's/\.[a-z][a-z][a-z]$/.icon/'`
 icon_icon_name="$icon_name.icon"
 
 DEBUG 1 "$action icon in $xdg_dir"
-[ $action = "install" ] && [ -f "$icon_icon_file" ] && DEBUG 1 "install $icon_icon_name meta file in $xdg_dir"
+[ "$action" = "install" ] && [ -f "$icon_icon_file" ] && DEBUG 1 "install $icon_icon_name meta file in $xdg_dir"
 [ -n "$kde_dir" ] && DEBUG 1 "$action symlink in $kde_dir (KDE 3.x support)"
 [ -n "$need_gnome_mime" ] && DEBUG 1 "$action gnome-mime-$icon_name symlink (GNOME 2.x support)"
-[  $action = "install" -a -n "$dot_icon_dir" ] && DEBUG 1 "$action ~/.icons symlink (GNOME 2.8 support)"
+[  "$action" = "install" -a -n "$dot_icon_dir" ] && DEBUG 1 "$action ~/.icons symlink (GNOME 2.8 support)"
 
-case $action in
+case "$action" in
     install)
         save_umask=`umask`
         umask $my_umask
 
-        for icon_dir in $xdg_dir $dot_icon_dir; do
-            mkdir -p $icon_dir
+        for icon_dir in "$xdg_dir" "$dot_icon_dir"; do
+            mkdir -p "$icon_dir"
             eval 'cp "$icon_file" "$icon_dir/$icon_name.$extension"'$xdg_redirect_output
             if [ -f "$icon_icon_file" ] ; then
                 eval 'cp "$icon_icon_file" "$icon_dir/$icon_icon_name"'$xdg_redirect_output
@@ -415,7 +415,7 @@ case $action in
             fi
         done
         if [ -n "$kde_dir" ] ; then
-            mkdir -p $kde_dir
+            mkdir -p "$kde_dir"
             eval 'ln -s "$xdg_dir/$icon_name.$extension" "$kde_dir/$icon_name.$extension"'$xdg_redirect_output
         fi
 
@@ -423,7 +423,7 @@ case $action in
         ;;
 
     uninstall)
-        for icon_dir in $xdg_dir $dot_icon_dir; do
+        for icon_dir in "$xdg_dir" "$dot_icon_dir"; do
             rm -f "$icon_dir/$icon_name.xpm" "$icon_dir/$icon_name.png"
             rm -f "$icon_dir/$icon_icon_name"
             if [ -n "$need_gnome_mime" ] ; then
@@ -442,7 +442,7 @@ if [ x"$update" = x"yes" ] ; then
     update_icon_database "$xdg_base_dir"
     if [ -n "$dot_icon_dir" ] ; then
         if [ -d "$dot_icon_dir/" ] && [ ! -L "$dot_icon_dir" ] ; then
-            update_icon_database $dot_base_dir
+            update_icon_database "$dot_base_dir"
         fi
     fi
 fi
