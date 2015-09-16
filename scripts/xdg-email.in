@@ -199,10 +199,12 @@ open_generic()
         run_thunderbird "$client" "$1"
     fi
 
-    if [ $? -eq 0 ]; then
-        exit_success
-    else
-        exit_failure_operation_failed
+    xdg-open "$1"
+    local ret=$?
+
+    # 3 means exit_failure_operation_impossible
+    if [ $ret != 3 ]; then
+        exit $ret
     fi
 
     IFS=":"

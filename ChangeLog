@@ -7,6 +7,7 @@
    * xdg-open shell script contains bash code (BR86028)
    * xdg-email: bashism: relies on bash's echo in run_thunderbird() (BR91990)
    * xdg-email: Icedove support (BR91997)
+   * xdg-email: generic mode does nothing (BR92008)
 
 2015-07-15 Rex Dieter <rdieter@fedoraproject.org>
    * better for other (non-gnome) GVfs-based desktops, from Yaakov Selkowitz <yselkowi@redhat.com>
