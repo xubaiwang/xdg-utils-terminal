@@ -281,7 +281,11 @@ open_generic()
         # Decode URLs
         if echo "$file" | grep -q '^file:///'; then
             file=${file#file://}
-            file="$(printf "$(echo "$file" | sed -e 's@%\([a-f0-9A-F]\{2\}\)@\\x\1@g')")"
+            local printf=printf
+            if [ -x /usr/bin/printf ]; then
+                printf=/usr/bin/printf
+            fi
+            file="$($printf "$(echo "$file" | sed -e 's@%\([a-f0-9A-F]\{2\}\)@\\x\1@g')")"
         fi
         file_check=${file%%#*}
         file_check=${file_check%%\?*}
