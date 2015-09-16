@@ -104,6 +104,10 @@ perform_action()
       screensaver_xscreensaver "$1"
       ;;
 
+    xautolock_screensaver)
+      xautolock_screensaver "$1"
+      ;;
+
     xfce)
       [ -n "$DISPLAY" ] && screensaver_xserver "$1"
       ;;
@@ -637,6 +641,51 @@ screensaver_xscreensaver()
     esac
 }
 
+xautolock_screensaver()
+{
+    case "$1" in
+        suspend)
+        xset s off && xautolock -disable > /dev/null
+        result=$?
+        ;;
+
+        resume)
+        xset s default && xautolock -enable > /dev/null
+        result=$?
+        ;;
+
+        activate)
+        xautolock -enable
+        result=$?
+        ;;
+
+        lock)
+        xautolock -locknow
+        result=$?
+        ;;
+
+        reset)
+        xautolock -restart
+        result=$?
+        ;;
+
+        status)
+        xautolock -unlocknow >/dev/null
+        result=$?
+        if [ $result -eq 0 ]; then
+            echo "enabled"
+        else
+            echo "disabled"
+        fi
+        ;;
+
+        *)
+        echo "ERROR: Unknown command '$1" >&2
+        return 1
+        ;;
+    esac
+}
+
 [ x"$1" != x"" ] || exit_failure_syntax
 
 action=
@@ -697,6 +746,8 @@ xscreensaver-command -version 2> /dev/null | grep XScreenSaver > /dev/null && DE
 dbus-send --print-reply --dest=org.freedesktop.DBus /org/freedesktop/DBus org.freedesktop.DBus.GetNameOwner string:org.gnome.ScreenSaver > /dev/null 2>&1 && DE="gnome_screensaver"
 # Consider "mate-screensaver" a separate DE
 dbus-send --print-reply --dest=org.freedesktop.DBus /org/freedesktop/DBus org.freedesktop.DBus.GetNameOwner string:org.mate.ScreenSaver > /dev/null 2>&1 && DE="mate_screensaver"
+# Consider "xautolock" a separate DE
+xautolock -enable > /dev/null 2>&1 && DE="xautolock_screensaver"
 
 if [ "$action" = "resume" ] ; then
     do_resume
