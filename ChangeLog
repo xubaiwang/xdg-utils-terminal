@@ -3,6 +3,7 @@
 2015-09-16 Rex Dieter <rdieter@fedoraproject.org>
    * xdg-screensaver support for xautolock (BR89655)
    * xdg-icon-resource: does not support filenames with spaces (BR91758)
+   * xdg-open: Add support for multi-word $BROWSER commands (BR91989)
 
 2015-07-15 Rex Dieter <rdieter@fedoraproject.org>
    * better for other (non-gnome) GVfs-based desktops, from Yaakov Selkowitz <yselkowi@redhat.com>
