@@ -5,6 +5,7 @@
    * xdg-icon-resource: does not support filenames with spaces (BR91758)
    * xdg-open: Add support for multi-word $BROWSER commands (BR91989)
    * xdg-open shell script contains bash code (BR86028)
+   * xdg-email: bashism: relies on bash's echo in run_thunderbird() (BR91990)
 
 2015-07-15 Rex Dieter <rdieter@fedoraproject.org>
    * better for other (non-gnome) GVfs-based desktops, from Yaakov Selkowitz <yselkowi@redhat.com>
