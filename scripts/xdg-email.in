@@ -92,7 +92,7 @@ open_kde()
         kde_email_profile_name=`kreadconfig --file emaildefaults --group Defaults --key Profile`
         client=`kreadconfig --file emaildefaults --group PROFILE_"$kde_email_profile_name" --key EmailClient | cut -d ' ' -f 1`
     fi
-    echo $client | grep thunderbird > /dev/null 2>&1
+    echo $client | grep -E 'thunderbird|icedove' > /dev/null 2>&1
     if [ $? -eq 0 ] ; then
         run_thunderbird "$client" "$1"
     fi
@@ -131,7 +131,7 @@ open_gnome3()
     local desktop
     desktop=`xdg-mime query default "x-scheme-handler/mailto"`
     client=`desktop_file_to_binary "$desktop"`
-    echo $client | grep thunderbird > /dev/null 2>&1
+    echo $client | grep -E 'thunderbird|icedove' > /dev/null 2>&1
     if [ $? -eq 0 ] ; then
         run_thunderbird "$client" "$1"
     fi
@@ -155,7 +155,7 @@ open_gnome()
 {
     local client
     client=`gconftool-2 --get /desktop/gnome/url-handlers/mailto/command | cut -d ' ' -f 1` || ""
-    echo $client | grep thunderbird > /dev/null 2>&1
+    echo $client | grep -E 'thunderbird|icedove' > /dev/null 2>&1
     if [ $? -eq 0 ] ; then
         run_thunderbird "$client" "$1"
     fi
@@ -194,7 +194,7 @@ open_generic()
     local desktop
     desktop=`xdg-mime query default "x-scheme-handler/mailto"`
     client=`desktop_file_to_binary "$desktop"`
-    echo $client | grep thunderbird > /dev/null 2>&1
+    echo $client | grep -E 'thunderbird|icedove' > /dev/null 2>&1
     if [ $? -eq 0 ] ; then
         run_thunderbird "$client" "$1"
     fi
