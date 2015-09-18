@@ -1,5 +1,8 @@
 === xdg-utils 1.1.x ===
 
+2015-09-18 Rex Dieter <rdieter@fedoraproject.org>
+   * xdg-email: Recipients passed to Thunderbird are incorrectly quoted (BR91996)
+
 2015-09-16 Rex Dieter <rdieter@fedoraproject.org>
    * xdg-screensaver support for xautolock (BR89655)
    * xdg-icon-resource: does not support filenames with spaces (BR91758)
