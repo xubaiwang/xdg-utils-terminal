@@ -291,8 +291,10 @@ open_generic()
         file_check=${file_check%%\?*}
         check_input_file "$file_check"
 
-        filetype=`xdg-mime query filetype "$file_check" | sed "s/;.*//"`
-        open_generic_xdg_mime "$file" "$filetype"
+        if [ -n "$DISPLAY" ]; then
+            filetype=`xdg-mime query filetype "$file_check" | sed "s/;.*//"`
+            open_generic_xdg_mime "$file" "$filetype"
+        fi
 
         if which run-mailcap 2>/dev/null 1>&2; then
             run-mailcap --action=view "$file"
@@ -301,7 +303,7 @@ open_generic()
             fi
         fi
 
-        if mimeopen -v 2>/dev/null 1>&2; then
+        if [ -n "$DISPLAY" ] && mimeopen -v 2>/dev/null 1>&2; then
             mimeopen -L -n "$file"
             if [ $? -eq 0 ]; then
                 exit_success
@@ -309,7 +311,9 @@ open_generic()
         fi
     fi
 
-    open_generic_xdg_x_scheme_handler "$1"
+    if [ -n "$DISPLAY" ]; then
+        open_generic_xdg_x_scheme_handler "$1"
+    fi
 
     local oldifs="$IFS"
     IFS=":"
@@ -322,9 +326,14 @@ open_generic()
                 browser_with_arg=$browser;
             fi
 
+            local redirect_output=
+            if [ -n "$DISPLAY" ]; then
+                redirect_output="$xdg_redirect_output"
+            fi
+
             if [ x"$browser_with_arg" = x"$browser" ]; then
-                eval '$browser "$1"'$xdg_redirect_output;
-            else eval '$browser_with_arg'$xdg_redirect_output;
+                eval '$browser "$1"'$redirect_output;
+            else eval '$browser_with_arg'$redirect_output;
             fi
 
             if [ $? -eq 0 ]; then
@@ -407,7 +416,7 @@ esac
 
 # if BROWSER variable is not set, check some well known browsers instead
 if [ x"$BROWSER" = x"" ]; then
-    BROWSER=links2:elinks:links:lynx:w3m
+    BROWSER=www-browser:links2:elinks:links:lynx:w3m
     if [ -n "$DISPLAY" ]; then
         BROWSER=x-www-browser:firefox:seamonkey:mozilla:epiphany:konqueror:chromium-browser:google-chrome:$BROWSER
     fi
