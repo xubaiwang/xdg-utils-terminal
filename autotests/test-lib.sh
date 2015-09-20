@@ -7,6 +7,7 @@ XDG_DATA_HOME=$LABDIR/home-share
 XDG_DATA_DIR=$LABDIR/share
 XDG_DATA_DIR_LOCAL=$LABDIR/share-local
 XDG_DATA_DIRS=$XDG_DATA_DIR_LOCAL:$XDG_DATA_DIR
+BROWSER=
 
 fatal() {
     echo "FATAL: $*" >&2
@@ -136,6 +137,7 @@ assert_equal() {
 run() {
     local de="$1"
     shift
+
     local cmd="$1"
     shift
 
@@ -161,6 +163,7 @@ run() {
         XDG_DATA_HOME=$XDG_DATA_HOME \
         XDG_DATA_DIRS=$XDG_DATA_DIRS \
         DISPLAY=x \
+        BROWSER="$BROWSER" \
         $trace ../scripts/$cmd "$@"
 }
 
