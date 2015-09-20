@@ -270,6 +270,31 @@ open_generic_xdg_x_scheme_handler()
     fi
 }
 
+open_envvar()
+{
+    local oldifs="$IFS"
+    local browser browser_with_arg
+
+    IFS=":"
+    for browser in $BROWSER; do
+        IFS="$oldifs"
+
+        if [ -z "$browser" ]; then
+            continue
+        fi
+
+        if echo "$browser" | grep -q %s; then
+            $(printf "$browser" "$1")
+        else
+            $browser "$1"
+        fi
+
+        if [ $? -eq 0 ]; then
+            exit_success
+        fi
+    done
+}
+
 open_generic()
 {
     # Paths or file:// URLs
@@ -309,29 +334,21 @@ open_generic()
         fi
     fi
 
+    if [ -n "$BROWSER" ]; then
+        open_envvar "$1"
+    fi
+
     open_generic_xdg_x_scheme_handler "$1"
 
-    local oldifs="$IFS"
-    IFS=":"
-    for browser in $BROWSER; do
-        IFS="$oldifs"
-        if [ x"$browser" != x"" ]; then
-
-            browser_with_arg=`printf "$browser" "$1" 2>/dev/null`
-            if [ $? -ne 0 ]; then
-                browser_with_arg=$browser;
-            fi
-
-            if [ x"$browser_with_arg" = x"$browser" ]; then
-                eval '$browser "$1"'$xdg_redirect_output;
-            else eval '$browser_with_arg'$xdg_redirect_output;
-            fi
-
-            if [ $? -eq 0 ]; then
-                exit_success;
-            fi
+    # if BROWSER variable is not set, check some well known browsers instead
+    if [ x"$BROWSER" = x"" ]; then
+        BROWSER=links2:elinks:links:lynx:w3m
+        if [ -n "$DISPLAY" ]; then
+            BROWSER=x-www-browser:firefox:seamonkey:mozilla:epiphany:konqueror:chromium-browser:google-chrome:$BROWSER
         fi
-    done
+    fi
+
+    open_envvar "$1"
 
     exit_failure_operation_impossible "no method available for opening '$1'"
 }
@@ -404,14 +421,6 @@ case "${BROWSER}" in
         BROWSER=
         ;;
 esac
-
-# if BROWSER variable is not set, check some well known browsers instead
-if [ x"$BROWSER" = x"" ]; then
-    BROWSER=links2:elinks:links:lynx:w3m
-    if [ -n "$DISPLAY" ]; then
-        BROWSER=x-www-browser:firefox:seamonkey:mozilla:epiphany:konqueror:chromium-browser:google-chrome:$BROWSER
-    fi
-fi
 
 case "$DE" in
     kde)

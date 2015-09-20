@@ -1,4 +1,6 @@
 === xdg-utils 1.1.x ===
+2015-09-20  Per Olofsson <pelle@debian.org>
+   * xdg-open: Try $BROWSER first in generic mode if it is set by the user.
 
 2015-09-18 Rex Dieter <rdieter@fedoraproject.org>
    * xdg-email: Recipients passed to Thunderbird are incorrectly quoted (BR91996)
