@@ -31,6 +31,18 @@ unmock gvfs-open
 
 test_open_url xfce exo-open
 
-# lxde uses generic for non-file URLs
-
 test_open_url enlightenment enlightenment_open
+
+cat > $XDG_DATA_DIR/applications/mosaic.desktop <<EOF
+[Desktop Entry]
+Name=Mosaic
+Exec=mosaic %u
+EOF
+
+cat > $XDG_DATA_DIR/applications/mimeapps.list <<EOF
+[Default Applications]
+x-scheme-handler/http=mosaic.desktop
+EOF
+
+test_open_url lxde mosaic
+test_open_url generic mosaic
