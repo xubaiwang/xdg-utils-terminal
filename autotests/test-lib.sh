@@ -17,6 +17,8 @@ setup_lab() {
     [ -f test-lib.sh ] || fatal "You must run tests from the autotests directory!"
     [ -e $LABDIR ] && rm -r $LABDIR
     mkdir $LABDIR $BINDIR $XDG_DATA_HOME $XDG_DATA_DIR $XDG_DATA_DIR_LOCAL
+    mkdir $XDG_DATA_HOME/applications $XDG_DATA_DIR/applications \
+          $XDG_DATA_DIR_LOCAL/applications
     touch $COMMANDS_RUN
 }
 
@@ -123,19 +125,32 @@ assert_run() {
     fi
 }
 
+assert_equal() {
+    if [ "$1" = "$2" ]; then
+        return 0
+    else
+        assertion_failed "expected: '$1' got: '$2'"
+    fi
+}
+
 run() {
     local de="$1"
     shift
-    local util="$1"
+    local cmd="$1"
     shift
 
     : > $COMMANDS_RUN
 
     set_de_ $de
 
-    echo "RUN [$de] $util $*"
+    local trace=
+    if [ "$TRACE" = 1 ]; then
+        trace="sh -x"
+    fi
+
+    echo "RUN [$de] $cmd $*" >&2
     env -i \
-        PATH="$BINDIR:$PATH" \
+        PATH="$BINDIR:../scripts:$PATH" \
         SHELL="$SHELL" \
         USERNAME="$USERNAME" \
         HOME="$HOME" \
@@ -145,7 +160,8 @@ run() {
         KDE_SESSION_VERSION="$KDE_SESSION_VERSION" \
         XDG_DATA_HOME=$XDG_DATA_HOME \
         XDG_DATA_DIRS=$XDG_DATA_DIRS \
-        "../scripts/$util" "$@"
+        DISPLAY=x \
+        $trace ../scripts/$cmd "$@"
 }
 
 setup_lab
