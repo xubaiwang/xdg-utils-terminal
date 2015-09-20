@@ -46,3 +46,14 @@ EOF
 
 test_open_url lxde mosaic
 test_open_url generic mosaic
+
+# $BROWSER should override mimeapps.list
+BROWSER=cyberdog
+mock mosaic
+
+test_open_url generic cyberdog
+
+BROWSER="cyberdog --url %s"
+test_open_url generic cyberdog --url
+
+unmock mosaic
