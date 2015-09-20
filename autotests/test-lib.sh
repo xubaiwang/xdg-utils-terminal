@@ -1,8 +1,10 @@
 set -e
 
+TEST_NAME=$0
 LABDIR=lab
 BINDIR=$LABDIR/bin
 COMMANDS_RUN=$LABDIR/commands-run
+FAILED_TESTS=failed-tests
 XDG_DATA_HOME=$LABDIR/home-share
 XDG_DATA_DIR=$LABDIR/share
 XDG_DATA_DIR_LOCAL=$LABDIR/share-local
@@ -115,7 +117,7 @@ is_mocked() {
 
 assertion_failed() {
     echo "ASSERTION FAILED: $*" >&2
-    exit 1
+    echo "$TEST_NAME: $*" >>$FAILED_TESTS
 }
 
 assert_run() {
