@@ -1,8 +1,8 @@
 T := $(sort $(wildcard t-*.sh))
 
-all: $(T)
+test: $(T)
 
 $(T):
 	@echo "*** $@ ***"; ./$@
 
-.PHONY: $(T)
+.PHONY: test $(T)

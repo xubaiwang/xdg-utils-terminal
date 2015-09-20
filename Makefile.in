@@ -5,6 +5,8 @@ install:	$(SUBDIRS:%=%/__install__)
 uninstall:	$(SUBDIRS:%=%/__uninstall__)
 test:		dummy
 	cd tests && $(MAKE) test
+autotest:
+	cd autotests && $(MAKE) test
 clean:		$(SUBDIRS:%=%/__clean__)
 distclean:	clean $(SUBDIRS:%=%/__distclean__)
 	rm -f config.* Makefile
@@ -16,7 +18,7 @@ release:	$(SUBDIRS:%=%/__release__)
 help:	
 	@echo "Usage: make [install|uninstall|release]"
 
-.PHONY: all install uninstall clean distclean dummy
+.PHONY: all install uninstall clean distclean dummy autotest
 dummy:
 
 $(SUBDIRS): dummy
