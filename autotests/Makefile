@@ -14,7 +14,7 @@ remove-failed-tests:
 	-rm failed-tests
 
 $(T): remove-failed-tests
-	@echo "*** $@ ***"; ./$@
+	@echo "*** $@ ***"; sh $@
 
 clean: remove-failed-tests
 	-rm -r lab
