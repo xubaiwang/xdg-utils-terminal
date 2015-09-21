@@ -1,4 +1,4 @@
-SUBDIRS = scripts tests
+SUBDIRS = scripts tests autotests
 
 all:		$(SUBDIRS)
 install:	$(SUBDIRS:%=%/__install__)

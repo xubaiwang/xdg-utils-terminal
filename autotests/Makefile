@@ -14,4 +14,15 @@ remove-failed-tests:
 
 $(T): remove-failed-tests
 	@echo "*** $@ ***"; ./$@
-.PHONY: test remove-failed-tests $(T)
+
+clean: remove-failed-tests
+	-rm -r lab
+
+distclean: clean
+
+all:
+install:
+uninstall:
+release:
+
+.PHONY: test remove-failed-tests all install uninstall release distclean $(T)
