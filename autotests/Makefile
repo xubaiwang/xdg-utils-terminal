@@ -1,5 +1,7 @@
 T := $(sort $(wildcard t-*.sh))
 
+all:
+
 test: $(T)
 	@if [ -e failed-tests ]; then \
 		echo; \
@@ -21,7 +23,6 @@ clean: remove-failed-tests
 
 distclean: clean
 
-all:
 install:
 uninstall:
 release:
