@@ -6,6 +6,7 @@ test: $(T)
 		echo TEST FAILURES:; \
 		echo; \
 		cat failed-tests; \
+		echo; \
 		exit 1; \
 	fi
 
