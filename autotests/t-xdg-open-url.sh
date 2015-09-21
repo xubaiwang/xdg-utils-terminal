@@ -57,3 +57,8 @@ BROWSER="cyberdog --url %s"
 test_open_url generic cyberdog --url
 
 unmock mosaic
+
+mock cyberdog
+run generic xdg-open 'http://www.freedesktop.org/; echo BUSTED'
+assert_run cyberdog --url 'http://www.freedesktop.org/; echo BUSTED'
+unmock cyberdog
