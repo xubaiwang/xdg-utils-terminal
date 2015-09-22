@@ -12,6 +12,8 @@ test: $(T)
 		exit 1; \
 	fi
 
+autotest: test
+
 remove-failed-tests:
 	-rm failed-tests
 
@@ -27,4 +29,5 @@ install:
 uninstall:
 release:
 
-.PHONY: test remove-failed-tests all install uninstall release distclean $(T)
+.PHONY: test autotest remove-failed-tests all install uninstall release \
+	distclean $(T)
