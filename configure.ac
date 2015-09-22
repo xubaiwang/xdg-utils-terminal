@@ -9,5 +9,6 @@ AC_CONFIG_FILES([
     Makefile
     scripts/Makefile
     tests/Makefile
+    autotests/Makefile
 ])
 AC_OUTPUT
