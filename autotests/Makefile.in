@@ -15,13 +15,13 @@ test: $(T)
 autotest: test
 
 remove-failed-tests:
-	-rm failed-tests
+	rm -f failed-tests
 
 $(T): remove-failed-tests
 	@echo "*** $@ ***"; sh $@
 
 clean: remove-failed-tests
-	-rm -r lab
+	rm -fr lab
 
 distclean: clean
 	rm -f Makefile
