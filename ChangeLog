@@ -2,6 +2,12 @@
 2015-09-22 Per Olofsson <pelle@debian.org>
    * Add a fully automated (non-interactive) test suite (under development).
      Run it using "make autotest".
+   * xdg-screensaver: Use the DBus API from a Perl script to inhibit
+     gnome-screensaver. This is necessary since the SimulateUserActivity call
+     is not implemented. Calling Inhibit using dbus-send does not work either
+     since gnome-screensaver watches the pid of the calling process and
+     dbus-send exits immediately. Distributions are advised to make xdg-utils
+     depend on the Perl modules Net::DBus and X11::Protocol.
 
 2015-09-20 Per Olofsson <pelle@debian.org>
    * xdg-open: Try $BROWSER first in generic mode if it is set by the user.
