@@ -19,9 +19,12 @@ fatal() {
 setup_lab() {
     [ -f test-lib.sh ] || fatal "You must run tests from the autotests directory!"
     [ -e $LABDIR ] && rm -r $LABDIR
-    mkdir $LABDIR $BINDIR $XDG_DATA_HOME $XDG_DATA_DIR $XDG_DATA_DIR_LOCAL
-    mkdir $XDG_DATA_HOME/applications $XDG_DATA_DIR/applications \
-          $XDG_DATA_DIR_LOCAL/applications
+    mkdir -p \
+        $BINDIR \
+        $XDG_DATA_HOME/applications $XDG_DATA_DIR/applications \
+        $XDG_DATA_DIR_LOCAL/applications \
+        $XDG_DATA_HOME/icons/hicolor $XDG_DATA_DIR/icons/hicolor \
+        $XDG_DATA_DIR_LOCAL/icons/hicolor
     touch $COMMANDS_RUN
 }
 
