@@ -139,6 +139,14 @@ assert_equal() {
     fi
 }
 
+assert_file_exists() {
+    if [ -e "$1" ]; then
+        return 0
+    else
+        assertion_failed "expected file to exist: $1"
+    fi
+}
+
 run() {
     local de="$1"
     shift
