@@ -10,6 +10,7 @@
      depend on the Perl modules Net::DBus and X11::Protocol. Thanks to
      Ben Hutchings for writing the Perl script.
    * xdg-email: Add support for the $MAILER environment variable.
+   * xdg-open: Add support for running without X.
 
 2015-09-20 Per Olofsson <pelle@debian.org>
    * xdg-open: Try $BROWSER first in generic mode if it is set by the user.
