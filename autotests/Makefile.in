@@ -24,6 +24,7 @@ clean: remove-failed-tests
 	-rm -r lab
 
 distclean: clean
+	rm -f Makefile
 
 install:
 uninstall:
