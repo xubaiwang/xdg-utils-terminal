@@ -7,7 +7,8 @@
      is not implemented. Calling Inhibit using dbus-send does not work either
      since gnome-screensaver watches the pid of the calling process and
      dbus-send exits immediately. Distributions are advised to make xdg-utils
-     depend on the Perl modules Net::DBus and X11::Protocol.
+     depend on the Perl modules Net::DBus and X11::Protocol. Thanks to
+     Ben Hutchings for writing the Perl script.
 
 2015-09-20 Per Olofsson <pelle@debian.org>
    * xdg-open: Try $BROWSER first in generic mode if it is set by the user.
