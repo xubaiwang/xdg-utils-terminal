@@ -13,6 +13,7 @@
    * xdg-open: Add support for running without X.
    * xdg-open: Try www-browser first of the non-X browsers. (www-browser is
      a symlink to the preferred non-X browser in Debian.)
+   * xdg-icon-resouce: Don't try to install anything into empty $icon_dir's.
 
 2015-09-20 Per Olofsson <pelle@debian.org>
    * xdg-open: Try $BROWSER first in generic mode if it is set by the user.
