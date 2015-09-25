@@ -1,4 +1,9 @@
 === xdg-utils 1.1.x ===
+2015-09-25 Per Olofsson <pelle@debian.org>
+   * xdg-utils-common: Add support for $XDG_CURRENT_DESKTOP value X-Generic.
+     When set, xdg-utils will pretend that it is running under a generic DE
+     which can be useful for debugging purposes.
+
 2015-09-23 Per Olofsson <pelle@debian.org>
    * xdg-open: Percent-decode file:// URLs in open_lxde and add testcase.
      (BR89654)

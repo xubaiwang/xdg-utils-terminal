@@ -279,6 +279,9 @@ detectDE()
          XFCE)
            DE=xfce
            ;;
+         X-Generic)
+           DE=generic
+           ;;
       esac
     fi
 
