@@ -163,7 +163,7 @@ assert_run() {
     if grep -Fxq "$*" $COMMANDS_RUN; then
         return 0
     else
-        assertion_failed "assert_run $*"
+        assertion_failed "expected command to be run: $*"
     fi
 }
 
