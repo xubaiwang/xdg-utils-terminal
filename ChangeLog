@@ -6,6 +6,8 @@
    * xdg-open: Fall back to generic mode if gvfs-open and gnome-open
      are missing. Don't try to use gnome-open if running under GNOME 3 or
      Cinnamon. (Debian bug #685304)
+   * xdg-open, xdg-email: Add iceweasel to the list of fallback browsers.
+     (Debian bug #788047)
 
 2015-09-25 Per Olofsson <pelle@debian.org>
    * xdg-utils-common: Add support for $XDG_CURRENT_DESKTOP value X-Generic.
