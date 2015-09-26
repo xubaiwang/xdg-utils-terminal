@@ -2,6 +2,7 @@ set -e
 
 TEST_NAME=$0
 LABDIR=lab
+LABHOME=lab/home
 BINDIR=$LABDIR/bin
 COMMANDS_RUN=$LABDIR/commands-run
 FAILED_TESTS=failed-tests
@@ -23,6 +24,7 @@ setup_lab() {
 
     mkdir -p \
         $BINDIR \
+        $LABHOME \
         $XDG_DATA_HOME/applications $XDG_DATA_DIR/applications \
         $XDG_DATA_DIR_LOCAL/applications \
         $XDG_DATA_HOME/icons/hicolor $XDG_DATA_DIR/icons/hicolor \
@@ -170,7 +172,7 @@ run() {
         PATH="$BINDIR:../scripts:$PATH" \
         SHELL="$SHELL" \
         USERNAME="$USERNAME" \
-        HOME="$HOME" \
+        HOME="$LABHOME" \
         LOGNAME="$LOGNAME" \
         TERM="$TERM" \
         XDG_CURRENT_DESKTOP="$XDG_CURRENT_DESKTOP" \
