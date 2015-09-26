@@ -18,7 +18,7 @@ fatal() {
     exit 1
 }
 
-setup_lab() {
+reset_lab_() {
     [ -f test-lib.sh ] || fatal "You must run tests from the autotests directory!"
     [ -e $LABDIR ] && rm -r $LABDIR
 
@@ -39,7 +39,7 @@ setup_lab() {
 test_that() {
     CURRENT_TEST_CASE="$*"
     echo "- $CURRENT_TEST_CASE"
-    setup_lab
+    reset_lab_
 }
 
 set_de_() {
@@ -198,4 +198,4 @@ run() {
 }
 
 echo "Testing that"
-setup_lab
+reset_lab_
