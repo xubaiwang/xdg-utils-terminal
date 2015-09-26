@@ -35,6 +35,7 @@ reset_lab_() {
         $XDG_CONFIG_HOME \
         $XDG_CONFIG_DIRS \
 
+    mock x-www-browser
     touch $COMMANDS_RUN
 }
 
