@@ -6,6 +6,7 @@ LABHOME=lab/home
 BINDIR=$LABDIR/bin
 COMMANDS_RUN=$LABDIR/commands-run
 FAILED_TESTS=failed-tests
+CURRENT_TEST_CASE=
 XDG_DATA_HOME=$LABDIR/home-share
 XDG_DATA_DIR=$LABDIR/share
 XDG_DATA_DIR_LOCAL=$LABDIR/share-local
@@ -33,6 +34,12 @@ setup_lab() {
         $XDG_CONFIG_DIRS \
 
     touch $COMMANDS_RUN
+}
+
+test_that() {
+    CURRENT_TEST_CASE="$*"
+    echo "- $CURRENT_TEST_CASE"
+    setup_lab
 }
 
 set_de_() {
@@ -127,7 +134,8 @@ is_mocked() {
 
 assertion_failed() {
     echo "ASSERTION FAILED: $*" >&2
-    echo "$TEST_NAME: $*" >>$FAILED_TESTS
+    echo "$TEST_NAME: When testing that $CURRENT_TEST_CASE:" \
+         "Assertion failed: $*" >>$FAILED_TESTS
 }
 
 assert_run() {
@@ -189,4 +197,5 @@ run() {
         $trace ../scripts/$cmd "$@"
 }
 
+echo "Testing that"
 setup_lab
