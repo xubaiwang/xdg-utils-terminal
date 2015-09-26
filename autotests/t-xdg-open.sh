@@ -55,16 +55,8 @@ run lxde xdg-open file://$(pwd)/$LABDIR/file%2etxt
 assert_run pcmanfm $(pwd)/$LABDIR/file.txt
 
 test_that_it "looks up a desktop file with x-scheme-handler/* using mimeapps.list in generic mode and under LXDE"
-cat > $XDG_DATA_DIR/applications/mosaic.desktop <<EOF
-[Desktop Entry]
-Name=Mosaic
-Exec=mosaic %u
-EOF
-
-cat > $XDG_DATA_DIR/applications/mimeapps.list <<EOF
-[Default Applications]
-x-scheme-handler/http=mosaic.desktop
-EOF
+mock_desktop_file mosaic %u
+mock_default_app x-scheme-handler/http mosaic
 
 test_open_url lxde mosaic
 test_open_url generic mosaic

@@ -134,6 +134,24 @@ is_mocked() {
     fi
 }
 
+mock_desktop_file() {
+    cat > "$XDG_DATA_DIR/applications/$1.desktop" <<EOF
+[Desktop Entry]
+Type=Application
+Name=$1
+Exec=$*
+EOF
+}
+
+mock_default_app() {
+    local mimetype="$1" app="$2"
+    local mimeapps=$XDG_DATA_DIR/applications/mimeapps.list
+    if ! [ -e $mimeapps ]; then
+        echo "[Default Applications]" > $mimeapps
+    fi
+    echo "$mimetype=$app.desktop" >> $mimeapps
+}
+
 assertion_failed() {
     echo "ASSERTION FAILED: $*" >&2
     echo "$TEST_NAME: Assertion failed when testing that $COMMAND_TESTED" \
