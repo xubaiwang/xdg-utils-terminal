@@ -5,7 +5,7 @@
      application.
    * xdg-open: Fall back to generic mode if gvfs-open and gnome-open
      are missing. Don't try to use gnome-open if running under GNOME 3 or
-     Cinnamon.
+     Cinnamon. (Debian bug #685304)
 
 2015-09-25 Per Olofsson <pelle@debian.org>
    * xdg-utils-common: Add support for $XDG_CURRENT_DESKTOP value X-Generic.
