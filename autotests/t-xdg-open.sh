@@ -13,12 +13,28 @@ test_open_url() {
     unmock $cmd
 }
 
+test_that_it opens a URL with gvfs-open under GNOME 2 and 3
+test_open_url gnome3 gvfs-open
+test_open_url gnome2 gvfs-open
+
 test_that_it opens a URL with gnome-open if gvfs-open is missing under GNOME 2
 mock_missing gvfs-open
 test_open_url gnome2 gnome-open
 
-test_that_it opens a URL with gvfs-open under GNOME 3
-test_open_url gnome3 gvfs-open
+test_that_it opens a URL with the generic method if gvfs-open is missing \
+             under GNOME 3
+mock_missing gvfs-open
+mock_desktop_file mosaic %u
+mock_default_app x-scheme-handler/http mosaic
+test_open_url gnome3 mosaic
+
+test_that_it opens a URL with the generic method if gvfs-open and gnome-open \
+             is missing under GNOME 2
+mock_missing gvfs-open
+mock_missing gnome-open
+mock_desktop_file mosaic %u
+mock_default_app x-scheme-handler/http mosaic
+test_open_url gnome2 mosaic
 
 test_that_it opens a URL with kfmclient under KDE 3
 test_open_url kde3 kfmclient exec
