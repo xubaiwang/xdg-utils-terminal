@@ -26,14 +26,14 @@ reset_lab_() {
     BROWSER=
 
     mkdir -p \
-        $BINDIR \
-        $LABHOME \
-        $XDG_DATA_HOME/applications $XDG_DATA_DIR/applications \
-        $XDG_DATA_DIR_LOCAL/applications \
-        $XDG_DATA_HOME/icons/hicolor $XDG_DATA_DIR/icons/hicolor \
-        $XDG_DATA_DIR_LOCAL/icons/hicolor \
-        $XDG_CONFIG_HOME \
-        $XDG_CONFIG_DIRS \
+          $BINDIR \
+          $LABHOME \
+          $XDG_DATA_HOME/applications $XDG_DATA_DIR/applications \
+          $XDG_DATA_DIR_LOCAL/applications \
+          $XDG_DATA_HOME/icons/hicolor $XDG_DATA_DIR/icons/hicolor \
+          $XDG_DATA_DIR_LOCAL/icons/hicolor \
+          $XDG_CONFIG_HOME \
+          $XDG_CONFIG_DIRS \
 
     mock x-www-browser
     touch $COMMANDS_RUN
