@@ -10,6 +10,7 @@ XDG_DATA_HOME=$LABDIR/home-share
 XDG_DATA_DIR=$LABDIR/share
 XDG_DATA_DIR_LOCAL=$LABDIR/share-local
 XDG_DATA_DIRS=$XDG_DATA_DIR_LOCAL:$XDG_DATA_DIR
+XDG_CONFIG_DIRS=$LABDIR/etc-xdg
 
 fatal() {
     echo "FATAL: $*" >&2
@@ -28,7 +29,9 @@ setup_lab() {
         $XDG_DATA_HOME/applications $XDG_DATA_DIR/applications \
         $XDG_DATA_DIR_LOCAL/applications \
         $XDG_DATA_HOME/icons/hicolor $XDG_DATA_DIR/icons/hicolor \
-        $XDG_DATA_DIR_LOCAL/icons/hicolor
+        $XDG_DATA_DIR_LOCAL/icons/hicolor \
+        $XDG_CONFIG_DIRS \
+
     touch $COMMANDS_RUN
 }
 
@@ -180,6 +183,7 @@ run() {
         KDE_SESSION_VERSION="$KDE_SESSION_VERSION" \
         XDG_DATA_HOME=$XDG_DATA_HOME \
         XDG_DATA_DIRS=$XDG_DATA_DIRS \
+        XDG_CONFIG_DIRS=$XDG_CONFIG_DIRS \
         DISPLAY=x \
         BROWSER="$BROWSER" \
         $trace ../scripts/$cmd "$@"
