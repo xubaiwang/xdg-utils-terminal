@@ -13,21 +13,23 @@ test_open_url() {
     unmock $cmd
 }
 
-test_that_it opens a URL with gvfs-open under GNOME 2 and 3
+test_that_it opens a URL with gvfs-open under GNOME 2, 3, and Cinnamon
 test_open_url gnome3 gvfs-open
 test_open_url gnome2 gvfs-open
+test_open_url cinnamon gvfs-open
 
 test_that_it opens a URL with gnome-open if gvfs-open is missing under GNOME 2
 mock_missing gvfs-open
 test_open_url gnome2 gnome-open
 
 test_that_it opens a URL with the generic method if gvfs-open is missing \
-             under GNOME 3
+             under GNOME 3 and Cinnamon
 mock_missing gvfs-open
 mock gnome-open
 mock_desktop_file mosaic %u
 mock_default_app x-scheme-handler/http mosaic
 test_open_url gnome3 mosaic
+test_open_url cinnamon mosaic
 
 test_that_it opens a URL with the generic method if gvfs-open and gnome-open \
              is missing under GNOME 2
