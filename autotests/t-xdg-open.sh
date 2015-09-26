@@ -32,7 +32,7 @@ test_open_url gnome3 mosaic
 test_open_url cinnamon mosaic
 
 test_that_it opens a URL with the generic method if gvfs-open and gnome-open \
-             is missing under GNOME 2
+             are missing under GNOME 2
 mock_missing gvfs-open
 mock_missing gnome-open
 mock_desktop_file mosaic %u
