@@ -140,12 +140,29 @@ open_kde()
     fi
 }
 
-open_gnome()
+open_gnome3()
 {
-    if gvfs-open --help 2>/dev/null 1>&2; then
+    if gvfs-open --help >/dev/null 2>&1; then
         gvfs-open "$1"
     else
+        open_generic "$1"
+    fi
+
+    if [ $? -eq 0 ]; then
+        exit_success
+    else
+        exit_failure_operation_failed
+    fi
+}
+
+open_gnome()
+{
+    if gvfs-open --help >/dev/null 2>&1; then
+        gvfs-open "$1"
+    elif gnome-open --help >/dev/null 2>&1; then
         gnome-open "$1"
+    else
+        open_generic "$1"
     fi
 
     if [ $? -eq 0 ]; then
@@ -443,7 +460,11 @@ case "$DE" in
     open_kde "$url"
     ;;
 
-    gnome*|cinnamon)
+    gnome3|cinnamon)
+    open_gnome3 "$url"
+    ;;
+
+    gnome)
     open_gnome "$url"
     ;;
 

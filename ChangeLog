@@ -3,6 +3,9 @@
    * xdg-mime: Check ~/.config/mimeapps.list instead of
      ~/.config/applications/mimeapps.list when looking for default
      application.
+   * xdg-open: Fall back to generic mode if gvfs-open and gnome-open
+     are missing. Don't try to use gnome-open if running under GNOME 3 or
+     Cinnamon.
 
 2015-09-25 Per Olofsson <pelle@debian.org>
    * xdg-utils-common: Add support for $XDG_CURRENT_DESKTOP value X-Generic.

@@ -24,6 +24,7 @@ test_open_url gnome2 gnome-open
 test_that_it opens a URL with the generic method if gvfs-open is missing \
              under GNOME 3
 mock_missing gvfs-open
+mock gnome-open
 mock_desktop_file mosaic %u
 mock_default_app x-scheme-handler/http mosaic
 test_open_url gnome3 mosaic
