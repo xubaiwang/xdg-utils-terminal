@@ -178,7 +178,10 @@ run() {
         trace="sh -x"
     fi
 
-    echo "RUN [$de] $cmd $*" >&2
+    if [ "$TRACE" = 1 ] || [ "$TRACE_RUN" = 1 ]; then
+        echo "RUN [$de] $cmd $*" >&2
+    fi
+
     env -i \
         PATH="$BINDIR:../scripts:$PATH" \
         SHELL="$SHELL" \
