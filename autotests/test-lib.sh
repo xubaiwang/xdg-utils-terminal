@@ -38,7 +38,7 @@ reset_lab_() {
 
 test_that_it() {
     CURRENT_TEST_CASE="$*"
-    echo "- $CURRENT_TEST_CASE"
+    echo "  - $CURRENT_TEST_CASE"
     reset_lab_
 }
 
@@ -200,4 +200,4 @@ run() {
         $trace ../scripts/$cmd "$@"
 }
 
-echo "Testing that $COMMAND_TESTED"
+echo "* Testing that $COMMAND_TESTED"
