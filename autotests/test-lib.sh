@@ -9,7 +9,6 @@ XDG_DATA_HOME=$LABDIR/home-share
 XDG_DATA_DIR=$LABDIR/share
 XDG_DATA_DIR_LOCAL=$LABDIR/share-local
 XDG_DATA_DIRS=$XDG_DATA_DIR_LOCAL:$XDG_DATA_DIR
-BROWSER=
 
 fatal() {
     echo "FATAL: $*" >&2
@@ -19,6 +18,9 @@ fatal() {
 setup_lab() {
     [ -f test-lib.sh ] || fatal "You must run tests from the autotests directory!"
     [ -e $LABDIR ] && rm -r $LABDIR
+
+    BROWSER=
+
     mkdir -p \
         $BINDIR \
         $XDG_DATA_HOME/applications $XDG_DATA_DIR/applications \
