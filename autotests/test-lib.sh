@@ -145,7 +145,7 @@ EOF
 
 mock_default_app() {
     local mimetype="$1" app="$2"
-    local mimeapps=$XDG_DATA_DIR/applications/mimeapps.list
+    local mimeapps=$XDG_CONFIG_HOME/mimeapps.list
     if ! [ -e $mimeapps ]; then
         echo "[Default Applications]" > $mimeapps
     fi
