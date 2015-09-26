@@ -11,6 +11,7 @@ XDG_DATA_HOME=$LABDIR/home-share
 XDG_DATA_DIR=$LABDIR/share
 XDG_DATA_DIR_LOCAL=$LABDIR/share-local
 XDG_DATA_DIRS=$XDG_DATA_DIR_LOCAL:$XDG_DATA_DIR
+XDG_CONFIG_HOME=$LABHOME/.config
 XDG_CONFIG_DIRS=$LABDIR/etc-xdg
 
 fatal() {
@@ -31,6 +32,7 @@ reset_lab_() {
         $XDG_DATA_DIR_LOCAL/applications \
         $XDG_DATA_HOME/icons/hicolor $XDG_DATA_DIR/icons/hicolor \
         $XDG_DATA_DIR_LOCAL/icons/hicolor \
+        $XDG_CONFIG_HOME \
         $XDG_CONFIG_DIRS \
 
     touch $COMMANDS_RUN
