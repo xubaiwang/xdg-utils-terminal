@@ -42,6 +42,18 @@ test_open_url xfce exo-open
 test_that_it opens a URL with enlightenment_open under Enlightenment
 test_open_url enlightenment enlightenment_open
 
+test_that_it opens a file path with pcmanfm under LXDE
+mock pcmanfm
+touch $LABDIR/file.txt
+run lxde xdg-open $LABDIR/file.txt
+assert_run pcmanfm $(pwd)/$LABDIR/file.txt
+
+test_that_it percent-decodes a file:// URL and opens it with pcmanfm under LXDE
+mock pcmanfm
+touch $LABDIR/file.txt
+run lxde xdg-open file://$(pwd)/$LABDIR/file%2etxt
+assert_run pcmanfm $(pwd)/$LABDIR/file.txt
+
 test_that_it "looks up a desktop file with x-scheme-handler/* using mimeapps.list in generic mode and under LXDE"
 cat > $XDG_DATA_DIR/applications/mosaic.desktop <<EOF
 [Desktop Entry]
@@ -72,3 +84,4 @@ mock cyberdog
 run generic xdg-open 'http://www.freedesktop.org/; echo BUSTED'
 assert_run cyberdog --url 'http://www.freedesktop.org/; echo BUSTED'
 unmock cyberdog
+
