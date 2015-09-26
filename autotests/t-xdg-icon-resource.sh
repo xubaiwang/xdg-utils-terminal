@@ -1,7 +1,8 @@
 #!/bin/sh
+COMMAND_TESTED=xdg-icon-resource
 . ./test-lib.sh
 
-test_that it installs a png icon system-wide
+test_that_it installs a png icon system-wide
 touch $LABDIR/icon.png
 run generic xdg-icon-resource install --mode system --size 256 \
     $LABDIR/icon.png myvendor-myapp

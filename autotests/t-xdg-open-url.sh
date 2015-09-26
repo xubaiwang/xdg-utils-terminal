@@ -1,4 +1,5 @@
 #!/bin/sh
+COMMAND_TESTED=xdg-open
 . ./test-lib.sh
 
 test_open_url() {
@@ -12,37 +13,36 @@ test_open_url() {
     unmock $cmd
 }
 
-test_that it opens a URL with gnome-open if gvfs-open is missing under GNOME 2
+test_that_it opens a URL with gnome-open if gvfs-open is missing under GNOME 2
 mock_missing gvfs-open
 test_open_url gnome2 gnome-open
 
-test_that it opens a URL with gvfs-open under GNOME 3
+test_that_it opens a URL with gvfs-open under GNOME 3
 test_open_url gnome3 gvfs-open
 
-test_that it opens a URL with kfmclient under KDE 3
+test_that_it opens a URL with kfmclient under KDE 3
 test_open_url kde3 kfmclient exec
 
-test_that it opens a URL with kde-open under KDE 4
+test_that_it opens a URL with kde-open under KDE 4
 test_open_url kde4 kde-open
 
-test_that it opens a URL with kde-open5 under KDE 5
+test_that_it opens a URL with kde-open5 under KDE 5
 test_open_url kde5 kde-open5
 
-test_that it opens a URL with gvfs-open under MATE
+test_that_it opens a URL with gvfs-open under MATE
 test_open_url mate gvfs-open
 
-test_that it opens a URL with mate-open if gvfs-open is missing under MATE
+test_that_it opens a URL with mate-open if gvfs-open is missing under MATE
 mock_missing gvfs-open
 test_open_url mate mate-open
 
-test_that it opens a URL with exo-open under XFCE
+test_that_it opens a URL with exo-open under XFCE
 test_open_url xfce exo-open
 
-test_that it opens a URL with enlightenment_open under Enlightenment
+test_that_it opens a URL with enlightenment_open under Enlightenment
 test_open_url enlightenment enlightenment_open
 
-test_that "it looks up a desktop file with x-scheme-handler/* using
-mimeapps.list in generic mode and under LXDE"
+test_that_it "looks up a desktop file with x-scheme-handler/* using mimeapps.list in generic mode and under LXDE"
 cat > $XDG_DATA_DIR/applications/mosaic.desktop <<EOF
 [Desktop Entry]
 Name=Mosaic

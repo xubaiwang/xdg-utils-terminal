@@ -36,7 +36,7 @@ reset_lab_() {
     touch $COMMANDS_RUN
 }
 
-test_that() {
+test_that_it() {
     CURRENT_TEST_CASE="$*"
     echo "- $CURRENT_TEST_CASE"
     reset_lab_
@@ -134,8 +134,8 @@ is_mocked() {
 
 assertion_failed() {
     echo "ASSERTION FAILED: $*" >&2
-    echo "$TEST_NAME: When testing that $CURRENT_TEST_CASE:" \
-         "Assertion failed: $*" >>$FAILED_TESTS
+    echo "$TEST_NAME: Assertion failed when testing that $COMMAND_TESTED" \
+         "$CURRENT_TEST_CASE: $*" >> $FAILED_TESTS
 }
 
 assert_run() {
@@ -200,4 +200,4 @@ run() {
         $trace ../scripts/$cmd "$@"
 }
 
-echo "Testing that"
+echo "Testing that $COMMAND_TESTED"
