@@ -198,4 +198,3 @@ run() {
 }
 
 echo "Testing that"
-reset_lab_

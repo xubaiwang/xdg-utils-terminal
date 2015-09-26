@@ -1,6 +1,7 @@
 #!/bin/sh
 . ./test-lib.sh
 
+test_that it reads \$XDG_DATA_DIR/applications/mimeapps.list
 cat > $XDG_DATA_DIR/applications/mimeapps.list <<EOF
 [Default Applications]
 x-scheme-handler/http=mosaic.desktop
