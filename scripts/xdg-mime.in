@@ -338,24 +338,23 @@ defapp_fallback()
     fi
 }
 
-defapp_generic()
+check_mimeapps_list()
 {
-    MIME="$1"
-    xdg_config_home="$XDG_CONFIG_HOME"
-    [ -n "$xdg_config_home" ] || xdg_config_home="$HOME/.config"
-    xdg_config_dirs="$XDG_CONFIG_DIRS"
-    [ -n "$xdg_config_dirs" ] || xdg_config_dirs="/etc/xdg"
-    xdg_user_dir="$XDG_DATA_HOME"
-    [ -n "$xdg_user_dir" ] || xdg_user_dir="$HOME/.local/share"
-    xdg_system_dirs="$XDG_DATA_DIRS"
-    [ -n "$xdg_system_dirs" ] || xdg_system_dirs=/usr/local/share/:/usr/share/
+    local mimetype="$1" dir="$2"
+    local desktop oldifs="$IFS"
 
-    for x in `echo "$xdg_config_home:$xdg_config_dirs:$xdg_user_dir:$xdg_system_dirs" | sed 's/:/ /g'`; do
-      for prefix in `echo ${XDG_CURRENT_DESKTOP} | sed 's/\(:\|$\)/- /g' | tr '[:upper:]' '[:lower:]'` ""; do
-         mimeapps_list="$x/applications/${prefix}mimeapps.list"
-         if [ -f "$mimeapps_list" ] ; then
+    IFS=:
+    for desktop in $XDG_CURRENT_DESKTOP ''; do
+        IFS="$oldifs"
+        if [ -n "$desktop" ]; then
+            local prefix=$(echo "$desktop-" | tr '[:upper:]' '[:lower:]')
+        else
+            local prefix=
+        fi
+        local mimeapps_list="$dir/${prefix}mimeapps.list"
+        if [ -f "$mimeapps_list" ] ; then
             DEBUG 2 "Checking $mimeapps_list"
-            trader_result=`awk -v mimetype="$MIME" '
+            local result=$(awk -v mimetype="$mimetype" '
     BEGIN {
         prefix=mimetype "="
         indefault=0
@@ -371,13 +370,39 @@ defapp_generic()
             found=1
         }
     }
-' $mimeapps_list`
-            if [ -n "$trader_result" ] ; then
-                echo $trader_result
+' "$mimeapps_list")
+            if [ -n "$result" ]; then
+                echo "$result"
                 exit_success
             fi
-         fi
-      done
+        fi
+    done
+}
+
+defapp_generic()
+{
+    MIME="$1"
+    xdg_config_home="$XDG_CONFIG_HOME"
+    [ -n "$xdg_config_home" ] || xdg_config_home="$HOME/.config"
+    xdg_config_dirs="$XDG_CONFIG_DIRS"
+    [ -n "$xdg_config_dirs" ] || xdg_config_dirs="/etc/xdg"
+    xdg_user_dir="$XDG_DATA_HOME"
+    [ -n "$xdg_user_dir" ] || xdg_user_dir="$HOME/.local/share"
+    xdg_system_dirs="$XDG_DATA_DIRS"
+    [ -n "$xdg_system_dirs" ] || xdg_system_dirs=/usr/local/share/:/usr/share/
+
+    local oldifs="$IFS" dir
+
+    IFS=:
+    for dir in $xdg_config_home $xdg_config_dirs; do
+        IFS="$oldifs"
+        check_mimeapps_list "$MIME" "$dir"
+    done
+
+    IFS=:
+    for dir in $xdg_user_dir $xdg_system_dirs; do
+        IFS="$oldifs"
+        check_mimeapps_list "$MIME" "$dir/applications"
     done
 
     for x in `echo "$xdg_user_dir:$xdg_system_dirs" | sed 's/:/ /g'`; do

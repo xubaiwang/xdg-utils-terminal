@@ -1,4 +1,9 @@
 === xdg-utils 1.1.x ===
+2015-09-26 Per Olofsson <pelle@debian.org>
+   * xdg-mime: Check ~/.config/mimeapps.list instead of
+     ~/.config/applications/mimeapps.list when looking for default
+     application.
+
 2015-09-25 Per Olofsson <pelle@debian.org>
    * xdg-utils-common: Add support for $XDG_CURRENT_DESKTOP value X-Generic.
      When set, xdg-utils will pretend that it is running under a generic DE
