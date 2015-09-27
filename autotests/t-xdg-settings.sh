@@ -23,3 +23,11 @@ for de in gnome3 cinnamon lxde mate generic; do
         footorrent.desktop \
         "$(run $de xdg-settings get default-url-scheme-handler magnet)"
 done
+
+test_that_it uses \$BROWSER in generic mode
+mock mosaic
+BROWSER=mosaic
+mock_desktop_file mosaic
+mock_default_app x-scheme-handler/http cyberdog
+assert_equal mosaic.desktop \
+             "$(run generic xdg-settings get default-web-browser)"
