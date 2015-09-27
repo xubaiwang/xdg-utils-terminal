@@ -421,7 +421,7 @@ check_xfce_desktop_file()
             sed -e 's/^Type=.*/Type=X-XFCE-Helper/' -e '/^Exec[=[]/,$d' "$file" > "$target/$1"
             echo "X-XFCE-Category=WebBrowser" >> "$target/$1"
             # Change %F, %f, %U, and %u to "%s".
-            command="`grep -E "^Exec(\[[^]=]*])?=" "$file" | cut -d= -f 2- | sed -e 's/%[FfUu]/"%s"/g' | head -1`"
+            command=$(grep -E '^Exec(\[[^]=]*])?=' "$file" | cut -d= -f 2- | sed -e 's/%[FfUu]/"%s"/g' | head -1)
             echo "X-XFCE-Commands=`echo "$command" | first_word`" >> "$target/$1"
             echo "X-XFCE-CommandsWithParameter=$command" >> "$target/$1"
             # Copy rest of file (from first "Exec=" line to end-of-file).
@@ -463,6 +463,75 @@ set_browser_xfce()
 }
 
 # }}} xfce
+# {{{ generic
+
+get_browser_generic()
+{
+    if [ -n "$BROWSER" ]; then
+        local browser=$(binary_to_desktop_file "${BROWSER%%:*}")
+        if [ -n "$browser" ]; then
+            echo "$browser"
+            return 0
+        fi
+    fi
+
+    if get_browser_mime x-scheme-handler/http; then
+        return 0
+    fi
+
+    # Debian and derivatives have x-www-browser
+    local browser=$(binary_to_desktop_file x-www-browser)
+    if [ -n "$browser" ]; then
+        echo "$browser"
+        return 0
+    fi
+
+    return 4
+}
+
+check_browser_generic()
+{
+    local desktop="$1"
+
+    # Check HTTP
+    if [ "$desktop" != "$(get_browser_generic)" ]; then
+        echo no
+        exit_success
+    fi
+
+    # Check text/html
+    if [ "$desktop" != "$(get_browser_mime)" ]; then
+        echo no
+        exit_success
+    fi
+
+    # Check HTTPS
+    if [ "$desktop" != "$(get_url_scheme_handler_generic https)" ]; then
+        echo no
+        exit_success
+    fi
+
+    echo yes
+    exit_success
+}
+
+set_browser_generic()
+{
+    if [ -n "$BROWSER" ]; then
+        exit_failure_operation_failed \
+            "\$BROWSER is set and can't be changed with xdg-settings"
+    fi
+
+    binary=$(desktop_file_to_binary "$1")
+    [ -n "$binary" ] || exit_failure_file_missing
+
+    set_browser_mime "$1" text/html || return
+
+    for protocol in http https about unknown; do
+        set_browser_mime "$1" "x-scheme-handler/$protocol" || return
+    done
+}
+# }}} generic
 # }}} default browser
 
 # {{{ default url scheme handler
@@ -629,6 +698,53 @@ set_url_scheme_handler_xfce()
 }
 
 # }}} xfce
+# {{{ generic
+
+get_url_scheme_handler_generic()
+{
+    if [ -n "$BROWSER" ] && ([ "$1" = http ] || [ "$1" = https ]); then
+        get_browser_generic
+    else
+        get_browser_mime "x-scheme-handler/$1"
+    fi
+}
+
+check_url_scheme_handler_generic()
+{
+    local scheme="$1" desktop="$2"
+
+    if [ -z "$(desktop_file_to_binary "$desktop")" ]; then
+        echo no
+        exit_success
+    fi
+
+    local browser=$(get_url_scheme_handler_generic "$scheme")
+    if [ "$browser" != "$desktop" ]; then
+        echo no
+        exit_success
+    fi
+    echo yes
+    exit_success
+}
+
+set_url_scheme_handler_generic()
+{
+    local scheme="$1" desktop="$2"
+
+    if [ -n "$BROWSER" ] && \
+           ([ "$scheme" = http ] || [ "$scheme" = https ]); then
+        exit_failure_operation_failed \
+            "\$BROWSER is set and can't be changed with xdg-settings"
+    fi
+
+    if [ -z "$(desktop_file_to_binary "$desktop")" ]; then
+        exit_failure_file_missing
+    fi
+
+    set_browser_mime "$desktop" "x-scheme-handler/$scheme"
+}
+
+# }}} generic
 # }}} default protocol handler
 
 dispatch_specific()
@@ -694,45 +810,6 @@ dispatch_specific()
     fi
 }
 
-dispatch_generic()
-{
-    # We only know how to get or check the default web browser.
-    [ x"$op" != x"get" -a x"$op" != x"check" ] && exit_failure_operation_impossible
-    [ x"$parm" != x"default-web-browser" ] && exit_failure_operation_impossible
-
-    # First look in $BROWSER
-    if [ x"$BROWSER" != x ]; then
-        binary="`which "${BROWSER%%:*}"`"
-    else
-        # Debian and Ubuntu (and others?) have x-www-browser.
-        binary="`which x-www-browser`"
-    fi
-
-    [ "$binary" ] || exit_failure_operation_failed
-
-    binary="`readlink -f "$binary"`"
-
-    [ "$binary" ] || exit_failure_operation_failed
-
-    if [ x"$op" = x"get" ]; then
-        desktop="`binary_to_desktop_file "$binary"`"
-        basename "$desktop"
-    else
-        # $op = "check"
-        check="`desktop_file_to_binary "$1"`"
-        if [ -z "$check" ]; then
-            echo no
-            exit_success
-        fi
-        if [ x"$binary" != x"$check" ]; then
-            echo no
-            exit_success
-        fi
-        echo yes
-    fi
-    exit_success
-}
-
 if [ x"$1" = x"--list" ]; then
     echo "Known properties:"
     # Extract the property names from dispatch_specific() above.
@@ -776,7 +853,7 @@ case "$DE" in
     ;;
 
     generic)
-    dispatch_generic "$@"
+    dispatch_specific generic "$@"
     ;;
 
     *)

@@ -1,6 +1,7 @@
 === xdg-utils 1.1.x ===
 2015-09-27 Per Olofsson <pelle@debian.org>
    * xdg-settings: Detect generic DE instead of failing. (Debian bug #787791)
+   * xdg-settings: Add a proper generic mode.
 
 2015-09-26 Per Olofsson <pelle@debian.org>
    * xdg-mime: Check ~/.config/mimeapps.list instead of
