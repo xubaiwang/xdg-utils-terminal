@@ -754,6 +754,10 @@ fi
 
 detectDE
 
+if [ -z "$DE" ]; then
+    DE=generic
+fi
+
 case "$DE" in
     kde)
     dispatch_specific kde "$@"
