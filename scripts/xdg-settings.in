@@ -470,7 +470,7 @@ get_browser_generic()
     if [ -n "$BROWSER" ]; then
         local browser=$(binary_to_desktop_file "${BROWSER%%:*}")
         if [ -n "$browser" ]; then
-            echo "$browser"
+            echo "$(basename "$browser")"
             return 0
         fi
     fi
@@ -482,7 +482,7 @@ get_browser_generic()
     # Debian and derivatives have x-www-browser
     local browser=$(binary_to_desktop_file x-www-browser)
     if [ -n "$browser" ]; then
-        echo "$browser"
+        echo "$(basename "$browser")"
         return 0
     fi
 
