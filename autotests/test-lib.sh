@@ -66,11 +66,7 @@ set_de_() {
             ;;
         kde3)
             XDG_CURRENT_DESKTOP=KDE
-            cat > $BINDIR/kde-config <<EOF
-#!/bin/sh
-echo "KDE: 3.5.5"
-EOF
-            chmod +x $BINDIR/kde-config
+            mock_output kde-config "KDE: 3.5.5"
             ;;
         kde4)
             XDG_CURRENT_DESKTOP=KDE
@@ -119,6 +115,20 @@ mock() {
 
 mock_missing() {
     mock_ret 127 "$@"
+}
+
+mock_output() {
+    local command="$1" output="$2"
+    local executable="$BINDIR/$command"
+
+    cat >"$executable" <<EOF
+#!/bin/sh
+set -e
+echo "$command \$*" >> $(pwd)/$COMMANDS_RUN
+echo "$output"
+exit 0
+EOF
+    chmod +x "$executable"
 }
 
 unmock() {
