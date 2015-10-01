@@ -1,4 +1,4 @@
-T := $(sort $(wildcard t-*.sh))
+T := $(sort $(wildcard t-*))
 
 all:
 
