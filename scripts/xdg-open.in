@@ -86,6 +86,8 @@ file_url_to_path()
     local file=$1
     if echo "$file" | grep -q '^file:///'; then
         file=${file#file://}
+        file=${file%%#*}
+        file=${file_check%%\?*}
         local printf=printf
         if [ -x /usr/bin/printf ]; then
             printf=/usr/bin/printf
@@ -344,9 +346,7 @@ open_generic()
     if is_file_url_or_path "$1"; then
         local file=$(file_url_to_path "$1")
 
-        file_check=${file%%#*}
-        file_check=${file_check%%\?*}
-        check_input_file "$file_check"
+        check_input_file "$file"
 
         if [ -n "$DISPLAY" ]; then
             filetype=`xdg-mime query filetype "$file_check" | sed "s/;.*//"`

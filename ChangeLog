@@ -1,6 +1,9 @@
 === xdg-utils 1.1.x ===
 2015-10-03 Per Olofsson <pelle@debian.org>
    * xdg-email: Rewrite open_kde()
+   * xdg-open: Only strip queries (?) and fragments (#) from file URLs before
+     decoding them, not from (decoded) paths. Otherwise we can't open files
+     with hash or question marks in their names. (Debian bug #800355)
 
 2015-09-27 Per Olofsson <pelle@debian.org>
    * xdg-settings: Detect generic DE instead of failing. (Debian bug #787791)
