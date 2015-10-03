@@ -1,4 +1,7 @@
 === xdg-utils 1.1.x ===
+2015-10-03 Per Olofsson <pelle@debian.org>
+   * xdg-email: Rewrite open_kde()
+
 2015-09-27 Per Olofsson <pelle@debian.org>
    * xdg-settings: Detect generic DE instead of failing. (Debian bug #787791)
    * xdg-settings: Add a proper generic mode.
