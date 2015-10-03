@@ -29,8 +29,8 @@ done
 
 if [ "$group" = Defaults ] && [ "$key" = Profile ]; then
     echo DefProf
-elif [ "$group" = PROFILE_ ] && [ "$key" = EmailClient ]; then
-    echo "eudora %u"
+elif [ "$group" = PROFILE_DefProf ] && [ "$key" = EmailClient ]; then
+    echo "thunderbird %u"
 else
     abort "unknown group $group with key $key"
 fi
