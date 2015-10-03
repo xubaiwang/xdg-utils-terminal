@@ -115,3 +115,18 @@ mock_desktop_file textedit %f
 mock textedit
 run generic xdg-open $LABDIR/test.txt
 assert_run textedit $LABDIR/test.txt
+
+test_that_it can open files with \# characters in their name in generic mode
+echo foo > $LABDIR/test\#file.txt
+cat >$BINDIR/xdg-mime <<EOF
+#!/bin/sh
+case "\$2" in
+    filetype) echo text/plain ;;
+    default) echo textedit.desktop ;;
+esac
+EOF
+chmod +x $BINDIR/xdg-mime
+mock_desktop_file textedit %f
+mock textedit
+run generic xdg-open $LABDIR/test\#file.txt
+assert_run textedit $LABDIR/test\#file.txt
