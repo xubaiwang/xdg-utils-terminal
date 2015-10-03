@@ -87,7 +87,7 @@ file_url_to_path()
     if echo "$file" | grep -q '^file:///'; then
         file=${file#file://}
         file=${file%%#*}
-        file=${file_check%%\?*}
+        file=$(echo "$file" | sed -r 's/\?.*$//')
         local printf=printf
         if [ -x /usr/bin/printf ]; then
             printf=/usr/bin/printf
