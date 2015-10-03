@@ -73,26 +73,30 @@ touch $LABDIR/file.txt
 run lxde xdg-open file://$(pwd)/$LABDIR/file%2etxt
 assert_run pcmanfm $(pwd)/$LABDIR/file.txt
 
-test_that_it "looks up a desktop file with x-scheme-handler/* using mimeapps.list in generic mode and under LXDE"
+test_that_it looks up x-scheme-handler/\* under LXDE
 mock_desktop_file mosaic %u
 mock_default_app x-scheme-handler/http mosaic
-
 test_open_url lxde mosaic
+
+test_that_it looks up x-scheme-handler/\* in generic mode
+mock_desktop_file mosaic %u
+mock_default_app x-scheme-handler/http mosaic
 test_open_url generic mosaic
 
-# $BROWSER should override mimeapps.list
+test_that_it always uses \$BROWSER if set in generic mode
 BROWSER=cyberdog
+mock_desktop_file mosaic %u
+mock_default_app x-scheme-handler/http mosaic
 mock mosaic
-
 test_open_url generic cyberdog
 
+test_that_it works with multi-word \$BROWSER commands
 BROWSER="cyberdog --url %s"
 test_open_url generic cyberdog --url
 
-unmock mosaic
-
+test_that_it is not vulnerable to command injection in URLs when using \
+             \$BROWSER in generic mode
 mock cyberdog
+BROWSER="cyberdog --url %s"
 run generic xdg-open 'http://www.freedesktop.org/; echo BUSTED'
 assert_run cyberdog --url 'http://www.freedesktop.org/; echo BUSTED'
-unmock cyberdog
-
