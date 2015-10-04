@@ -537,7 +537,9 @@
       </citerefentry>,
       <citerefentry><refentrytitle>xdg-mime</refentrytitle>
         <manvolnum>1</manvolnum>
-      </citerefentry>
+      </citerefentry>,
+      <ulink url="http://www.freedesktop.org/wiki/Specifications/desktop-entry-spec/">Desktop entry specification</ulink>,
+      <ulink url="http://www.freedesktop.org/wiki/Specifications/menu-spec/">Desktop menu specification</ulink>
     </para>
   </refsect1>
   <refsect1 id="examples">

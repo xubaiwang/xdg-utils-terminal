@@ -256,6 +256,22 @@
       how to configure xdg-email to use the email client of your choice.
     </para>
   </refsect1>
+    <refsect1 id="seealso">
+    <title>See Also</title>
+    <para>
+      <citerefentry>
+        <refentrytitle>xdg-open</refentrytitle>
+        <manvolnum>1</manvolnum>
+      </citerefentry>,
+      <citerefentry>
+        <refentrytitle>xdg-mime</refentrytitle>
+        <manvolnum>1</manvolnum>
+      </citerefentry>,
+      <ulink url="http://www.freedesktop.org/wiki/Specifications/mime-apps-spec/">MIME applications associations specification</ulink>,
+      <ulink url="https://tools.ietf.org/html/rfc6068">RFC 6068 - The 'mailto' URI Scheme</ulink>
+    </para>
+  </refsect1>
+
   <refsect1 id="examples">
     <title>Examples</title>
     <para>

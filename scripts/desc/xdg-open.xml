@@ -137,6 +137,18 @@
       </varlistentry>
     </variablelist>
   </refsect1>
+  <refsect1 id="seealso">
+    <title>See Also</title>
+    <para><citerefentry><refentrytitle>xdg-mime</refentrytitle>
+        <manvolnum>1</manvolnum>
+      </citerefentry>,
+      <citerefentry><refentrytitle>xdg-settings</refentrytitle>
+        <manvolnum>1</manvolnum>
+      </citerefentry>,
+      <ulink url="http://www.freedesktop.org/wiki/Specifications/mime-apps-spec/">MIME applications associations specification</ulink>
+    </para>
+  </refsect1>
+
   <refsect1 id="examples">
     <title>Examples</title>
     <para>

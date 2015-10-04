@@ -329,7 +329,9 @@ and adding descriptions for new file types</refpurpose>
       </citerefentry>,
       <citerefentry><refentrytitle>xdg-desktop-menu</refentrytitle>
         <manvolnum>1</manvolnum>
-      </citerefentry>
+      </citerefentry>,
+      <ulink url="http://www.freedesktop.org/wiki/Specifications/shared-mime-info-spec/">Shared MIME database specification</ulink>,
+      <ulink url="http://www.freedesktop.org/wiki/Specifications/mime-apps-spec/">MIME applications associations specification</ulink>
     </para>
   </refsect1>
   <refsect1 id="examples">
