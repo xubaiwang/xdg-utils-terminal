@@ -1,6 +1,8 @@
 === xdg-utils 1.1.x ===
 2015-10-04 Per Olofsson <pelle@debian.org>
    * Add references to specifications to the manuals. (Debian bug #800826)
+   * xdg-email: Remove obsolete references to
+     http://portland.freedesktop.org/wiki/EmailConfig from the manual.
 
 2015-10-03 Per Olofsson <pelle@debian.org>
    * xdg-email: Rewrite open_kde()
