@@ -1,4 +1,4 @@
-=== xdg-utils 1.1.x ===
+=== xdg-utils 1.1.0 ===
 2015-10-04 Per Olofsson <pelle@debian.org>
    * Add references to specifications to the manuals. (Debian bug #800826)
    * xdg-email: Remove obsolete references to
