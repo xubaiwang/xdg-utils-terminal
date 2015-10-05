@@ -80,6 +80,8 @@ perform_action()
   fi
   if [ "$1" = "reset" ] ; then
       if xset -q | grep 'DPMS is Enabled' > /dev/null 2> /dev/null; then
+          xset -dpms
+          xset +dpms
           xset dpms force on
       fi
   fi

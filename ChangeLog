@@ -1,3 +1,9 @@
+=== xdg-utils 1.1.1 ===
+2015-10-05 Per Olofsson <pelle@debian.org>
+   * xdg-screensaver: Run 'xset -dpms' and then 'xset +dpms' to reset
+     the DPMS timer. Thanks to Steven Thomas for the idea.
+     (Debian bug #745340)
+
 === xdg-utils 1.1.0 ===
 2015-10-04 Per Olofsson <pelle@debian.org>
    * Add references to specifications to the manuals. (Debian bug #800826)
