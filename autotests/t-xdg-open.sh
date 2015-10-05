@@ -17,7 +17,7 @@ mock_xdg_mime() {
     local file="$1" mimetype="$2" handler="$3"
     mock xdg-mime '
 if [ $# = 3 ] && [ "$1" = query ] && [ "$2" = filetype ] && \
-        [ "$3" = '\'$file\'' ]; then
+        [ "$3" = '\'"$file"\'' ]; then
     echo '$mimetype'
 elif [ $# = 3 ] && [ "$1" = query ] && [ "$2" = default ] && \
         [ "$3" = '$mimetype' ]; then
