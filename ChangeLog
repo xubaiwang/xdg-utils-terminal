@@ -8,7 +8,7 @@
      prevented files from being opened using the desktop file/mimeapps.list
      mechanism.
    * xdg-open: Add proper quoting so that files with spaces in their names
-     can be opened in generic mode and LXDE.
+     can be opened in generic mode and LXDE. (Debian bug #801048)
 
 === xdg-utils 1.1.0 ===
 
