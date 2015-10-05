@@ -14,19 +14,25 @@ test_open_url() {
 }
 
 mock_xdg_mime() {
-    local mimetype="$1" handler="$2"
+    local file="$1" mimetype="$2" handler="$3"
     mock xdg-mime '
-case "$2" in
-    filetype) echo '$mimetype' ;;
-    default) echo '$handler'.desktop ;;
-esac
+if [ $# = 3 ] && [ "$1" = query ] && [ "$2" = filetype ] && \
+        [ "$3" = '\'$file\'' ]; then
+    echo '$mimetype'
+elif [ $# = 3 ] && [ "$1" = query ] && [ "$2" = default ] && \
+        [ "$3" = '$mimetype' ]; then
+    echo '$handler'.desktop
+else
+    echo "unexpected mock invokation: xdg-mime $*" >&2
+    exit 1
+fi
 '
 }
 
 test_generic_open_file() {
     local filename="$1"
     echo foo > "$LABDIR/$1"
-    mock_xdg_mime text/plain textedit
+    mock_xdg_mime "$LABDIR/$1" text/plain textedit
     mock_desktop_file textedit %f
     mock textedit
     run generic xdg-open "$LABDIR/$1"
