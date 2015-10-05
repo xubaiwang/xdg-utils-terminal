@@ -94,41 +94,27 @@ set_de_() {
     esac
 }
 
-mock_ret() {
-    local ret="$1"
-    shift
-    local command="$1"
+mock() {
+    local command="$1" script="$2"
     local executable="$BINDIR/$command"
 
     cat >"$executable" <<EOF
 #!/bin/sh
 set -e
 echo "$command \$*" >> $(pwd)/$COMMANDS_RUN
-exit $ret
+$script
 EOF
     chmod +x "$executable"
 }
 
-mock() {
-    mock_ret 0 "$@"
-}
-
 mock_missing() {
-    mock_ret 127 "$@"
+    local command="$1"
+    mock "$command" "exit 127"
 }
 
 mock_output() {
     local command="$1" output="$2"
-    local executable="$BINDIR/$command"
-
-    cat >"$executable" <<EOF
-#!/bin/sh
-set -e
-echo "$command \$*" >> $(pwd)/$COMMANDS_RUN
-echo "$output"
-exit 0
-EOF
-    chmod +x "$executable"
+    mock "$command" "echo '$output'"
 }
 
 unmock() {
