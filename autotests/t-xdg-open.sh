@@ -13,6 +13,16 @@ test_open_url() {
     unmock $cmd
 }
 
+mock_xdg_mime() {
+    local mimetype="$1" handler="$2"
+    mock xdg-mime '
+case "$2" in
+    filetype) echo '$mimetype' ;;
+    default) echo '$handler'.desktop ;;
+esac
+'
+}
+
 test_that_it opens a URL with gvfs-open in GNOME 2, 3, and Cinnamon
 test_open_url gnome3 gvfs-open
 test_open_url gnome2 gvfs-open
@@ -103,12 +113,7 @@ assert_run cyberdog --url 'http://www.freedesktop.org/; echo BUSTED'
 
 test_that_it can open files in generic mode
 echo foo > $LABDIR/test.txt
-mock xdg-mime '
-case "$2" in
-    filetype) echo text/plain ;;
-    default) echo textedit.desktop ;;
-esac
-'
+mock_xdg_mime text/plain textedit
 mock_desktop_file textedit %f
 mock textedit
 run generic xdg-open $LABDIR/test.txt
@@ -116,12 +121,7 @@ assert_run textedit $LABDIR/test.txt
 
 test_that_it can open files with \# characters in their name in generic mode
 echo foo > $LABDIR/test\#file.txt
-mock xdg-mime '
-case "$2" in
-    filetype) echo text/plain ;;
-    default) echo textedit.desktop ;;
-esac
-'
+mock_xdg_mime text/plain textedit
 mock_desktop_file textedit %f
 mock textedit
 run generic xdg-open $LABDIR/test\#file.txt
