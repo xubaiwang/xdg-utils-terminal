@@ -99,6 +99,12 @@ touch $LABDIR/file.txt
 run lxde xdg-open file://$(pwd)/$LABDIR/file%2etxt
 assert_run pcmanfm $(pwd)/$LABDIR/file.txt
 
+test_that_it opens files with spaces in their name in LXDE
+echo foo > "$LABDIR/test file.txt"
+mock pcmanfm
+run lxde xdg-open "$LABDIR/test file.txt"
+assert_run pcmanfm "$(pwd)/$LABDIR/test file.txt"
+
 test_that_it looks up x-scheme-handler/\* in LXDE
 mock_desktop_file mosaic %u
 mock_default_app x-scheme-handler/http mosaic
