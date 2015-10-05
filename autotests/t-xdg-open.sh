@@ -126,3 +126,6 @@ test_generic_open_file test.txt
 
 test_that_it can open files with \# characters in their name in generic mode
 test_generic_open_file 'test#file.txt'
+
+test_that_it can open files with spaces in their name in generic mode
+test_generic_open_file 'test file.txt'
