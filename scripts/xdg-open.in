@@ -83,7 +83,7 @@ is_file_url_or_path()
 # If not, leave it as it is.
 file_url_to_path()
 {
-    local file=$1
+    local file="$1"
     if echo "$file" | grep -q '^file:///'; then
         file=${file#file://}
         file=${file%%#*}
@@ -344,7 +344,7 @@ open_envvar()
 open_generic()
 {
     if is_file_url_or_path "$1"; then
-        local file=$(file_url_to_path "$1")
+        local file="$(file_url_to_path "$1")"
 
         check_input_file "$file"
 
@@ -393,7 +393,7 @@ open_lxde()
 {
     # pcmanfm only knows how to handle file:// urls and filepaths, it seems.
     if is_file_url_or_path "$1"; then
-        local file=$(file_url_to_path "$1")
+        local file="$(file_url_to_path "$1")"
 
         # handle relative paths
         if ! echo "$file" | grep -q ^/; then
