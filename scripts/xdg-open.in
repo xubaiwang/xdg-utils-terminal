@@ -349,7 +349,7 @@ open_generic()
         check_input_file "$file"
 
         if [ -n "$DISPLAY" ]; then
-            filetype=`xdg-mime query filetype "$file_check" | sed "s/;.*//"`
+            filetype=`xdg-mime query filetype "$file" | sed "s/;.*//"`
             open_generic_xdg_mime "$file" "$filetype"
         fi
 

@@ -3,6 +3,9 @@
    * xdg-screensaver: Run 'xset -dpms' and then 'xset +dpms' to reset
      the DPMS timer. Thanks to Stephen Thomas for the idea.
      (Debian bug #745340)
+   * xdg-open: Fix regression in generic mode (wrong variable name) which
+     prevented files from being opened using the desktop file/mimeapps.list
+     mechanism.
 
 === xdg-utils 1.1.0 ===
 2015-10-04 Per Olofsson <pelle@debian.org>
