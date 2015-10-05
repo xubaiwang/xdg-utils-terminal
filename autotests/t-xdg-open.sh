@@ -121,11 +121,11 @@ BROWSER="cyberdog --url %s"
 run generic xdg-open 'http://www.freedesktop.org/; echo BUSTED'
 assert_run cyberdog --url 'http://www.freedesktop.org/; echo BUSTED'
 
-test_that_it can open files in generic mode
+test_that_it opens files in generic mode
 test_generic_open_file test.txt
 
-test_that_it can open files with \# characters in their name in generic mode
+test_that_it opens files with \# characters in their name in generic mode
 test_generic_open_file 'test#file.txt'
 
-test_that_it can open files with spaces in their name in generic mode
+test_that_it opens files with spaces in their name in generic mode
 test_generic_open_file 'test file.txt'
