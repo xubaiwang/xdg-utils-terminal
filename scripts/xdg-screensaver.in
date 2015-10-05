@@ -112,7 +112,7 @@ perform_action()
       [ -n "$DISPLAY" ] && screensaver_xserver "$1"
       ;;
 
-    '')
+    ''|generic)
       [ -n "$DISPLAY" ] && screensaver_xserver "$1"
       ;;
   esac
