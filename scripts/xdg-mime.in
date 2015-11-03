@@ -32,7 +32,7 @@ _USAGE
 
 update_mime_database()
 {
-   if [ x"$mode" = x"user" -a -n "$DISPLAY" ] ; then
+   if [ "$mode" = user ] && has_display; then
       detectDE
       if [ x"$DE" = x"kde" ] ; then
          DEBUG 1 "Running kbuildsycoca"

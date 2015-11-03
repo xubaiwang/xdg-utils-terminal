@@ -1,3 +1,9 @@
+=== xdg-utils 1.1.2 ===
+
+2015-11-03 Per Olofsson <pelle@debian.org>
+   * Check for $WAYLAND_DISPLAY as well as $DISPLAY. Move display checking
+     to a common has_display() function. Thanks to Pasi Sjöholm for reporting.
+
 === xdg-utils 1.1.1 ===
 
 2015-10-05 Per Olofsson <pelle@debian.org>

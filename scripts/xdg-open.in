@@ -348,7 +348,7 @@ open_generic()
 
         check_input_file "$file"
 
-        if [ -n "$DISPLAY" ]; then
+        if has_display; then
             filetype=`xdg-mime query filetype "$file" | sed "s/;.*//"`
             open_generic_xdg_mime "$file" "$filetype"
         fi
@@ -360,7 +360,7 @@ open_generic()
             fi
         fi
 
-        if [ -n "$DISPLAY" ] && mimeopen -v 2>/dev/null 1>&2; then
+        if has_display && mimeopen -v 2>/dev/null 1>&2; then
             mimeopen -L -n "$file"
             if [ $? -eq 0 ]; then
                 exit_success
@@ -372,14 +372,14 @@ open_generic()
         open_envvar "$1"
     fi
 
-    if [ -n "$DISPLAY" ]; then
+    if has_display; then
         open_generic_xdg_x_scheme_handler "$1"
     fi
 
     # if BROWSER variable is not set, check some well known browsers instead
     if [ x"$BROWSER" = x"" ]; then
         BROWSER=www-browser:links2:elinks:links:lynx:w3m
-        if [ -n "$DISPLAY" ]; then
+        if has_display; then
             BROWSER=x-www-browser:firefox:iceweasel:seamonkey:mozilla:epiphany:konqueror:chromium-browser:google-chrome:$BROWSER
         fi
     fi

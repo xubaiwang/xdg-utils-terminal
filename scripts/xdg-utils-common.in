@@ -350,3 +350,15 @@ kfmclient_fix_exit_code()
     test "$release" -gt 4 && return $1
     return 0
 }
+
+#----------------------------------------------------------------------------
+# Returns true if there is a graphical display attached.
+
+has_display()
+{
+    if [ -n "$DISPLAY" ] || [ -n "$WAYLAND_DISPLAY" ]; then
+        return 0
+    else
+        return 1
+    fi
+}
