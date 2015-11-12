@@ -1,4 +1,4 @@
-=== xdg-utils 1.1.2 ===
+=== xdg-utils 1.1.2 (unreleased) ===
 
 2015-11-03 Per Olofsson <pelle@debian.org>
    * Check for $WAYLAND_DISPLAY as well as $DISPLAY. Move display checking
