@@ -1,5 +1,8 @@
 === xdg-utils 1.1.2 (unreleased) ===
 
+2015-12-19 Rex Dieter <rdieter@fedoraproject.org>
+   * xdg-open: improve fallbacks, add open_generic (almost) everywhere (BR93442)
+
 2015-11-03 Per Olofsson <pelle@debian.org>
    * Check for $WAYLAND_DISPLAY as well as $DISPLAY. Move display checking
      to a common has_display() function. Thanks to Pasi Sjöholm for reporting.

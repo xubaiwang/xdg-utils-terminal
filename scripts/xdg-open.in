@@ -178,8 +178,10 @@ open_mate()
 {
     if gvfs-open --help 2>/dev/null 1>&2; then
         gvfs-open "$1"
-    else
+    elif mate-open --help >/dev/null 2>&1; then
         mate-open "$1"
+    else
+        open_generic "$1"
     fi
 
     if [ $? -eq 0 ]; then
@@ -191,7 +193,13 @@ open_mate()
 
 open_xfce()
 {
-    exo-open "$1"
+    if exo-open --help 2>/dev/null 1>&2; then
+        exo-open "$1"
+    elif gvfs-open --help 2>/dev/null 1>&2; then
+        gvfs-open "$1"
+    else
+        open_generic "$1"
+    fi
 
     if [ $? -eq 0 ]; then
         exit_success
@@ -202,7 +210,11 @@ open_xfce()
 
 open_enlightenment()
 {
-    enlightenment_open "$1"
+    if enlightenment_open --help 2>/dev/null 1>&2; then
+        enlightenment_open "$1"
+    else
+        open_generic "$1"
+    fi
 
     if [ $? -eq 0 ]; then
         exit_success
