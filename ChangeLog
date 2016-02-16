@@ -1,5 +1,8 @@
 === xdg-utils 1.1.2 (unreleased) ===
 
+2016-02-16 Rex Dieter <rdieter@fedoraproject.org>
+   * xdg-screensaver: support cinnamon-screensaver (BR92966)
+
 2015-12-19 Rex Dieter <rdieter@fedoraproject.org>
    * xdg-open: improve fallbacks, add open_generic (almost) everywhere (BR93442)
 
