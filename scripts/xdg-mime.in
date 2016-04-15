@@ -428,13 +428,9 @@ defapp_kde()
       case "${KDE_SESSION_VERSION}" in
         4)
           KTRADER=`which ktraderclient 2> /dev/null`
-          MIMETYPE="--mimetype"
-          SERVICETYPE="--servicetype"
         ;;
         5)
           KTRADER=`which ktraderclient${KDE_SESSION_VERSION} 2> /dev/null`
-          MIMETYPE="--mimetype"
-          SERVICETYPE="--servicetype"
         ;;
       esac
     else
@@ -442,8 +438,8 @@ defapp_kde()
     fi
     if [ -n "$KTRADER" ] ; then
         DEBUG 1 "Running KDE trader query \"$MIME\" mimetype and \"Application\" servicetype"
-        trader_result=`$KTRADER $MIMETYPE "$MIME" $SERVICETYPE Application 2>/dev/null \
-            | grep DesktopEntryPath | head -n 1 | cut -d ':' -f 2 | cut -d \' -f 2`
+        trader_result=`$KTRADER --mimetype "$MIME" --servicetype Application 2>/dev/null \
+            | grep -E "^DesktopEntryPath : |\.desktop$" | head -n1 | sed "s/^DesktopEntryPath : '\(.*\.desktop\)'\$/\1/"`
         if [ -n "$trader_result" ] ; then
             basename "$trader_result"
             exit_success
@@ -954,4 +950,3 @@ esac
 update_mime_database $xdg_base_dir
 
 exit_success
-
