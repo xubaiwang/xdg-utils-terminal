@@ -1,5 +1,8 @@
 === xdg-utils 1.1.2 (unreleased) ===
 
+2016-05-05 Rex Dieter <rdieter@fedoraproject.org>
+   * xdg-mime: xdg-mime does not write the file it reads in a query (BR95051)
+
 2016-04-15 Rex Dieter <rdieter@fedoraproject.org>
    * xdg-mime: properly handle varied ktraderclient5 output (BR94946)
 

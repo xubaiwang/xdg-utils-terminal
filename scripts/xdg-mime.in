@@ -238,10 +238,10 @@ make_default_generic()
 {
     # $1 is vendor-name.desktop
     # $2 is mime/type
-    # Add $2=$1 to XDG_DATA_HOME/applications/mimeapps.list
-    xdg_user_dir="$XDG_DATA_HOME"
-    [ -n "$xdg_user_dir" ] || xdg_user_dir="$HOME/.local/share"
-    default_file="$xdg_user_dir/applications/mimeapps.list"
+    # Add $2=$1 to XDG_CONFIG_HOME/mimeapps.list
+    xdg_config_home="$XDG_CONFIG_HOME"
+    [ -n "$xdg_config_home" ] || xdg_config_home="$HOME/.config"
+    default_file="$xdg_config_home/mimeapps.list"
     DEBUG 2 "make_default_generic $1 $2"
     DEBUG 1 "Updating $default_file"
     [ -f "$default_file" ] || touch "$default_file"
