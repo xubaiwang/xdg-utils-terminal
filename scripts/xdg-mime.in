@@ -370,7 +370,7 @@ check_mimeapps_list()
             found=1
         }
     }
-' "$mimeapps_list")
+' "$mimeapps_list" | cut -d ';' -f 1)
             if [ -n "$result" ]; then
                 echo "$result"
                 exit_success

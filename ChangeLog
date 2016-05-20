@@ -1,5 +1,8 @@
 === xdg-utils 1.1.2 (unreleased) ===
 
+2016-05-20 Rex Dieter <rdieter@fedoraproject.org>
+   * xdg-mime: ensure check_mimeapps_list returns only primary item (BR44163)
+
 2016-05-05 Rex Dieter <rdieter@fedoraproject.org>
    * xdg-mime: xdg-mime does not write the file it reads in a query (BR95051)
 
