@@ -1,5 +1,8 @@
 === xdg-utils 1.1.2 (unreleased) ===
 
+2016-06-10 Rex Dieter <rdieter@fedoraproject.org>
+   * xdg-open: prefer open_generic_xdg_x_scheme_handler over open_envvar (BR96472)
+
 2016-05-20 Rex Dieter <rdieter@fedoraproject.org>
    * xdg-mime: ensure check_mimeapps_list returns only primary item (BR44163)
 

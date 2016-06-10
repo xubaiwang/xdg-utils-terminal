@@ -380,12 +380,12 @@ open_generic()
         fi
     fi
 
-    if [ -n "$BROWSER" ]; then
-        open_envvar "$1"
-    fi
-
     if has_display; then
         open_generic_xdg_x_scheme_handler "$1"
+    fi
+
+    if [ -n "$BROWSER" ]; then
+        open_envvar "$1"
     fi
 
     # if BROWSER variable is not set, check some well known browsers instead
