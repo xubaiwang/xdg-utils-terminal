@@ -213,6 +213,21 @@ open_envvar()
     exit_failure_operation_failed
 }
 
+open_flatpak()
+{
+    gdbus call --session \
+        --dest org.freedesktop.portal.Desktop \
+        --object-path /org/freedesktop/portal/desktop \
+        --method org.freedesktop.portal.OpenURI.OpenURI \
+        "" "$1" {}
+
+    if [ $? -eq 0 ]; then
+        exit_success
+    else
+        exit_failure_operation_failed
+    fi
+}
+
 open_generic()
 {
     local client
@@ -457,6 +472,10 @@ case "$DE" in
 
     xfce)
     open_xfce "${mailto}"
+    ;;
+
+    flatpak)
+    open_flatpak "$url"
     ;;
 
     generic)
