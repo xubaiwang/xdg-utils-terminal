@@ -332,6 +332,10 @@ detectDE()
       # but not in GNOME 3.x
       which gnome-default-applications-properties > /dev/null 2>&1  || DE="gnome3"
     fi
+
+    if [ -f "$XDG_RUNTIME_DIR/flatpak-info" ]; then
+      DE="flatpak"
+    fi
 }
 
 #----------------------------------------------------------------------------

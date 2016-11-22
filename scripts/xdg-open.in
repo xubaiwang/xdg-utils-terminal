@@ -223,6 +223,21 @@ open_enlightenment()
     fi
 }
 
+open_flatpak()
+{
+    gdbus call --session \
+        --dest org.freedesktop.portal.Desktop \
+        --object-path /org/freedesktop/portal/desktop \
+        --method org.freedesktop.portal.OpenURI.OpenURI \
+        "" "$1" {}
+
+    if [ $? -eq 0 ]; then
+        exit_success
+    else
+        exit_failure_operation_failed
+    fi
+}
+
 #-----------------------------------------
 # Recursively search .desktop file
 
@@ -502,6 +517,10 @@ case "$DE" in
 
     darwin)
     open_darwin "$url"
+    ;;
+
+    flatpak)
+    open_flatpak "$url"
     ;;
 
     generic)
