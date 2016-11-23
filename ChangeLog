@@ -1,5 +1,8 @@
 === xdg-utils 1.1.2 (unreleased) ===
 
+2016-11-23 Rex Dieter <rdieter@fedoraproject.org>
+   * xdg-open/xdg-email: add flatpack support (BR98824)
+
 2016-06-10 Rex Dieter <rdieter@fedoraproject.org>
    * xdg-open: prefer open_generic_xdg_x_scheme_handler over open_envvar (BR96472)
 
