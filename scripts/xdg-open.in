@@ -144,7 +144,9 @@ open_kde()
 
 open_gnome3()
 {
-    if gvfs-open --help 2>/dev/null 1>&2; then
+    if gio help open 2>/dev/null 1>&2; then
+        gio open "$1"
+    elif gvfs-open --help 2>/dev/null 1>&2; then
         gvfs-open "$1"
     else
         open_generic "$1"
@@ -159,7 +161,9 @@ open_gnome3()
 
 open_gnome()
 {
-    if gvfs-open --help 2>/dev/null 1>&2; then
+    if gio help open 2>/dev/null 1>&2; then
+        gio open "$1"
+    elif gvfs-open --help 2>/dev/null 1>&2; then
         gvfs-open "$1"
     elif gnome-open --help 2>/dev/null 1>&2; then
         gnome-open "$1"
@@ -176,7 +180,9 @@ open_gnome()
 
 open_mate()
 {
-    if gvfs-open --help 2>/dev/null 1>&2; then
+    if gio help open 2>/dev/null 1>&2; then
+        gio open "$1"
+    elif gvfs-open --help 2>/dev/null 1>&2; then
         gvfs-open "$1"
     elif mate-open --help 2>/dev/null 1>&2; then
         mate-open "$1"
@@ -195,6 +201,8 @@ open_xfce()
 {
     if exo-open --help 2>/dev/null 1>&2; then
         exo-open "$1"
+    if gio help open 2>/dev/null 1>&2; then
+        gio open "$1"
     elif gvfs-open --help 2>/dev/null 1>&2; then
         gvfs-open "$1"
     else

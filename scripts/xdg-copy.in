@@ -43,7 +43,9 @@ copy_kde()
 
 copy_gnome()
 {
-    if gvfs-copy --help 2>/dev/null 1>&2; then
+    if gio help copy 2>/dev/null 1>&2; then
+        gio copy "$1" "$2"
+    elif gvfs-copy --help 2>/dev/null 1>&2; then
         gvfs-copy "$1" "$2"
     else
         gnomevfs-copy "$1" "$2"

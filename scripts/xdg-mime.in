@@ -75,7 +75,10 @@ info_kde()
 
 info_gnome()
 {
-    if gvfs-info --help 2>/dev/null 1>&2; then
+    if gio help info 2>/dev/null 1>&2; then
+        DEBUG 1 "Running gio info \"$1\""
+        gio info "$1" 2> /dev/null | grep standard::content-type | cut -d' ' -f4
+    elif gvfs-info --help 2>/dev/null 1>&2; then
         DEBUG 1 "Running gvfs-info \"$1\""
         gvfs-info "$1" 2> /dev/null | grep standard::content-type | cut -d' ' -f4
     elif gnomevfs-info --help 2>/dev/null 1>&2; then

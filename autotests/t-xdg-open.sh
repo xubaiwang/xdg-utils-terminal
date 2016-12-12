@@ -39,17 +39,28 @@ test_generic_open_file() {
     assert_run textedit "$LABDIR/$1"
 }
 
-test_that_it opens a URL with gvfs-open in GNOME 2, 3, and Cinnamon
+test_that_it opens a URL with "gio open" in recent GNOME 3, and Cinnamon
+mock "gio open"
+test_open_url gnome3 "gio open"
+test_open_url cinnamon "gio open"
+
+test_that_it opens a URL with gvfs-open if "gio open" is missing in GNOME 3, \
+             GNOME 2, and Cinnamon
+mock_missing "gio open"
+mock gvfs-open
 test_open_url gnome3 gvfs-open
 test_open_url gnome2 gvfs-open
 test_open_url cinnamon gvfs-open
 
-test_that_it opens a URL with gnome-open if gvfs-open is missing in GNOME 2
+test_that_it opens a URL with gnome-open if "gio open" and gvfs-open are \
+             missing in GNOME 2
+mock_missing "gio open"
 mock_missing gvfs-open
 test_open_url gnome2 gnome-open
 
-test_that_it opens a URL with the generic method if gvfs-open is missing \
-             in GNOME 3 and Cinnamon
+test_that_it opens a URL with the generic method if "gio open" and gvfs-open \
+             are missing in GNOME 3, and Cinnamon
+mock_missing "gio open"
 mock_missing gvfs-open
 mock gnome-open
 mock_desktop_file mosaic %u
@@ -57,8 +68,9 @@ mock_default_app x-scheme-handler/http mosaic
 test_open_url gnome3 mosaic
 test_open_url cinnamon mosaic
 
-test_that_it opens a URL with the generic method if gvfs-open and gnome-open \
-             are missing in GNOME 2
+test_that_it opens a URL with the generic method if "gio open", gvfs-open and \
+             gnome-open are missing in GNOME 2
+mock_missing "gio open"
 mock_missing gvfs-open
 mock_missing gnome-open
 mock_desktop_file mosaic %u
@@ -77,7 +89,9 @@ test_open_url kde5 kde-open5
 test_that_it opens a URL with gvfs-open in MATE
 test_open_url mate gvfs-open
 
-test_that_it opens a URL with mate-open if gvfs-open is missing in MATE
+test_that_it opens a URL with mate-open if "gio open" and gvfs-open are \
+             missing in MATE
+mock_missing "gio open"
 mock_missing gvfs-open
 test_open_url mate mate-open
 
