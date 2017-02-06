@@ -201,7 +201,7 @@ open_xfce()
 {
     if exo-open --help 2>/dev/null 1>&2; then
         exo-open "$1"
-    if gio help open 2>/dev/null 1>&2; then
+    elif gio help open 2>/dev/null 1>&2; then
         gio open "$1"
     elif gvfs-open --help 2>/dev/null 1>&2; then
         gvfs-open "$1"
