@@ -78,6 +78,49 @@ su_gnome()
     fi
 }
 
+su_lxqt()
+{
+    LXQTSU=`which lxqt-sudo 2>/dev/null`
+    if [ $? -eq 0 ] ; then
+        if [ -z "$user" ] ; then
+             # -s option runs as su rather then sudo
+             $LXQTSU -s "$cmd"
+        else
+             # lxqt-sudo does not support specifying a user
+             su_generic
+        fi
+
+        if [ $? -eq 0 ]; then
+            exit_success
+        else
+            exit_failure_operation_failed
+        fi
+    else
+        su_generic
+    fi
+}
+
+su_enlightenment()
+{
+# Enlightenment doesn't have any reasonably working su/sudo graphical interface
+# but terminology works as a drop in replacement for xterm and has a matching theme
+    if which terminology >/dev/null ; then
+        if [ -z "$user" ] ; then
+            terminology -g 60x5 -T "xdg-su: $cmd" -e "su -c '$cmd'"
+        else
+            terminology -g 60x5 -T "xdg-su: $cmd" -e "su -c '$cmd' '$user'"
+        fi
+
+        if [ $? -eq 0 ]; then
+            exit_success
+        else
+            exit_failure_operation_failed
+        fi
+    else
+        su_generic
+    fi
+}
+
 su_generic()
 {
     if [ -z "$user" ] ; then
@@ -165,6 +208,14 @@ case "$DE" in
 
     xfce)
     su_xfce
+    ;;
+
+    lxqt)
+    su_lxqt
+    ;;
+
+    enlightenment)
+    su_enlightenment
     ;;
 
     *)

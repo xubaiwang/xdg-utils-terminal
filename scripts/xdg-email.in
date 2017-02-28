@@ -484,7 +484,7 @@ case "$DE" in
     open_flatpak "$url"
     ;;
 
-    generic)
+    generic|lxqt|enlightenment)
     open_generic "${mailto}"
     ;;
 

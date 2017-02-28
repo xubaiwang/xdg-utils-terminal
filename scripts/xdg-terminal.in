@@ -176,6 +176,32 @@ terminal_lxde()
     fi
 }
 
+terminal_lxqt()
+{
+    if which qterminal &>/dev/null; then
+        if [ x"$1" = x"" ]; then
+            qterminal
+        else
+            qterminal -e "$1"
+        fi
+    else
+        terminal_generic "$1"
+    fi
+}
+
+terminal_enlightenment()
+{
+    if which terminology &>/dev/null; then
+        if [ x"$1" = x"" ]; then
+            terminology
+        else
+            terminology -e "$1"
+        fi
+    else
+        terminal_generic "$1"
+    fi
+}
+
 #[ x"$1" != x"" ] || exit_failure_syntax
 
 command=
@@ -230,6 +256,14 @@ case "$DE" in
 
     lxde)
     terminal_lxde "$command"
+    ;;
+
+    lxqt)
+    terminal_lxqt "$command"
+    ;;
+
+    enlightenment)
+    terminal_enlightenment "$command"
     ;;
 
     generic)

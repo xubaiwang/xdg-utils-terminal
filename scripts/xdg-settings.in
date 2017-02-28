@@ -852,7 +852,7 @@ case "$DE" in
     dispatch_specific xfce "$@"
     ;;
 
-    generic)
+    generic|lxqt|enlightenment)
     dispatch_specific generic "$@"
     ;;
 

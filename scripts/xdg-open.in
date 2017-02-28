@@ -511,7 +511,7 @@ case "$DE" in
     open_xfce "$url"
     ;;
 
-    lxde)
+    lxde|lxqt)
     open_lxde "$url"
     ;;
 

@@ -291,6 +291,9 @@ detectDE()
          LXDE)
            DE=lxde;
            ;;
+         LXQt)
+           DE=lxqt;
+           ;;
          MATE)
            DE=mate;
            ;;
@@ -312,6 +315,7 @@ detectDE()
       elif xprop -root _DT_SAVE_MODE 2> /dev/null | grep ' = \"xfce4\"$' >/dev/null 2>&1; then DE=xfce;
       elif xprop -root 2> /dev/null | grep -i '^xfce_desktop_window' >/dev/null 2>&1; then DE=xfce
       elif echo $DESKTOP | grep -q '^Enlightenment'; then DE=enlightenment;
+      elif [ x"$LXQT_SESSION_CONFIG" != x"" ]; then DE=lxqt;
       fi
     fi
 
