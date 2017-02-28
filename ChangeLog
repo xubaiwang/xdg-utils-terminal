@@ -3,6 +3,7 @@
 2017-02-28 Rex Dieter <rdieter@fedoraproject.org>
    * xdg-open: Add "chromium" to fallback browsers (BR99366)
    * xdg-mime: fails on encountering a list for x-scheme-handler (BR44163)
+   * xdg-screensaver: Restore previous X11 screensaver timeout (BR#98509)
 
 2016-12-12 Rex Dieter <rdieter@fedoraproject.org>
    * Add gio tool support (BR99063)

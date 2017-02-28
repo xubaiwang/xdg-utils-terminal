@@ -376,16 +376,29 @@ screensaver_kde3()
     esac
 }
 
+xset_screensaver_timeout()
+{
+  xset q | sed '/^Screen Saver:/,/^[^ ]/ { s/.*timeout: *\([0-9]*\).*/\1/; t }; d'
+}
+
 screensaver_xserver()
 {
     case "$1" in
         suspend)
-        xset s off > /dev/null
+        timeout=`xset_screensaver_timeout`
+        if [ "$timeout" -gt 0 ]; then
+            echo "$timeout" > "$screensaver_file.xset"
+            xset s off > /dev/null
+        fi
         result=$?
         ;;
 
         resume)
-        xset s default > /dev/null
+        if [ -f "$screensaver_file.xset" ] ; then
+            value=`cat "$screensaver_file.xset"`
+            xset s $value > /dev/null
+            rm -f "$screensaver_file.xset"
+        fi
         result=$?
         ;;
 
@@ -400,7 +413,7 @@ screensaver_xserver()
         ;;
 
         status)
-        timeout=`xset q | sed '/^Screen Saver:/,/^[^ ]/ { s/.*timeout: *\([0-9]*\).*/\1/; t }; d'`
+        timeout=`xset_screensaver_timeout`
         result=$?
         if [ "$timeout" -gt 0 ]; then
             echo "enabled"
