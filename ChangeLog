@@ -1,5 +1,8 @@
 === xdg-utils 1.1.2 (unreleased) ===
 
+2017-02-28 Rex Dieter <rdieter@fedoraproject.org>
+   * xdg-open: Add "chromium" to fallback browsers (BR99366)
+
 2016-12-12 Rex Dieter <rdieter@fedoraproject.org>
    * Add gio tool support (BR99063)
 
