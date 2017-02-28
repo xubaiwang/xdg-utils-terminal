@@ -375,8 +375,17 @@ check_mimeapps_list()
     }
 ' "$mimeapps_list" | cut -d ';' -f 1)
             if [ -n "$result" ]; then
-                echo "$result"
-                exit_success
+                # $result could be a ; separated list of .desktop files
+                # use the first on the system
+                IFS=\;
+                for app in $result; do
+                    IFS="$oldifs"
+                    exists=$(desktop_file_to_binary "$app")
+                    if [ -n "$exists" ]; then
+                        echo "$app"
+                        exit_success
+                    fi
+                done
             fi
         fi
     done
