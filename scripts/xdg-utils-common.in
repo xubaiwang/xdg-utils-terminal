@@ -245,7 +245,7 @@ check_common_commands()
             ;;
 
             --version)
-            echo "@NAME@ 1.1.1"
+            echo "@NAME@ 1.1.2"
             exit_success
             ;;
         esac
