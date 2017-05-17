@@ -447,6 +447,11 @@ open_lxde()
     fi
 }
 
+open_lxqt()
+{
+    open_generic "$1"
+}
+
 [ x"$1" != x"" ] || exit_failure_syntax
 
 url=
@@ -511,8 +516,12 @@ case "$DE" in
     open_xfce "$url"
     ;;
 
-    lxde|lxqt)
+    lxde)
     open_lxde "$url"
+    ;;
+
+    lxqt)
+    open_lxqt "$url"
     ;;
 
     enlightenment)
