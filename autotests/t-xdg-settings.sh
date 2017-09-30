@@ -12,12 +12,16 @@ assert_run gconftool-2 --get /desktop/gnome/applications/browser/exec
 for de in gnome3 cinnamon lxde mate generic; do
     test_that_it determines default browser from \
                  \$XDG_CONFIG_HOME/mimeapps.list in $de
+    mock mosaic  # Default app should exist
+    mock_desktop_file mosaic
     mock_default_app x-scheme-handler/http mosaic
     assert_equal mosaic.desktop \
                  "$(run $de xdg-settings get default-web-browser)"
 
     test_that_it determines default URL handler from \
                  \$XDG_CONFIG_HOME/mimeapps.list in $de
+    mock footorrent  # Default app should exist
+    mock_desktop_file footorrent
     mock_default_app x-scheme-handler/magnet footorrent
     assert_equal \
         footorrent.desktop \
