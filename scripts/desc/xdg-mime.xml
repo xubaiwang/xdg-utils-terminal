@@ -119,7 +119,7 @@ and adding descriptions for new file types</refpurpose>
 	  </simpara>
 	  <simpara>
 	    <replaceable>application</replaceable> is the desktop file
-	    id of the application and has the form vendor-name.desktop
+	    id of the application and has the form vendor-name.desktop.
 	    <replaceable>application</replaceable> must already be installed
 	    in the desktop menu before it can be made the default handler.
 	    The application's desktop file must list support for all the
