@@ -102,7 +102,7 @@ for $f ( @test_files ) {
 		}
 		#find initilization
 		elsif ( m/test_init/ ) {
-			print HTM "<h2>Depencencies</h2>\n";
+			print HTM "<h2>Dependencies</h2>\n";
 			$state = 'INIT';
 			next;
 		}

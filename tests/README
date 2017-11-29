@@ -18,7 +18,7 @@ NORESULT: test_system_mime_install
 See xdg-test.log for details.
 NOT OK!
 
-FAIL     indicates (not suprisingly) a test failure. 
+FAIL     indicates (not surprisingly) a test failure.
 NORESULT indicates that the test prerequisites failed for some reason. 
          (e.g. the install phase of an uninstall test failed)
 UNTESTED means that something needed was not found. This is fine and should
@@ -26,7 +26,7 @@ UNTESTED means that something needed was not found. This is fine and should
          (e.g. test requires root, but we are not running as root)
 
 NOTE: The test runner makes guesses about appropriate values of XDG_TEST_DIR
-      and PATH. These values can be overriden explicitly.
+      and PATH. These values can be overridden explicitly.
 
 To run tests individually, or as smaller groups do something like
 

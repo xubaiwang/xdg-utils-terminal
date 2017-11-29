@@ -5,7 +5,7 @@
 . "$XDG_TEST_DIR/include/testfuncs.sh"
 
 ## NOTE: Documentation is generated AUTOMATICALLY from this file
-## Function usage must immediately follow function delcaration
+## Function usage must immediately follow function declaration
 
 assert_exit() {
 # execute command (saving output) and check exit code
@@ -41,7 +41,7 @@ assert_interactive_notroot() {
 }
 
 assert_interactive() {
-# Useage:
+# Usage:
 # assert_interactive {msg} [y|n|C|s varname]
 #
 # msg is the text to print.
@@ -122,7 +122,7 @@ assert_file_not_in_path() {
 
 
 assert_file() {
-# Assert the existance of an exact filename
+# Assert the existence of an exact filename
 # Usage: assert_file FILE
 	if [ ! -e "$1" ] ; then
 		test_fail "'$1' does not exist"
@@ -140,7 +140,7 @@ assert_file() {
 }
 
 assert_nofile() {
-# Assert the non existance of an exact filename.
+# Assert the non existence of an exact filename.
 # Opposite of 'assert_file'
 	if [ -e "$1" ] ; then
 		test_fail "'$1' exists."
@@ -339,7 +339,7 @@ get_unique_name() {
 	varname="$1"
 	file="$2"
 	if [ -z "$varname" ] ; then
-		echo "TEST SYNAX ERROR: get_unique_name requries a variable name"
+		echo "TEST SYNAX ERROR: get_unique_name requires a variable name"
 		exit 255
 	fi
 

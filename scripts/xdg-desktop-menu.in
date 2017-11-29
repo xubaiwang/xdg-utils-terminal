@@ -394,7 +394,7 @@ while [ $# -gt 0 ] ; do
         case "$parm" in
            *.directory)
               if [ -n "$desktop_files" ] ; then
-                  exit_failure_syntax "'$parm' must preceed any *.desktop file"
+                  exit_failure_syntax "'$parm' must precede any *.desktop file"
               fi
               directory_files="$directory_files $parm"
               ;;

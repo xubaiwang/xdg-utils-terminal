@@ -123,7 +123,7 @@ if [ -z "$XDG_TEST_SELF_LAUNCH"  ] ; then  # not self launched
 		else
 			SUCMD=`which sudo 2>/dev/null`
 			echo "Running ${SUCMD-su} for system tests."
-			echo "Please enter an apropriate password if requested."
+			echo "Please enter an appropriate password if requested."
 		fi
 		# Note if sudo is not found, $SUCMD will be blank, so run su directly.
 		# We cannot assume su works since systems like Ubuntu require sudo

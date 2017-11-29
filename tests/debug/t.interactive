@@ -4,7 +4,7 @@
 . "$XDG_TEST_DIR/include/testcontrol.sh"
 
 test_interactive() {
-test_start "$FUNCNAME: verify functionallity of assert_interactive"
+test_start "$FUNCNAME: verify functionality of assert_interactive"
 
 test_procedure
 

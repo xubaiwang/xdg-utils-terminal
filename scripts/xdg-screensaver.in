@@ -583,7 +583,7 @@ screensaver_mate_screensaver()
 {
 # DBUS interface for mate-screensaver
 # This is same as gnome's for now but may change in the future as MATE
-# does not follow gnome's developement necessarily.
+# does not follow gnome's development necessarily.
     case "$1" in
         suspend)
         screensaver_suspend_loop \

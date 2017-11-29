@@ -541,7 +541,7 @@
 
 2006-04-24 Kevin Krammer <kevin.krammer@gmx.at>
     * Applied patch provided by Benedikt Meurer <benedikt.meurer@unix-ag.uni-siegen.de>
-      to improve the compatability of the Makefile
+      to improve the compatibility of the Makefile
     * Added --title option to xdg-file-dialog
     * Applied another path by Benedikt to let xdg-file-dialog use
       zenity on GNOME and XFCE
@@ -564,7 +564,7 @@
       Currently only used in xdg-mime to gather feedback
 
 2006-04-08 Kevin Krammer <kevin.krammer@gmx.at>
-    * In case of $BROWSER being not avialable or empty, try a fixed list of well
+    * In case of $BROWSER being not available or empty, try a fixed list of well
       known browsers instead
 
 2006-04-06 Kevin Krammer <kevin.krammer@gmx.at>

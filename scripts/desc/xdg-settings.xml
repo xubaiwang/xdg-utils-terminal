@@ -114,7 +114,7 @@
   <refsect1 id="properties">
     <title>Properties</title>
     <para>
-      When using xdg-settings to get, check or set a destkop setting, properties
+      When using xdg-settings to get, check or set a desktop setting, properties
       and possibly sub-properties are used to specify the setting to be changed.
     </para>
     <para>
