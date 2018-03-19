@@ -351,6 +351,11 @@ open_generic_xdg_x_scheme_handler()
     fi
 }
 
+has_single_argument()
+{
+  test $# = 1
+}
+
 open_envvar()
 {
     local oldifs="$IFS"
@@ -365,7 +370,10 @@ open_envvar()
         fi
 
         if echo "$browser" | grep -q %s; then
-            $(printf "$browser" "$1")
+            # Avoid argument injection.
+            # See https://bugs.freedesktop.org/show_bug.cgi?id=103807
+            # URIs don't have IFS characters spaces anyway.
+            has_single_argument $1 && $(printf "$browser" "$1")
         else
             $browser "$1"
         fi
