@@ -1,5 +1,8 @@
 === xdg-utils 1.1.3 ===
 
+2018-05-02
+   * xdg-settings: check_browser is broken under kde when just the binary is specified (BR106343)
+
 2018-02-27
    * xdg-open: Fixes LXQt behavior (BR81674,BR103146)
 

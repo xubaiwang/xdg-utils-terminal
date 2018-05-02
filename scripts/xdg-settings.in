@@ -226,6 +226,14 @@ check_browser_kde()
     fi
     browser="`read_kde_browser`"
     binary="`resolve_kde_browser`"
+
+    # The browser may contain a relative entry to the binary starting with !
+    if [ x"!" == x"${browser:0:1}" ]; then
+        # get the full path
+        browser="`binary_to_desktop_file ${browser:1}`"
+        binary="`desktop_file_to_binary $browser`"
+    fi
+
     # Because KDE will use the handler for MIME type text/html if this value
     # is empty, we allow either the empty string or a match to $check here.
     if [ x"$binary" != x -a x"$binary" != x"$check" ]; then
@@ -575,16 +583,23 @@ check_url_scheme_handler_kde()
     fi
     if [ x"$1" = "mailto" ]; then
         binary="`read_kde_config emaildefaults PROFILE_Default EmailClient`"
+        # The field may contain a relative entry to the binary starting with !
+        if [ x"!" == x"${binary:0:1}" ]; then
+            # get the full path
+            desktop_file="`binary_to_desktop_file ${binary:1}`"
+            binary="`desktop_file_to_binary $desktop_file`"
+        fi
         if [ x"$binary" != x"$check" ]; then
             echo no
             exit_success
         fi
-    fi
-    handler="`get_browser_mime x-scheme-handler/$1`"
-    binary="`desktop_file_to_binary "$handler"`"
-    if [ x"$binary" != x"$check" ]; then
-        echo no
-        exit_success
+    else
+        handler="`get_browser_mime x-scheme-handler/$1`"
+        binary="`desktop_file_to_binary "$handler"`"
+        if [ x"$binary" != x"$check" ]; then
+            echo no
+            exit_success
+        fi
     fi
     echo yes
     exit_success
