@@ -2,6 +2,7 @@
 
 2018-05-10
    * xdg-open: Add Deepin Desktop Environment support (BR106143)
+   * xdg-open: use pcmanfm only if it is available (BR106161) 
 
 2018-05-09
    * xdg-open: Argument injection in xdg-open open_envvar (BR103807)
