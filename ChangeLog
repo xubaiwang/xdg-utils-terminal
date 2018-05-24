@@ -1,5 +1,7 @@
 === xdg-utils 1.1.4 ===
 
+2018-05-24
+   * xdg-open: better pcmanfm check (BR106636,BR106161)
 
 === xdg-utils 1.1.3 ===
 
