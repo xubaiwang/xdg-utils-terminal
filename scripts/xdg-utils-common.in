@@ -288,9 +288,8 @@ detectDE()
          KDE)
            DE=kde;
            ;;
-         # Deepin Desktop Environments
-         DEEPIN|Deepin|deepin)
-           DE=dde;
+         Deepin)
+           DE=deepin;
            ;;
          LXDE)
            DE=lxde;

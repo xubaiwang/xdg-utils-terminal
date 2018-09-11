@@ -472,7 +472,7 @@ case "$DE" in
     open_gnome "${mailto}"
     ;;
 
-    gnome3|cinnamon|lxde|mate)
+    gnome3|cinnamon|lxde|mate|deepin)
     open_gnome3 "${mailto}"
     ;;
 

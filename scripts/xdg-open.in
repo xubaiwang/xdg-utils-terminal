@@ -142,7 +142,7 @@ open_kde()
     fi
 }
 
-open_dde()
+open_deepin()
 {
     if dde-open -version >/dev/null 2>&1; then
         dde-open "$1"
@@ -524,8 +524,8 @@ case "$DE" in
     open_kde "$url"
     ;;
 
-    dde)
-    open_dde "$url"
+    deepin)
+    open_deepin "$url"
     ;;
 
     gnome3|cinnamon)

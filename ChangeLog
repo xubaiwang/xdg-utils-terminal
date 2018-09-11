@@ -1,3 +1,9 @@
+=== xdg-utils 1.1.5 ===
+	
+2018-09-11 Alberto Salvia Novella <es20490446e@gmail.com>
+   * all: Deepin Desktop name standarised as "deepin"
+   * xdg-email: Support for Deepin (BR107877)
+
 === xdg-utils 1.1.4 ===
 
 2018-05-24
