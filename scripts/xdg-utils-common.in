@@ -288,7 +288,7 @@ detectDE()
          KDE)
            DE=kde;
            ;;
-         Deepin)
+         DEEPIN|Deepin|deepin)
            DE=deepin;
            ;;
          LXDE)
