@@ -84,7 +84,8 @@ is_file_url_or_path()
 file_url_to_path()
 {
     local file="$1"
-    if echo "$file" | grep -q '^file:///'; then
+    if echo "$file" | grep -q '^file://\(localhost\)\?/'; then
+        file=${file#file://localhost}
         file=${file#file://}
         file=${file%%#*}
         file=$(echo "$file" | sed -r 's/\?.*$//')

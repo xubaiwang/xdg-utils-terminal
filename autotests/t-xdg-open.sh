@@ -155,3 +155,9 @@ test_generic_open_file 'test#file.txt'
 
 test_that_it opens files with spaces in their name in generic mode
 test_generic_open_file 'test file.txt'
+
+test_that_it opens file://localhost/ paths
+mock pcmanfm
+touch $LABDIR/file.txt
+run lxde xdg-open file://localhost$(pwd)/$LABDIR/file%2etxt
+assert_run pcmanfm $(pwd)/$LABDIR/file.txt
