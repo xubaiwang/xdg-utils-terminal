@@ -65,11 +65,17 @@ terminal_gnome()
         if [ x"$1" = x"" ]; then
             $terminal_exec
         else
-            if [ x"$term_exec_arg" = x"" ]; then
-                $terminal_exec "$1"
-            else
-                $terminal_exec "$term_exec_arg" "$1"
-            fi
+            case "$term_exec_arg" in
+              "")
+                "$terminal_exec" "$1"
+                ;;
+              *-x*)
+                "$terminal_exec" "$term_exec_arg" sh -c "$1"
+                ;;
+              *)
+                "$terminal_exec" "$term_exec_arg" "$1"
+              ;;
+            esac
         fi
 
         if [ $? -eq 0 ]; then
@@ -93,13 +99,19 @@ terminal_gsettings()
 
     if [ -x "$terminal_exec" ]; then
         if [ x"$1" = x"" ]; then
-            $terminal_exec
+            "$terminal_exec"
         else
-            if [ x"$term_exec_arg" = x"" ]; then
-                $terminal_exec "$1"
-            else
-                $terminal_exec "$term_exec_arg" "$1"
-            fi
+            case "$term_exec_arg" in
+              "")
+                "$terminal_exec" "$1"
+                ;;
+              *-x*)
+                "$terminal_exec" "$term_exec_arg" sh -c "$1"
+                ;;
+              *)
+                "$terminal_exec" "$term_exec_arg" "$1"
+              ;;
+            esac
         fi
 
         if [ $? -eq 0 ]; then
