@@ -72,7 +72,7 @@ get_key()
 is_file_url_or_path()
 {
     if echo "$1" | grep -q '^file://' \
-            || ! echo "$1" | egrep -q '^[[:alpha:]+\.\-]+:'; then
+            || ! echo "$1" | egrep -q '^[[:alpha:]][[:alpha:][:digit:]+\.\-]*:'; then
         return 0
     else
         return 1
