@@ -7,7 +7,7 @@
 #   Refer to the usage() function below for usage.
 #
 #   Copyright 2009-2010, Fathi Boudra <fabo@freedesktop.org>
-#   Copyright 2009-2010, Rex Dieter <rdieter@fedoraproject.org>
+#   Copyright 2009-2016, Rex Dieter <rdieter@fedoraproject.org>
 #   Copyright 2006, Kevin Krammer <kevin.krammer@gmx.at>
 #   Copyright 2006, Jeremy White <jwhite@codeweavers.com>
 #
@@ -510,7 +510,7 @@ fi
 
 DEBUG 2 "Selected DE $DE"
 
-# sanitize BROWSER (avoid caling ourselves in particular)
+# sanitize BROWSER (avoid calling ourselves in particular)
 case "${BROWSER}" in
     *:"xdg-open"|"xdg-open":*)
         BROWSER=$(echo $BROWSER | sed -e 's|:xdg-open||g' -e 's|xdg-open:||g')
