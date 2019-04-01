@@ -468,6 +468,7 @@ screensaver_gnome_screensaver()
         perl -e '
 use strict;
 use warnings;
+use Encode qw(decode);
 use IO::File;
 use Net::DBus;
 use X11::Protocol;
@@ -488,6 +489,10 @@ while (1) {
     last;
   }
 }
+
+# Replace any invalid unicode characters with U+FFFD, so we dont crash when we
+# pass them over to D-Bus
+$window_name = decode("utf8", $window_name, Encode::FB_DEFAULT);
 
 # Inhibit idle detection (flags = 8) with window name and ID.
 # We have no reason so just send the window name again.
