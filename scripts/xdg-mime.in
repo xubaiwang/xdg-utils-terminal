@@ -84,6 +84,8 @@ info_gnome()
     elif gnomevfs-info --help 2>/dev/null 1>&2; then
         DEBUG 1 "Running gnomevfs-info \"$1\""
         gnomevfs-info --slow-mime "$1" 2> /dev/null | grep "^MIME" | cut -d ":" -f 2 | sed s/"^ "//
+    else
+        exit_failure_operation_impossible "no method available for querying MIME type of '$filename'"
     fi
 
     if [ $? -eq 0 ]; then
