@@ -30,7 +30,20 @@ _USAGE
 
 terminal_kde()
 {
-    terminal=`kreadconfig --file kdeglobals --group General --key TerminalApplication --default konsole`
+    if [ -n "$KDE_SESSION_VERSION" ] && [ "$KDE_SESSION_VERSION" -ge 5 ]; then
+        local kreadconfig=kreadconfig$KDE_SESSION_VERSION
+    else
+        local kreadconfig=kreadconfig
+    fi
+
+    if which $kreadconfig >/dev/null 2>&1; then
+        local terminal=$($kreadconfig --file kdeglobals \
+                                      --group General \
+                                      --key TerminalApplication \
+                                      --default konsole)
+    else
+        exit_failure_operation_impossible "'$kreadconfig' was not found or is not executable"
+    fi
 
     terminal_exec=`command -v $terminal`
 
