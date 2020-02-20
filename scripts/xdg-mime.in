@@ -307,7 +307,7 @@ search_desktop_file()
 
     grep -l "$MIME;" "$dir/"*.desktop 2>/dev/null
 
-    for f in $dir/*/; do
+    for f in "$dir/"*/; do
       [ -d "$f" ] && search_desktop_file "$MIME" "$f"
     done
 }
