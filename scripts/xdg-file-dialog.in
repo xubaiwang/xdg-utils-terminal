@@ -31,7 +31,7 @@ _USAGE
 
 open_kde()
 {
-    DIALOG=`which kdialog`
+    DIALOG=`command -v kdialog`
     if [ $? -eq 0 ]; then
         if [ x"$TITLE" != x"" ]; then
             $DIALOG --title "$TITLE" --getopenfilename "$1" ""
@@ -51,7 +51,7 @@ open_kde()
 
 open_zenity()
 {
-    DIALOG=`which zenity`
+    DIALOG=`command -v zenity`
     if [ $? -eq 0 ]; then
         if [ x"$1" != x"" ]; then
             cd `dirname "$1"` 2>/dev/null
@@ -87,7 +87,7 @@ open_zenity()
 
 open_multi_kde()
 {
-    DIALOG=`which kdialog`
+    DIALOG=`command -v kdialog`
     if [ $? -eq 0 ]; then
         if [ x"$TITLE" != x"" ]; then
             $DIALOG --title "$TITLE" --multiple --separate-output \
@@ -108,7 +108,7 @@ open_multi_kde()
 
 open_multi_zenity()
 {
-    DIALOG=`which zenity`
+    DIALOG=`command -v zenity`
     if [ $? -eq 0 ]; then
         if [ x"$1" != x"" ]; then
             cd `dirname "$1"` 2>/dev/null
@@ -145,7 +145,7 @@ open_multi_zenity()
 
 save_kde()
 {
-    DIALOG=`which kdialog`
+    DIALOG=`command -v kdialog`
     if [ $? -eq 0 ]; then
         if [ x"$TITLE" != x"" ]; then
             $DIALOG --title "$TITLE" --getsavefilename "$1" ""
@@ -165,7 +165,7 @@ save_kde()
 
 save_zenity()
 {
-    DIALOG=`which zenity`
+    DIALOG=`command -v zenity`
     if [ $? -eq 0 ]; then
         if [ x"$1" != x"" ]; then
             cd `dirname "$1"` 2>/dev/null
@@ -201,7 +201,7 @@ save_zenity()
 
 directory_kde()
 {
-    DIALOG=`which kdialog`
+    DIALOG=`command -v kdialog`
     if [ $? -eq 0 ]; then
         if [ x"$TITLE" != x"" ]; then
             $DIALOG --title "$TITLE" --getexistingdirectory "$1" ""
@@ -221,7 +221,7 @@ directory_kde()
 
 directory_zenity()
 {
-    DIALOG=`which zenity`
+    DIALOG=`command -v zenity`
     if [ $? -eq 0 ]; then
         if [ x"$1" != x"" ]; then
             cd "$1" 2>/dev/null

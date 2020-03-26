@@ -441,14 +441,14 @@ defapp_kde()
     if [ -n "${KDE_SESSION_VERSION}" ]; then
       case "${KDE_SESSION_VERSION}" in
         4)
-          KTRADER=`which ktraderclient 2> /dev/null`
+          KTRADER=`command -v ktraderclient`
         ;;
         5)
-          KTRADER=`which ktraderclient${KDE_SESSION_VERSION} 2> /dev/null`
+          KTRADER=`command -v ktraderclient${KDE_SESSION_VERSION}`
         ;;
       esac
     else
-        KTRADER=`which ktradertest 2> /dev/null`
+        KTRADER=`command -v ktradertest`
     fi
     if [ -n "$KTRADER" ] ; then
         DEBUG 1 "Running KDE trader query \"$MIME\" mimetype and \"Application\" servicetype"

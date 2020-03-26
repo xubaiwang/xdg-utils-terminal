@@ -411,7 +411,7 @@ open_generic()
             open_generic_xdg_mime "$file" "$filetype"
         fi
 
-        if which run-mailcap 2>/dev/null 1>&2; then
+        if command -v run-mailcap >/dev/null; then
             run-mailcap --action=view "$file"
             if [ $? -eq 0 ]; then
                 exit_success

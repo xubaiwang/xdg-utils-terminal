@@ -23,7 +23,7 @@ first_word()
 binary_to_desktop_file()
 {
     search="${XDG_DATA_HOME:-$HOME/.local/share}:${XDG_DATA_DIRS:-/usr/local/share:/usr/share}"
-    binary="`which "$1"`"
+    binary="`command -v "$1"`"
     binary="`readlink -f "$binary"`"
     base="`basename "$binary"`"
     IFS=:
@@ -38,7 +38,7 @@ binary_to_desktop_file()
             # Make sure it's a visible desktop file (e.g. not "preferred-web-browser.desktop").
             grep -Eq "^(NoDisplay|Hidden)=true" "$file" && continue
             command="`grep -E "^Exec(\[[^]=]*])?=" "$file" | cut -d= -f 2- | first_word`"
-            command="`which "$command"`"
+            command="`command -v "$command"`"
             if [ x"`readlink -f "$command"`" = x"$binary" ]; then
                 # Fix any double slashes that got added path composition
                 echo "$file" | sed -e 's,//*,/,g'
@@ -80,7 +80,7 @@ desktop_file_to_binary()
         if [ -r "$file_path" ]; then
             # Remove any arguments (%F, %f, %U, %u, etc.).
             command="`grep -E "^Exec(\[[^]=]*])?=" "$file_path" | cut -d= -f 2- | first_word`"
-            command="`which "$command"`"
+            command="`command -v "$command"`"
             readlink -f "$command"
             return
         fi
@@ -355,7 +355,7 @@ detectDE()
     if [ x"$DE" = x"gnome" ]; then
       # gnome-default-applications-properties is only available in GNOME 2.x
       # but not in GNOME 3.x
-      which gnome-default-applications-properties > /dev/null 2>&1  || DE="gnome3"
+      command -v gnome-default-applications-properties > /dev/null || DE="gnome3"
     fi
 
     if [ -f "$XDG_RUNTIME_DIR/flatpak-info" ]; then

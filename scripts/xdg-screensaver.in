@@ -38,7 +38,7 @@ else
    MV="mv"
    screensaver_file="$HOME/.xdg-screensaver-"`echo $(hostname)-$DISPLAY | sed 's/:/-/g'`
 fi
-lockfile_command=`which lockfile 2> /dev/null`
+lockfile_command=`command -v lockfile`
 
 lockfile()
 {
@@ -166,7 +166,7 @@ do_resume()
   cleanup_suspend
 }
 
-XPROP=`which xprop 2> /dev/null`
+XPROP=`command -v xprop`
 
 check_window_id()
 {
