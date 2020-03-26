@@ -281,7 +281,6 @@ search_desktop_file()
 
     if [ -r "$file" ] ; then
         command="$(get_key "${file}" "Exec" | first_word)"
-        command_exec=`which $command 2>/dev/null`
         icon="$(get_key "${file}" "Icon")"
         # FIXME: Actually LC_MESSAGES should be used as described in
         # http://standards.freedesktop.org/desktop-entry-spec/latest/ar01s04.html
@@ -321,7 +320,7 @@ search_desktop_file()
             args=$(( $args - 1 ))
         done
         [ $replaced -eq 1 ] || set -- "$@" "$target"
-        "$command_exec" "$@"
+        env "$command" "$@"
 
         if [ $? -eq 0 ]; then
             exit_success
