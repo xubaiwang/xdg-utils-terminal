@@ -138,7 +138,7 @@ su_generic()
 
 su_xfce()
 {
-    if which gnomesu &>/dev/null ; then
+    if which gnomesu >/dev/null 2>&1 ; then
         su_gnome
     else
         su_generic

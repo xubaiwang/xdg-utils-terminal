@@ -177,7 +177,7 @@ terminal_generic()
 
 terminal_lxde()
 {
-    if which lxterminal &>/dev/null; then
+    if which lxterminal >/dev/null 2>&1; then
         if [ x"$1" = x"" ]; then
             lxterminal
         else
@@ -190,7 +190,7 @@ terminal_lxde()
 
 terminal_lxqt()
 {
-    if which qterminal &>/dev/null; then
+    if which qterminal >/dev/null 2>&1; then
         if [ x"$1" = x"" ]; then
             qterminal
         else
@@ -203,7 +203,7 @@ terminal_lxqt()
 
 terminal_enlightenment()
 {
-    if which terminology &>/dev/null; then
+    if which terminology >/dev/null 2>&1; then
         if [ x"$1" = x"" ]; then
             terminology
         else
