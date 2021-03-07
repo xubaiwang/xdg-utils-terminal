@@ -433,6 +433,19 @@ open_envvar()
     done
 }
 
+open_wsl()
+{
+    local win_path="$(wslpath -w "$1")"
+    [ $? -eq 0 ] || exit_failure_operation_failed
+    powershell.exe start "${win_path}"
+
+    if [ $? -eq 0 ]; then
+        exit_success
+    else
+        exit_failure_operation_failed
+    fi
+}
+
 open_generic()
 {
     if is_file_url_or_path "$1"; then
@@ -600,6 +613,10 @@ case "$DE" in
 
     flatpak)
     open_flatpak "$url"
+    ;;
+
+    wsl)
+    open_wsl "$url"
     ;;
 
     generic)

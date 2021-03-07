@@ -349,6 +349,11 @@ detectDE()
         Darwin)
           DE=darwin;
           ;;
+        Linux)
+          grep -q microsoft /proc/version > /dev/null 2>&1 && \
+          which powershell.exe > /dev/null 2>&1 && \
+          DE=wsl;
+          ;;
       esac
     fi
 
