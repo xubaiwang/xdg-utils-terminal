@@ -98,6 +98,9 @@ open_kde()
                                         --group "PROFILE_$profile" \
                                         --key EmailClient \
                                   | cut -d ' ' -f 1)
+            if [ -z "${client%%*.desktop}" ] && ! which "$client" >/dev/null 2>&1; then
+                client=`desktop_file_to_binary "$client"`
+            fi
 
             if echo "$client" | grep -Eq 'thunderbird|icedove'; then
                 run_thunderbird "$client" "$1"
