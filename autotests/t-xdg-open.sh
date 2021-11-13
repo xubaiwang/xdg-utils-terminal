@@ -23,7 +23,7 @@ elif [ $# = 3 ] && [ "$1" = query ] && [ "$2" = default ] && \
         [ "$3" = '$mimetype' ]; then
     echo '$handler'.desktop
 else
-    echo "unexpected mock invokation: xdg-mime $*" >&2
+    echo "unexpected mock invocation: xdg-mime $*" >&2
     exit 1
 fi
 '

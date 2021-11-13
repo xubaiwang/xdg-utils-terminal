@@ -613,7 +613,7 @@ if [ "$action" = "info" ]; then
         info_generic "$filename"
         ;;
     esac
-    exit_failure_operation_impossible "no method available for quering MIME type of '$filename'"
+    exit_failure_operation_impossible "no method available for querying MIME type of '$filename'"
 fi
 
 if [ "$action" = "defapp" ]; then
@@ -625,7 +625,7 @@ if [ "$action" = "defapp" ]; then
 
     defapp_generic "$mimetype"
 
-    exit_failure_operation_impossible "no method available for quering default application for '$mimetype'"
+    exit_failure_operation_impossible "no method available for querying default application for '$mimetype'"
 fi
 
 vendor=true
