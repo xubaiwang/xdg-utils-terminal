@@ -416,7 +416,7 @@ check_mimeapps_list()
             found=1
         }
     }
-' "$mimeapps_list" | cut -d ';' -f 1)"
+' "$mimeapps_list")"
             if [ -n "$result" ]; then
                 # $result could be a ; separated list of .desktop files
                 # use the first on the system
