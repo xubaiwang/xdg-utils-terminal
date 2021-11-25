@@ -99,6 +99,21 @@ info_gnome()
     fi
 }
 
+info_lxqt()
+{
+    if qtxdg-mat mimetype --help 2>/dev/null 1>&2; then
+        qtxdg-mat mimetype "$1" 2>/dev/null
+    else
+        exit_failure_operation_impossible "no method available for querying MIME type of '$filename'"
+    fi
+
+    if [ $? -eq 0 ]; then
+        exit_success
+    else
+        exit_failure_operation_failed
+    fi
+}
+
 info_generic()
 {
     if mimetype --version >/dev/null 2>&1; then
@@ -240,6 +255,23 @@ make_default_kde()
         print "ServiceType=" mimetype
     }
 ' "$default_file" > "${default_file}.new" && mv "${default_file}.new" "$default_file"
+    fi
+}
+
+make_default_lxqt()
+{
+    # $1 is vendor-name.desktop
+    # $2 is mime/type
+    if qtxdg-mat defapp --help 2>/dev/null 1>&2; then
+        qtxdg-mat defapp --set "$1" "$2" 1>/dev/null
+    else
+        exit_failure_operation_impossible "no method available for setting the default application for MIME type(s) of '$mimetype'"
+    fi
+
+    if [ $? -eq 0 ]; then
+        exit_success
+    else
+        exit_failure_operation_failed
     fi
 }
 
@@ -474,6 +506,21 @@ defapp_kde()
     fi
 }
 
+defapp_lxqt()
+{
+    if qtxdg-mat defapp --help 2>/dev/null 1>&2; then
+        qtxdg-mat defapp "$1"
+    else
+        exit_failure_operation_impossible "no method available for querying the default application for MIME type of '$mimetype'"
+    fi
+
+    if [ $? -eq 0 ]; then
+        exit_success
+    else
+        exit_failure_operation_failed
+    fi
+}
+
 [ x"$1" != x"" ] || exit_failure_syntax
 
 mode=
@@ -576,6 +623,8 @@ if [ "$action" = "makedefault" ]; then
         exit_failure_syntax "mimetype argument missing"
     fi
 
+    detectDE
+
     while [ $# -gt 0 ] ; do
         case $1 in
           -*)
@@ -585,8 +634,16 @@ if [ "$action" = "makedefault" ]; then
         mimetype="$1"
         shift
 
-        make_default_kde "$filename" "$mimetype"
-        make_default_generic "$filename" "$mimetype"
+        case "$DE" in
+            lxqt)
+            make_default_lxqt "$filename" "$mimetype"
+            ;;
+
+            *)
+            make_default_kde "$filename" "$mimetype"
+            make_default_generic "$filename" "$mimetype"
+            ;;
+        esac
     done
     exit_success
 fi
@@ -609,6 +666,10 @@ if [ "$action" = "info" ]; then
         info_gnome "$filename"
         ;;
 
+        lxqt)
+        info_lxqt "$filename"
+        ;;
+
         *)
         info_generic "$filename"
         ;;
@@ -623,8 +684,15 @@ if [ "$action" = "defapp" ]; then
         defapp_kde "$mimetype"
     fi
 
-    defapp_generic "$mimetype"
+    case "$DE" in
+        lxqt)
+        defapp_lxqt "$mimetype"
+        ;;
 
+        *)
+        defapp_generic "$mimetype"
+        ;;
+    esac
     exit_failure_operation_impossible "no method available for querying default application for '$mimetype'"
 fi
 

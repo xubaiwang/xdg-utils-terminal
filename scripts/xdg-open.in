@@ -520,7 +520,17 @@ open_lxde()
 
 open_lxqt()
 {
-    open_generic "$1"
+    if qtxdg-mat open --help 2>/dev/null 1>&2; then
+        qtxdg-mat open "$1"
+    else
+        exit_failure_operation_impossible "no method available for opening '$1'"
+    fi
+
+    if [ $? -eq 0 ]; then
+        exit_success
+    else
+        exit_failure_operation_failed
+    fi
 }
 
 [ x"$1" != x"" ] || exit_failure_syntax

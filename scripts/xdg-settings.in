@@ -386,6 +386,49 @@ set_browser_gnome3()
     done
 }
 # }}} GNOME 3.x
+# {{{ LXQt
+
+get_browser_lxqt()
+{
+    if qtxdg-mat def-web-browser --help 2> /dev/null 1>&2; then
+        qtxdg-mat def-web-browser 2>/dev/null
+    else
+        exit_failure_operation_impossible "no method for getting the default browser"
+    fi
+}
+
+check_browser_lxqt()
+{
+    desktop="$1"
+    check="`desktop_file_to_binary "$1"`"
+    if [ -z "$check" ]; then
+        echo no
+        exit_success
+    fi
+
+    if qtxdg-mat def-web-browser --help 2>/dev/null 1>&2; then
+        browser="`qtxdg-mat def-web-browser`" 2>/dev/null
+        if [ x"$browser" != x"$desktop" ]; then
+            echo no
+            exit_success
+        fi
+    else
+        exit_failure_operation_impossible "no method for checking the default browser"
+    fi
+}
+
+set_browser_lxqt()
+{
+    binary="`desktop_file_to_binary "$1"`"
+    [ "$binary" ] || exit_failure_file_missing
+    set_browser_mime "$1" || return
+
+    # Set the default browser.
+    for protocol in http https about unknown; do
+        set_browser_mime "$1" "x-scheme-handler/$protocol" || return
+    done
+}
+# }}} LXQt
 # {{{ xfce
 
 get_browser_xfce()
@@ -678,6 +721,48 @@ set_url_scheme_handler_gnome()
 }
 
 # }}} GNOME
+# {{{ LXQt
+
+get_url_scheme_handler_lxqt()
+{
+    if qtxdg-mat defapp --help 2> /dev/null 1>&2; then
+        qtxdg-mat defapp "x-scheme-handler/$1" 2> /dev/null
+    else
+        exit_failure_operation_impossible "no method for getting the url_scheme_handler"
+    fi
+}
+
+check_url_scheme_handler_lxqt()
+{
+    desktop="$2"
+    check="`desktop_file_to_binary "$2"`"
+    if [ -z "$check" ]; then
+        echo no
+        exit_success
+    fi
+
+    if qtxdg-mat defapp --help 2> /dev/null 1>&2; then
+        handler="`qtxdg-mat defapp "x-scheme-handler/$1"`" 2> /dev/null
+        if [ x"$handler" != x"$desktop" ]; then
+            echo no
+            exit_success
+        fi
+    else
+        exit_failure_operation_impossible "no method for checking the url_scheme_handler for desktop $DE"
+    fi
+}
+
+set_url_scheme_handler_lxqt()
+{
+    binary="`desktop_file_to_binary "$2"`"
+    [ "$binary" ] || exit_failure_file_missing
+    set_browser_mime "$2" || return
+
+    # Set the default browser.
+    set_browser_mime "$2" "x-scheme-handler/$1" || return
+}
+
+# }}} LXQt
 # {{{ GNOME 3.x
 
 get_url_scheme_handler_gnome3()
@@ -880,11 +965,15 @@ case "$DE" in
     dispatch_specific gnome3 "$@"
     ;;
 
+    lxqt)
+    dispatch_specific lxqt "$@"
+    ;;
+
     xfce)
     dispatch_specific xfce "$@"
     ;;
 
-    generic|lxqt|enlightenment)
+    generic|enlightenment)
     dispatch_specific generic "$@"
     ;;
 
