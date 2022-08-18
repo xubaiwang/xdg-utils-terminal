@@ -706,7 +706,6 @@ set_url_scheme_handler_gnome3()
 {
     binary="`desktop_file_to_binary "$2"`"
     [ "$binary" ] || exit_failure_file_missing
-    set_browser_mime "$2" || return
 
     # Set the default browser.
     set_browser_mime "$2" "x-scheme-handler/$1" || return
