@@ -84,7 +84,7 @@ su_lxqt()
     if [ $? -eq 0 ] ; then
         if [ -z "$user" ] ; then
              # -s option runs as su rather then sudo
-             $LXQTSU -s "$cmd"
+             $LXQTSU -s $cmd
         else
              # lxqt-sudo does not support specifying a user
              su_generic
