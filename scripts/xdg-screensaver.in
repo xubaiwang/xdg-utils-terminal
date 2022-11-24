@@ -301,15 +301,19 @@ screensaver_freedesktop()
         ;;
 
         status)
-        status=`dbus-send --session \
+        raw_status=`dbus-send --session \
                           --dest=org.freedesktop.ScreenSaver \
                           --type=method_call \
                           --print-reply \
                           --reply-timeout=2000 \
                           /ScreenSaver \
-                          org.freedesktop.ScreenSaver.GetActive \
-                          | grep boolean | cut -d ' ' -f 5`
+                          org.freedesktop.ScreenSaver.GetActive`
         result=$?
+        status=
+        if [ x"$result" = "x0" ]; then
+            status=`echo "$raw_status" | grep boolean | cut -d ' ' -f 5`
+            result=$?
+        fi
         if [ x"$status" = "xtrue" -o x"$status" = "xfalse" ]; then
             echo "enabled"
         elif [ x"$result" != "x0" ]; then
