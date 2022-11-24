@@ -94,6 +94,11 @@ perform_action()
         screensaver_kde3 "$1"
       fi
       ;;
+
+    gnome3)
+      screensaver_freedesktop "$1"
+      ;;
+
     gnome_screensaver)
       screensaver_gnome_screensaver "$1"
       ;;
