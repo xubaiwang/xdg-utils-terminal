@@ -241,33 +241,13 @@ screensaver_freedesktop()
 {
     case "$1" in
         suspend)
-        dbus-send --session \
-                  --dest=org.freedesktop.ScreenSaver \
-                  --type=method_call \
-                  --print-reply \
-                  --reply-timeout=2000 \
-                  /ScreenSaver \
-                  org.freedesktop.ScreenSaver.Inhibit \
-                  string:$window_id \
-                  string:xdg-screensaver \
-                  | grep uint32 | cut -d ' ' -f 5 >| "$screensaver_file.cookie" \
-                  2> /dev/null
-        result=$?
+        screensaver_dbus_process $window_id $screensaver_file "org.freedesktop.ScreenSaver" "/ScreenSaver"
+        result=0
         ;;
 
         resume)
-        if [ -f "$screensaver_file.cookie" ] ; then
-            value=`cat "$screensaver_file.cookie"`
-            dbus-send --session \
-                      --dest=org.freedesktop.ScreenSaver \
-                      --type=method_call \
-                      /ScreenSaver \
-                      org.freedesktop.ScreenSaver.UnInhibit \
-                      uint32:$value \
-                      2> /dev/null
-            rm -f "$screensaver_file.cookie"
-        fi
-        result=$?
+        # Automatic resume when $screensaver_file disappears
+        result=0
         ;;
 
         activate)
@@ -291,17 +271,12 @@ screensaver_freedesktop()
         ;;
 
         reset)
-        if [ -f "$screensaver_file.cookie" ] ; then
-            value=`cat "$screensaver_file.cookie"`
-            dbus-send --session \
-                      --dest=org.freedesktop.ScreenSaver \
-                      --type=method_call \
-                      /ScreenSaver \
-                      org.freedesktop.ScreenSaver.UnInhibit \
-                      uint32:$value \
-                      2> /dev/null
-            rm -f "$screensaver_file.cookie"
-        fi
+        dbus-send --session \
+                  --dest=org.freedesktop.ScreenSaver \
+                  --type=method_call \
+                  /ScreenSaver \
+                  org.freedesktop.ScreenSaver.SimulateUserActivity \
+                  2> /dev/null
         result=$?
         ;;
 
@@ -468,13 +443,9 @@ screensaver_suspend_loop()
   (while [ -f "$screensaver_file" ]; do $*; sleep 50; done) > /dev/null 2> /dev/null &
 }
 
-screensaver_gnome_screensaver()
+screensaver_dbus_process ()
 {
-# DBUS interface for gnome-screensaver
-# http://people.gnome.org/~mccann/gnome-screensaver/docs/gnome-screensaver.html
-    case "$1" in
-        suspend)
-        perl -e '
+  perl -e '
 use strict;
 use warnings;
 use Encode qw(decode);
@@ -482,7 +453,7 @@ use IO::File;
 use Net::DBus;
 use X11::Protocol;
 
-my ($window_id, $screensaver_file) = @ARGV;
+my ($window_id, $screensaver_file, $dbus_service, $dbus_path) = @ARGV;
 
 # Find window name to pass to session manager.
 my $x = X11::Protocol->new();
@@ -506,9 +477,8 @@ $window_name = decode("utf8", $window_name, Encode::FB_DEFAULT);
 # Inhibit idle detection (flags = 8) with window name and ID.
 # We have no reason so just send the window name again.
 my $bus = Net::DBus->session();
-my $sm_svc = $bus->get_service("org.gnome.SessionManager");
-my $sm = $sm_svc->get_object("/org/gnome/SessionManager",
-			     "org.gnome.SessionManager");
+my $sm_svc = $bus->get_service($dbus_service);
+my $sm = $sm_svc->get_object($dbus_path, $dbus_service);
 $sm->Inhibit($window_name, hex($window_id), $window_name, 8);
 
 # Wait until removed from the status file.
@@ -525,7 +495,16 @@ while (1) {
   }
   exit 0 unless $found;
 }
-' $window_id $screensaver_file &
+' "$1" "$2" "$3" "$4" &
+  }
+
+screensaver_gnome_screensaver()
+{
+# DBUS interface for gnome-screensaver
+# http://people.gnome.org/~mccann/gnome-screensaver/docs/gnome-screensaver.html
+    case "$1" in
+        suspend)
+        screensaver_dbus_process $window_id $screensaver_file "org.gnome.SessionManager" "/org/gnome/SessionManager"
         result=0
         ;;
 
