@@ -610,15 +610,12 @@ fi
 if [ "$action" = "defapp" ]; then
     detectDE
 
-    case "$DE" in
-        kde)
+    if [ "$DE" == "kde" ] && [ "$KDE_SESSION_VERSION" -lt "6" ]; then
         defapp_kde "$mimetype"
-        ;;
+    fi
 
-        *)
-        defapp_generic "$mimetype"
-        ;;
-    esac
+    defapp_generic "$mimetype"
+
     exit_failure_operation_impossible "no method available for quering default application for '$mimetype'"
 fi
 
