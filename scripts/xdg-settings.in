@@ -148,6 +148,8 @@ read_kde_config()
     configkey="$3"
     if [ x"${KDE_SESSION_VERSION}" = x"5" ]; then
         application="`kreadconfig5 --file $configfile --group $configsection --key $configkey`"
+    elif [ x"${KDE_SESSION_VERSION}" = x"6" ]; then
+        application="`kreadconfig6 --file $configfile --group $configsection --key $configkey`"
     else
         application="`kreadconfig --file $configfile --group $configsection --key $configkey`"
     fi
@@ -267,6 +269,8 @@ set_browser_kde()
     set_browser_mime "$1" "text/html" || return
     if [ x"${KDE_SESSION_VERSION}" = x"5" ]; then
         kwriteconfig5 --file kdeglobals --group General --key BrowserApplication "$1"
+    elif [ x"${KDE_SESSION_VERSION}" = x"6" ]; then
+        kwriteconfig6 --file kdeglobals --group General --key BrowserApplication "$1"
     else
         kwriteconfig --file kdeglobals --group General --key BrowserApplication "$1"
     fi
@@ -624,6 +628,8 @@ set_url_scheme_handler_kde()
         binary="`desktop_file_to_binary "$2"`"
         if [ x"${KDE_SESSION_VERSION}" = x"5" ]; then
             kwriteconfig5 --file emaildefaults --group PROFILE_Default --key EmailClient "$binary"
+        elif [ x"${KDE_SESSION_VERSION}" = x"6" ]; then
+            kwriteconfig6 --file emaildefaults --group PROFILE_Default --key EmailClient "$binary"
         else
             kwriteconfig --file emaildefaults --group PROFILE_Default --key EmailClient "$binary"
         fi
