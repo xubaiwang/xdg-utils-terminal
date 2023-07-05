@@ -60,6 +60,10 @@ info_kde()
           DEBUG 1 "Running kmimetypefinder${KDE_SESSION_VERSION} \"$1\""
           kmimetypefinder${KDE_SESSION_VERSION} "$1" 2>/dev/null | head -n 1
         ;;
+        6)
+          DEBUG 1 "Running kmimetypefinder \"$1\""
+          kmimetypefinder "$1" 2>/dev/null | head -n 1
+        ;;
       esac
     else
         DEBUG 1 "Running kfile \"$1\""
