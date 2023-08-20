@@ -97,7 +97,7 @@ file_url_to_path()
     get_hostname
     if echo "$file" | grep -q '^file://'; then
         file=${file#file://localhost}
-        file=${file#file://$HOSTNAME}
+        file=${file#file://"$HOSTNAME"}
         file=${file#file://}
         if ! echo "$file" | grep -q '^/'; then
             echo "$file"
@@ -394,7 +394,7 @@ open_generic_xdg_file_mime()
 open_generic_xdg_x_scheme_handler()
 {
     scheme="`echo $1 | sed -n 's/\(^[[:alnum:]+\.-]*\):.*$/\1/p'`"
-    if [ -n $scheme ]; then
+    if [ -n "$scheme" ]; then
         filetype="x-scheme-handler/$scheme"
         open_generic_xdg_mime "$1" "$filetype"
     fi

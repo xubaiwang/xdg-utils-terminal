@@ -347,7 +347,7 @@ defapp_fallback()
     done
 
     if [ -n "$desktop_file" ] ; then
-       echo `basename $desktop_file`
+       basename $desktop_file
        exit_success
     fi
 }
@@ -361,7 +361,7 @@ check_mimeapps_list()
     for desktop in $XDG_CURRENT_DESKTOP ''; do
         IFS="$oldifs"
         if [ -n "$desktop" ]; then
-            local prefix=$(echo "$desktop-" | tr '[:upper:]' '[:lower:]')
+            local prefix="$(echo "$desktop-" | tr '[:upper:]' '[:lower:]')"
         else
             local prefix=
         fi
@@ -619,7 +619,7 @@ fi
 if [ "$action" = "defapp" ]; then
     detectDE
 
-    if [ "$DE" == "kde" ] && [ "$KDE_SESSION_VERSION" -lt "6" ]; then
+    if [ "$DE" = "kde" ] && [ "$KDE_SESSION_VERSION" -lt "6" ]; then
         defapp_kde "$mimetype"
     fi
 
@@ -686,7 +686,7 @@ if [ -n "$XDG_UTILS_INSTALL_MODE" ] ; then
 fi
 
 if [ -z "$mode" ] ; then
-    if [ `whoami` = "root" ] ; then
+    if [ "`id -u`" -eq 0 ] ; then
         mode="system"
     else
         mode="user"
@@ -697,7 +697,7 @@ if [ -z "$filename" ] ; then
     exit_failure_syntax "mimetypes-file argument missing"
 fi
 
-if [ "$vendor" =  "true" -a "$action" = "install" ] ; then
+if [ "$vendor" =  "true" ] && [ "$action" = "install" ] ; then
     check_vendor_prefix "$filename"
 fi
 
@@ -833,7 +833,7 @@ case $action in
             # No quotes around $mimetypes
             for x in $mimetypes ; do
                 DEBUG 1 "Installing $kde_dir/$x.desktop (KDE 3.x support)"
-                mkdir -p `dirname $kde_dir/$x.desktop`
+                mkdir -p "`dirname $kde_dir/$x.desktop`"
                 awk < "$filename" '
 # Strip XML comments
 BEGIN {

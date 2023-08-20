@@ -89,7 +89,7 @@ filetype=
 case "$desktop_file" in
   *.desktop)
      filetype=desktop
-     if [ "$vendor" = "true" -a "$action" = "install" ] ; then
+     if [ "$vendor" = "true" ] && [ "$action" = "install" ] ; then
         check_vendor_prefix "$desktop_file"
      fi
      ;;

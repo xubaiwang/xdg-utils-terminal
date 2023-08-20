@@ -161,20 +161,20 @@ update_submenu()
         mandrake_xdg_dir=`echo "$xdg_dir" | sed -e 's^/applications-merged^/applications-mdk-merged^'`
         if [ ! -e "$mandrake_xdg_dir" ] ; then
             DEBUG 1 "Mandriva Workaround: Link '$xdg_dir' to '$mandrake_xdg_dir'"
-            mkdir -p `dirname "$mandrake_xdg_dir"`
+            mkdir -p "`dirname "$mandrake_xdg_dir"`"
             eval 'ln -s "applications-merged" "$mandrake_xdg_dir"'$xdg_redirect_output
         fi
     fi
-    if [ $action = "install" -a x"$mode" = x"user" ] && [ -d "/etc/xdg/menus/kde-applications-merged" ] ; then
+    if [ $action = "install" ] && [ x"$mode" = x"user" ] && [ -d "/etc/xdg/menus/kde-applications-merged" ] ; then
         # Work around for Fedora Core 5 + patched KDE
         kde_xdg_dir=`echo "$xdg_dir" | sed -e 's^/applications-merged^/kde-applications-merged^'`
         if [ ! -e "$kde_xdg_dir" ] ; then
             DEBUG 1 "Fedora Workaround: Link '$xdg_dir' to '$kde_xdg_dir'"
-            mkdir -p `dirname "$kde_xdg_dir"`
+            mkdir -p "`dirname "$kde_xdg_dir"`"
             eval 'ln -s "applications-merged" "$kde_xdg_dir"'$xdg_redirect_output
         fi
     fi
-    if [ $action = "install" -a x"$mode" = x"system" ] && [ -d "/etc/xdg/menus/kde-applications-merged" ] && [ ! -d "/etc/xdg/menus/applications-merged" ] ; then
+    if [ $action = "install" ] && [ x"$mode" = x"system" ] && [ -d "/etc/xdg/menus/kde-applications-merged" ] && [ ! -d "/etc/xdg/menus/applications-merged" ] ; then
         # Work around for Kubuntu 6.06
         kde_xdg_dir=`echo "$xdg_dir" | sed -e 's^/applications-merged^/kde-applications-merged^'`
         DEBUG 1 "Kubuntu Workaround: Link '$xdg_dir' to 'kde-applications-merged'"
@@ -283,7 +283,7 @@ BEGIN {
     if [ $action = "uninstall" ] ; then
         test "${TMPDIR+set}" = set || TMPDIR=/tmp
         tmpfile=`mktemp $TMPDIR/tmp.XXXXXXXXXX`
-        for menu_file in $xdg_dir/*; do
+        for menu_file in "$xdg_dir"/*; do
             if grep 'generated and managed by @NAME@' "$menu_file" > /dev/null 2> /dev/null; then
                 awk '
 # List all files within <Directory> tags
@@ -412,7 +412,7 @@ if [ -n "$XDG_UTILS_INSTALL_MODE" ] ; then
 fi
 
 if [ -z "$mode" ] ; then
-    if [ `whoami` = "root" ] ; then
+    if [ "`id -u`" -eq 0 ] ; then
        mode="system"
     else
        mode="user"
@@ -430,7 +430,7 @@ fi
 
 menu_name=
 for desktop_file in $directory_files; do
-    if [ "$vendor" =  "true" -a "$action" = "install" ] ; then
+    if [ "$vendor" =  "true" ] && [ "$action" = "install" ] ; then
         check_vendor_prefix "$desktop_file"
     fi
 
@@ -560,7 +560,7 @@ else
 fi
 
 for desktop_file in $desktop_files; do
-    if [ "$vendor" =  "true" -a "$action" = "install" ] ; then
+    if [ "$vendor" =  "true" ] && [ "$action" = "install" ] ; then
         check_vendor_prefix "$desktop_file"
     fi
 

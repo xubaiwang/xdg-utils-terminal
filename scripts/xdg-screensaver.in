@@ -36,7 +36,7 @@ else
    # No secure moves available, use home dir
    DEBUG 1 "mv -T not available"
    MV="mv"
-   screensaver_file="$HOME/.xdg-screensaver-"`echo $(hostname)-$DISPLAY | sed 's/:/-/g'`
+   screensaver_file="$HOME/.xdg-screensaver-"`echo "$(hostname)"-$DISPLAY | sed 's/:/-/g'`
 fi
 lockfile_command=`command -v lockfile`
 
@@ -128,7 +128,7 @@ perform_action()
       ;;
   esac
 
-  if [ -n "$DISPLAY" -a "$1" = "suspend" ] ; then
+  if [ -n "$DISPLAY" ] && [ "$1" = "suspend" ] ; then
       # Save DPMS state
       if xset -q | grep 'DPMS is Enabled' > /dev/null 2> /dev/null; then
           test "${TMPDIR+set}" = set || TMPDIR=/tmp
@@ -294,7 +294,7 @@ screensaver_freedesktop()
             status=`echo "$raw_status" | grep boolean | cut -d ' ' -f 5`
             result=$?
         fi
-        if [ x"$status" = "xtrue" -o x"$status" = "xfalse" ]; then
+        if [ x"$status" = "xtrue" ] || [ x"$status" = "xfalse" ]; then
             echo "enabled"
         elif [ x"$result" != "x0" ]; then
             echo "ERROR: dbus org.freedesktop.ScreenSaver.GetActive returned '$status'" >&2
@@ -555,7 +555,7 @@ screensaver_gnome_screensaver()
                           org.gnome.ScreenSaver.GetActive \
                           | grep boolean | cut -d ' ' -f 5`
         result=$?
-        if [ x"$status" = "xtrue" -o x"$status" = "xfalse" ]; then
+        if [ x"$status" = "xtrue" ] || [ x"$status" = "xfalse" ]; then
             echo "enabled"
         elif [ x"$result" != "x0" ]; then
             echo "ERROR: dbus org.gnome.ScreenSaver.GetActive returned '$status'" >&2
@@ -631,7 +631,7 @@ screensaver_mate_screensaver()
                           org.mate.ScreenSaver.GetActive \
                           | grep boolean | cut -d ' ' -f 5`
         result=$?
-        if [ x"$status" = "xtrue" -o x"$status" = "xfalse" ]; then
+        if [ x"$status" = "xtrue" ] || [ x"$status" = "xfalse" ]; then
             echo "enabled"
         elif [ x"$result" != "x0" ]; then
             echo "ERROR: dbus org.mate.ScreenSaver.GetActive returned '$status'" >&2

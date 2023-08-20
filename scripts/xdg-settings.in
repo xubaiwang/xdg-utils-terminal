@@ -98,7 +98,7 @@ xdg_mime_fixup()
     # further processes need it around. But since it does not close its stdout,
     # the shell (via grep) will wait around for kdeinit to exit. If we start a
     # copy here, that copy will be used in xdg-mime and we will avoid waiting.
-    if [ "$DE" = kde -a -z "$XDG_MIME_FIXED" ]; then
+    if [ "$DE" = kde ] && [ -z "$XDG_MIME_FIXED" ]; then
         ktradertest text/html Application > /dev/null 2>&1
         # Only do this once, as we only need it once.
         XDG_MIME_FIXED=yes
@@ -236,15 +236,15 @@ check_browser_kde()
     binary="`resolve_kde_browser`"
 
     # The browser may contain a relative entry to the binary starting with !
-    if [ x"!" = x"$(printf %.1s "$browser")" ]; then
+    case "$browser" in !*)
         # get the full path
-        browser="`binary_to_desktop_file ${browser:1}`"
+        browser="`binary_to_desktop_file ${browser#!}`"
         binary="`desktop_file_to_binary $browser`"
-    fi
+    esac
 
     # Because KDE will use the handler for MIME type text/html if this value
     # is empty, we allow either the empty string or a match to $check here.
-    if [ x"$binary" != x -a x"$binary" != x"$check" ]; then
+    if [ x"$binary" != x ] && [ x"$binary" != x"$check" ]; then
         echo no
         exit_success
     fi
@@ -494,7 +494,7 @@ get_browser_generic()
     if [ -n "$BROWSER" ]; then
         local browser=$(binary_to_desktop_file "${BROWSER%%:*}")
         if [ -n "$browser" ]; then
-            echo "$(basename "$browser")"
+            basename "$browser"
             return 0
         fi
     fi
@@ -506,7 +506,7 @@ get_browser_generic()
     # Debian and derivatives have x-www-browser
     local browser=$(binary_to_desktop_file x-www-browser)
     if [ -n "$browser" ]; then
-        echo "$(basename "$browser")"
+        basename "$browser"
         return 0
     fi
 
@@ -597,14 +597,14 @@ check_url_scheme_handler_kde()
         echo no
         exit_success
     fi
-    if [ x"$1" = "mailto" ]; then
+    if [ "$1" = "mailto" ]; then
         binary="`read_kde_config emaildefaults PROFILE_Default EmailClient`"
         # The field may contain a relative entry to the binary starting with !
-        if [ x"!" = x"$(printf %.1s "$binary")" ]; then
+        case "$browser" in !*)
             # get the full path
-            desktop_file="`binary_to_desktop_file ${binary:1}`"
+            desktop_file="`binary_to_desktop_file ${binary#!}`"
             binary="`desktop_file_to_binary $desktop_file`"
-        fi
+        esac
         if [ x"$binary" != x"$check" ]; then
             echo no
             exit_success
@@ -851,13 +851,13 @@ fi
 
 [ x"$1" != x ] || exit_failure_syntax "no operation given"
 [ x"$2" != x ] || exit_failure_syntax "no parameter name given"
-[ x"$1" = x"get" -o x"$3" != x ] || exit_failure_syntax "no parameter value given"
+[ x"$1" = x"get" ] || [ x"$3" != x ] || exit_failure_syntax "no parameter value given"
 
 op="$1"
 parm="$2"
 shift 2
 
-if [ x"$op" != x"get" -a x"$op" != x"check" -a x"$op" != x"set" ]; then
+if [ x"$op" != x"get" ] && [ x"$op" != x"check" ] && [ x"$op" != x"set" ]; then
   exit_failure_syntax "invalid operation"
 fi
 

@@ -142,10 +142,9 @@ open_gnome3()
     local desktop
     desktop=`xdg-mime query default "x-scheme-handler/mailto"`
     client=`desktop_file_to_binary "$desktop"`
-    echo $client | grep -E 'thunderbird|icedove' > /dev/null 2>&1
-    if [ $? -eq 0 ] ; then
+    case $client in *thunderbird*|*icedove*)
         run_thunderbird "$client" "$1"
-    fi
+    esac
 
     if gio help open 2>/dev/null 1>&2; then
         DEBUG 1 "Running gio open \"$1\""
@@ -168,11 +167,10 @@ open_gnome3()
 open_gnome()
 {
     local client
-    client=`gconftool-2 --get /desktop/gnome/url-handlers/mailto/command | cut -d ' ' -f 1` || ""
-    echo $client | grep -E 'thunderbird|icedove' > /dev/null 2>&1
-    if [ $? -eq 0 ] ; then
+    client=`gconftool-2 --get /desktop/gnome/url-handlers/mailto/command | cut -d ' ' -f 1`
+    case $client in *thunderbird*|*icedove*)
         run_thunderbird "$client" "$1"
-    fi
+    esac
 
     if gio help open 2>/dev/null 1>&2; then
         DEBUG 1 "Running gio open \"$1\""
@@ -243,10 +241,9 @@ open_generic()
     local desktop
     desktop=`xdg-mime query default "x-scheme-handler/mailto"`
     client=`desktop_file_to_binary "$desktop"`
-    echo $client | grep -E 'thunderbird|icedove' > /dev/null 2>&1
-    if [ $? -eq 0 ] ; then
+    case $client in *thunderbird*|*icedove*)
         run_thunderbird "$client" "$1"
-    fi
+    esac
 
     xdg-open "$1"
     exit $?
@@ -374,7 +371,7 @@ while [ $# -gt 0 ] ; do
       *@*)
         url_encode "$parm"
         if [ -z "${mailto}" ] ; then
-            mailto="mailto:"${result}"?"
+            mailto="mailto:${result}?"
         else
             options="${options}to=${result}&"
         fi
@@ -460,7 +457,7 @@ case "$DE" in
     ;;
 
     flatpak)
-    open_flatpak "$url"
+    open_flatpak "${mailto}"
     ;;
 
     generic|lxqt|enlightenment)
