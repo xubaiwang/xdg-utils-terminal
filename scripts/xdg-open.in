@@ -356,7 +356,7 @@ search_desktop_file()
                 args=$(( $args - 1 ))
             done
             [ $replaced -eq 1 ] || set -- "$@" "$target"
-            env "$command" "$@" &
+            env "$command" "$@"
             exit_success
         fi
     fi
