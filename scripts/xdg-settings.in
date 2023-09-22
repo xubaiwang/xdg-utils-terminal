@@ -205,10 +205,11 @@ resolve_kde_browser_desktop()
 
 read_kde_browser()
 {
-    ret=`read_kde_config kdeglobals General BrowserApplication`
+    # since Plasma >= 5.19
+    ret=`get_browser_mime "x-scheme-handler/http"`
     if [ -z "$ret" ]; then
-        # since Plasma >= 5.19
-        ret=`get_browser_mime "x-scheme-handler/http"`
+        # older Plasma versions
+        ret=`read_kde_config kdeglobals General BrowserApplication`
     fi
     
     echo $ret
