@@ -3,10 +3,12 @@
 #   Common utility functions included in all XDG wrapper scripts
 #----------------------------------------------------------------------------
 
+#shellcheck shell=sh
+
 DEBUG()
 {
   [ -z "${XDG_UTILS_DEBUG_LEVEL}" ] && return 0;
-  [ ${XDG_UTILS_DEBUG_LEVEL} -lt $1 ] && return 0;
+  [ "${XDG_UTILS_DEBUG_LEVEL}" -lt "$1" ] && return 0;
   shift
   echo "$@" >&2
 }
@@ -14,6 +16,7 @@ DEBUG()
 # This handles backslashes but not quote marks.
 first_word()
 {
+    # shellcheck disable=SC2162 # No -r is intended here
     read first rest
     echo "$first"
 }
@@ -23,9 +26,9 @@ first_word()
 binary_to_desktop_file()
 {
     search="${XDG_DATA_HOME:-$HOME/.local/share}:${XDG_DATA_DIRS:-/usr/local/share:/usr/share}"
-    binary="`command -v "$1"`"
-    binary="`readlink -f "$binary"`"
-    base="`basename "$binary"`"
+    binary="$(command -v "$1")"
+    binary="$(readlink -f "$binary")"
+    base="$(basename "$binary")"
     IFS=:
     for dir in $search; do
         unset IFS
@@ -37,9 +40,9 @@ binary_to_desktop_file()
             grep -q "^Exec.*$base" "$file" || continue
             # Make sure it's a visible desktop file (e.g. not "preferred-web-browser.desktop").
             grep -Eq "^(NoDisplay|Hidden)=true" "$file" && continue
-            command="`grep -E "^Exec(\[[^]=]*])?=" "$file" | cut -d= -f 2- | first_word`"
-            command="`command -v "$command"`"
-            if [ x"`readlink -f "$command"`" = x"$binary" ]; then
+            command="$(grep -E "^Exec(\[[^]=]*])?=" "$file" | cut -d= -f 2- | first_word)"
+            command="$(command -v "$command")"
+            if [ x"$(readlink -f "$command")" = x"$binary" ]; then
                 # Fix any double slashes that got added path composition
                 echo "$file" | tr -s /
                 return
@@ -53,7 +56,7 @@ binary_to_desktop_file()
 desktop_file_to_binary()
 {
     search="${XDG_DATA_HOME:-$HOME/.local/share}:${XDG_DATA_DIRS:-/usr/local/share:/usr/share}"
-    desktop="`basename "$1"`"
+    desktop="$(basename "$1")"
     IFS=:
     for dir in $search; do
         unset IFS
@@ -79,8 +82,8 @@ desktop_file_to_binary()
         fi
         if [ -r "$file_path" ]; then
             # Remove any arguments (%F, %f, %U, %u, etc.).
-            command="`grep -E "^Exec(\[[^]=]*])?=" "$file_path" | cut -d= -f 2- | first_word`"
-            command="`command -v "$command"`"
+            command="$(grep -E "^Exec(\[[^]=]*])?=" "$file_path" | cut -d= -f 2- | first_word)"
+            command="$(command -v "$command")"
             readlink -f "$command"
             return
         fi
@@ -90,10 +93,11 @@ desktop_file_to_binary()
 #-------------------------------------------------------------
 # Exit script on successfully completing the desired operation
 
+# shellcheck disable=SC2120 # It is okay to call this without arguments
 exit_success()
 {
     if [ $# -gt 0 ]; then
-        echo "$@"
+        echo "$*"
         echo
     fi
 
@@ -109,7 +113,7 @@ exit_success()
 exit_failure_syntax()
 {
     if [ $# -gt 0 ]; then
-        echo "@NAME@: $@" >&2
+        echo "@NAME@: $*" >&2
         echo "Try '@NAME@ --help' for more information." >&2
     else
         usage
@@ -125,7 +129,7 @@ exit_failure_syntax()
 exit_failure_file_missing()
 {
     if [ $# -gt 0 ]; then
-        echo "@NAME@: $@" >&2
+        echo "@NAME@: $*" >&2
     fi
 
     exit 2
@@ -137,7 +141,7 @@ exit_failure_file_missing()
 exit_failure_operation_impossible()
 {
     if [ $# -gt 0 ]; then
-        echo "@NAME@: $@" >&2
+        echo "@NAME@: $*" >&2
     fi
 
     exit 3
@@ -149,7 +153,7 @@ exit_failure_operation_impossible()
 exit_failure_operation_failed()
 {
     if [ $# -gt 0 ]; then
-        echo "@NAME@: $@" >&2
+        echo "@NAME@: $*" >&2
     fi
 
     exit 4
@@ -161,7 +165,7 @@ exit_failure_operation_failed()
 exit_failure_file_permission_read()
 {
     if [ $# -gt 0 ]; then
-        echo "@NAME@: $@" >&2
+        echo "@NAME@: $*" >&2
     fi
 
     exit 5
@@ -173,7 +177,7 @@ exit_failure_file_permission_read()
 exit_failure_file_permission_write()
 {
     if [ $# -gt 0 ]; then
-        echo "@NAME@: $@" >&2
+        echo "@NAME@: $*" >&2
     fi
 
     exit 6
@@ -193,7 +197,7 @@ check_vendor_prefix()
 {
     file_label="$2"
     [ -n "$file_label" ] || file_label="filename"
-    file=`basename "$1"`
+    file="$(basename "$1")"
     case "$file" in
        [[:alpha:]]*-*)
          return
@@ -216,7 +220,7 @@ check_output_file()
             exit_failure_file_permission_write "no permission to write to file '$1'"
         fi
     else
-        DIR=`dirname "$1"`
+        DIR="$(dirname "$1")"
         if [ ! -w "$DIR" ] || [ ! -x "$DIR" ]; then
             exit_failure_file_permission_write "no permission to create file '$1'"
         fi
@@ -255,7 +259,8 @@ check_common_commands()
 check_common_commands "$@"
 
 [ -z "${XDG_UTILS_DEBUG_LEVEL}" ] && unset XDG_UTILS_DEBUG_LEVEL;
-if [ ${XDG_UTILS_DEBUG_LEVEL-0} -lt 1 ]; then
+# shellcheck disable=SC2034
+if [ "${XDG_UTILS_DEBUG_LEVEL-0}" -lt 1 ]; then
     # Be silent
     xdg_redirect_output=" > /dev/null 2> /dev/null"
 else
@@ -309,20 +314,21 @@ detectDE()
       esac
     fi
 
-    if [ x"$DE" = x"" ]; then
+    # shellcheck disable=SC2153
+    if [ -z "$DE" ]; then
       # classic fallbacks
-      if [ x"$KDE_FULL_SESSION" != x"" ]; then DE=kde;
-      elif [ x"$GNOME_DESKTOP_SESSION_ID" != x"" ]; then DE=gnome;
-      elif [ x"$MATE_DESKTOP_SESSION_ID" != x"" ]; then DE=mate;
+      if [ -n "$KDE_FULL_SESSION" ]; then DE=kde;
+      elif [ -n "$GNOME_DESKTOP_SESSION_ID" ]; then DE=gnome;
+      elif [ -n "$MATE_DESKTOP_SESSION_ID" ]; then DE=mate;
       elif dbus-send --print-reply --dest=org.freedesktop.DBus /org/freedesktop/DBus org.freedesktop.DBus.GetNameOwner string:org.gnome.SessionManager > /dev/null 2>&1 ; then DE=gnome;
       elif xprop -root _DT_SAVE_MODE 2> /dev/null | grep ' = \"xfce4\"$' >/dev/null 2>&1; then DE=xfce;
       elif xprop -root 2> /dev/null | grep -i '^xfce_desktop_window' >/dev/null 2>&1; then DE=xfce
-      elif echo $DESKTOP | grep -q '^Enlightenment'; then DE=enlightenment;
-      elif [ x"$LXQT_SESSION_CONFIG" != x"" ]; then DE=lxqt;
+      elif echo "$DESKTOP" | grep -q '^Enlightenment'; then DE=enlightenment;
+      elif [ -n "$LXQT_SESSION_CONFIG" ]; then DE=lxqt;
       fi
     fi
 
-    if [ x"$DE" = x"" ]; then
+    if [ -z "$DE" ]; then
       # fallback to checking $DESKTOP_SESSION
       case "$DESKTOP_SESSION" in
          gnome)
@@ -340,7 +346,7 @@ detectDE()
       esac
     fi
 
-    if [ x"$DE" = x"" ]; then
+    if [ -z "$DE" ]; then
       # fallback to uname output for other platforms
       case "$(uname 2>/dev/null)" in
         CYGWIN*)
@@ -375,13 +381,13 @@ detectDE()
 
 kfmclient_fix_exit_code()
 {
-    version=`LC_ALL=C.UTF-8 kde-config --version 2>/dev/null | grep '^KDE'`
-    major=`echo $version | sed 's/KDE.*: \([0-9]\).*/\1/'`
-    minor=`echo $version | sed 's/KDE.*: [0-9]*\.\([0-9]\).*/\1/'`
-    release=`echo $version | sed 's/KDE.*: [0-9]*\.[0-9]*\.\([0-9]\).*/\1/'`
-    test "$major" -gt 3 && return $1
-    test "$minor" -gt 5 && return $1
-    test "$release" -gt 4 && return $1
+    version="$(LC_ALL=C.UTF-8 kde-config --version 2>/dev/null | grep '^KDE')"
+    major="$(echo "$version" | sed 's/KDE.*: \([0-9]\).*/\1/')"
+    minor="$(echo "$version" | sed 's/KDE.*: [0-9]*\.\([0-9]\).*/\1/')"
+    release="$(echo "$version" | sed 's/KDE.*: [0-9]*\.[0-9]*\.\([0-9]\).*/\1/')"
+    test "$major" -gt 3 && return "$1"
+    test "$minor" -gt 5 && return "$1"
+    test "$release" -gt 4 && return "$1"
     return 0
 }
 
