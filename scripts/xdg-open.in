@@ -569,7 +569,7 @@ DEBUG 2 "Selected DE $DE"
 # sanitize BROWSER (avoid calling ourselves in particular)
 case "${BROWSER}" in
     *:"xdg-open"|"xdg-open":*)
-        BROWSER=$(echo $BROWSER | sed -e 's|:xdg-open||g' -e 's|xdg-open:||g')
+        BROWSER="$(echo $BROWSER | sed -e 's|:xdg-open||g' -e 's|xdg-open:||g')"
         ;;
     "xdg-open")
         BROWSER=
