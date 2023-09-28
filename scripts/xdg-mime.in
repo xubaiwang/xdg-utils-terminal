@@ -400,7 +400,7 @@ check_mimeapps_list()
         local mimeapps_list="$dir/${prefix}mimeapps.list"
         if [ -f "$mimeapps_list" ] ; then
             DEBUG 2 "Checking $mimeapps_list"
-            local result=$(awk -v mimetype="$mimetype" '
+            local result="$(awk -v mimetype="$mimetype" '
     BEGIN {
         prefix=mimetype "="
         indefault=0
@@ -416,7 +416,7 @@ check_mimeapps_list()
             found=1
         }
     }
-' "$mimeapps_list" | cut -d ';' -f 1)
+' "$mimeapps_list" | cut -d ';' -f 1)"
             if [ -n "$result" ]; then
                 # $result could be a ; separated list of .desktop files
                 # use the first on the system
