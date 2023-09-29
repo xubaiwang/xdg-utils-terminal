@@ -1,3 +1,117 @@
+=== xdg-utils 1.2.0 ===
+2023-09-28 Alexandre Abrioux
+   * xdg-open: handle spaces in .desktop file path
+
+2023-09-26 Slatian
+   * xdg-open: Quote Browser variable to avod unintentional code execution 
+   * xdg-screensaver: Add missing result gathering (#219)
+
+2023-09-21 Luís Pereira
+   * all: Enhance LXQt Desktop Enviromment support
+
+2023-09-11 Christophe Giboudeaux
+   * xdg-terminal: don't run 'kreadconfig' if KDE_SESSION_VERSION is >= 5
+
+2023-08-31 Simon Lees <sflees@suse.de>
+   * xdg-open: Revert putting process in background from !55 (#224)
+
+2023-08-22 Lennard Hofmann
+   * all: shellcheck fixes; make xdg-mime DASH-compatible
+
+2023-08-22 Lennard Hofmann
+   * xdg-email: do not run BROWSER if xdg-open failed
+
+2023-08-14 Dani Llewellyn <dani@bowlhat.net>
+   * Ensure POSIX-compliant shell scripting to support DASH
+
+2023-08-09 Ville Skyttä 
+   * all: : spelling fixes
+
+2023-08-09 Joe Mou
+   * Fix set_url_scheme_handler_gnome3 to not associate text/html handler
+
+2023-08-09 Reuben Thomas
+   * xdg-screensaver: fix the freedesktop screensaver
+   * xdg-screensaver: implement support for "gnome3" DE
+   * xdg-screensaver: better error detection for freedesktop 'status' command
+
+2023-08-07 Johannes Löthberg
+   * xdg-desktop-menu: Drop obsolete GNOME support
+
+2023-08-07 Vasyl Vavrychuk 
+   * xdg-open: support WSL (FDO#108975)
+
+2023-08-07 Hillwood Yang
+   * xdg-su: support deepin
+
+2023-08-07 Heiko Nickerl
+   * xdg-mime: If mimeapps.list is a symlink, retain the symlink (#7)
+
+2023-08-07 Baltazár Radics
+   * xdg-open: fix search_desktop_file's logic
+
+2023-08-07 Naim Favier
+   * xdg-open: handle local hostname in `file:` URLs
+
+2023-08-07 Florian Limberger <florian.limberger@inovex.de>
+   * xdg-desk-menu: Check if defaults file exists during installation 
+
+2023-08-07 JaredD
+   * xdg-su: Remove quotes for lxqt-sudo cmd arg
+
+2023-08-07 Lily Foster
+   * xdg-open: handle opening files when DE=flatpak
+
+2023-08-07 shamibi
+   * xdg-open: replace egrep and fgrep
+
+2023-07-05 Nicolas Fella
+   * all: Plasma 6 support
+
+2022-11-06 Eli Schwartz
+   * all: Fix various bashism's
+
+2021-08-05 Mladen Milinkovic
+   * xdg-email: fails on kde with desktop files (#187)
+
+2020-11-13 Meven Car <meven.car@enioka.com>
+   * xdg-settings: support for default-web-browser for Plasma 5.19+
+
+2020-02-20 Andrea Tarocchi
+   * xdg-open: fix incorrect search of directories with spaces in the name(#166)
+
+2019-04-13 Martin Puppe
+   * xdg-mime: return correct exit code for GNOME
+
+2019-04-01  Cameron Fieber
+   * xdg-open: support digits in uri scheme regex
+
+2019-04-01 Simon Lees <sflees@suse.de>
+   * xdg-terminal: Terminal fixes
+   * xdg-screensaver: Sanitize xscreensaver before sending over dbus
+   * xdg-su: improve docs
+   * xdg-open: fix comment typo
+
+2019-04-01 mvdlinde
+   * xdg-screensaver: Enable cinnamon screensaver for xdg aware desktop environments (eg lxqt)
+
+2019-03-17 Reuben Thomas
+   * xdg-su: Documentation improvements
+   * xdg-open: fix comment typo
+
+2019-03-26 Iain Lane <iain.lane@canonical.com>
+   * xdg-screensaver: Sanitise window name before sending it over the bus 
+
+2019-09-19 XRevan86
+   * xdg-terminal: Fixes -x argument, which is the default for {gnome,mate}-terminal
+
+2019-09-19 Ronan Arraes Jardim Chagas <ronisbr@gmail.com>
+   * xdg-terminal: Fix a bug when xdg-terminal needs gsettings to get the default terminal (FDO#93231)
+
+2019-01-12 Richard Tollerton 
+   * xdg-open: handle file://localhost/
+   * test-lib.sh: run: eat xdg-open's exit code
+
 === xdg-utils 1.1.5 ===
 	
 2018-09-11 Alberto Salvia Novella <es20490446e@gmail.com>
