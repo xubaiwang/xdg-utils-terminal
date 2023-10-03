@@ -300,11 +300,13 @@ open_flatpak()
 #-----------------------------------------
 # Recursively search .desktop file
 
+#(application, directory, target file, target_url)
 search_desktop_file()
 {
     local default="$1"
     local dir="$2"
     local target="$3"
+    local target_uri="$4"
 
     local file=""
     # look for both vendor-app.desktop, vendor/app.desktop
@@ -336,9 +338,20 @@ search_desktop_file()
                         shift
                         set -- "$@" "$arg"
                         ;;
-                    %[fFuU])
+                    %[fF])
+	                    # if there is only a target_url return,
+	                    # this application can't handle it.
+	                    [ -n "$target" ] || return
                         replaced=1
                         arg="$target"
+                        shift
+                        set -- "$@" "$arg"
+                        ;;
+                    %[uU])
+                        replaced=1
+                        # When an URI is requested use it,
+                        # otherwise fall back to the filepath.
+                        arg="${target_uri:-$target}"
                         shift
                         set -- "$@" "$arg"
                         ;;
@@ -355,18 +368,18 @@ search_desktop_file()
                 esac
                 args=$(( $args - 1 ))
             done
-            [ $replaced -eq 1 ] || set -- "$@" "$target"
+            [ $replaced -eq 1 ] || set -- "$@" "${target:-target_uri}"
             env "$command" "$@"
             exit_success
         fi
     fi
 
     for d in "$dir/"*/; do
-        [ -d "$d" ] && search_desktop_file "$default" "$d" "$target"
+        [ -d "$d" ] && search_desktop_file "$default" "$d" "$target" "$target_uri"
     done
 }
 
-
+# (file (or empty), mimetype, optional url)
 open_generic_xdg_mime()
 {
     filetype="$2"
@@ -380,7 +393,7 @@ open_generic_xdg_mime()
 
 DEBUG 3 "$xdg_user_dir:$xdg_system_dirs"
         for x in `echo "$xdg_user_dir:$xdg_system_dirs" | sed 's/:/ /g'`; do
-            search_desktop_file "$default" "$x/applications/" "$1"
+            search_desktop_file "$default" "$x/applications/" "$1" "$3"
         done
     fi
 }
@@ -396,7 +409,7 @@ open_generic_xdg_x_scheme_handler()
     scheme="`echo $1 | sed -n 's/\(^[[:alnum:]+\.-]*\):.*$/\1/p'`"
     if [ -n "$scheme" ]; then
         filetype="x-scheme-handler/$scheme"
-        open_generic_xdg_mime "$1" "$filetype"
+        open_generic_xdg_mime "" "$filetype" "$1"
     fi
 }
 
@@ -455,7 +468,9 @@ open_generic()
 
         if has_display; then
             filetype=`xdg-mime query filetype "$file" | sed "s/;.*//"`
-            open_generic_xdg_mime "$file" "$filetype"
+            # passing a path a url is okay too,
+            # see desktop file specification for '%u'
+            open_generic_xdg_mime "$file" "$filetype" "$1"
         fi
 
         if command -v run-mailcap >/dev/null; then
