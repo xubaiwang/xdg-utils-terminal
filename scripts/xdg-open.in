@@ -68,11 +68,15 @@ get_key()
     IFS="${IFS_}"
 }
 
+has_url_scheme()
+{
+	echo "$1" | grep -Eq '^[[:alpha:]][[:alpha:][:digit:]+\.\-]*:'
+}
+
 # Returns true if argument is a file:// URL or path
 is_file_url_or_path()
 {
-    if echo "$1" | grep -q '^file://' \
-            || ! echo "$1" | LC_ALL=C grep -Eq '^[[:alpha:]][[:alpha:][:digit:]+\.\-]*:'; then
+    if echo "$1" | grep -q '^file://' || ! has_url_scheme "$1" ; then
         return 0
     else
         return 1
@@ -442,7 +446,7 @@ open_envvar()
 
 open_wsl()
 {
-    if [[ "$1" =~ '^[a-zA-Z]+://' ]]; then
+    if has_url_scheme "$1"; then
         local win_path="$1"
     else
         local win_path="$(wslpath -aw "$1")"
