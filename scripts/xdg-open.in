@@ -442,9 +442,13 @@ open_envvar()
 
 open_wsl()
 {
-    local win_path="$(wslpath -w "$1")"
-    [ $? -eq 0 ] || exit_failure_operation_failed
-    powershell.exe start "${win_path}"
+    if [[ "$1" =~ '^[a-zA-Z]+://' ]]; then
+        local win_path="$1"
+    else
+        local win_path="$(wslpath -aw "$1")"
+        [ $? -eq 0 ] || exit_failure_operation_failed
+    fi
+    explorer.exe "${win_path}"
 
     if [ $? -eq 0 ]; then
         exit_success
