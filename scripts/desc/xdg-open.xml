@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <?xml-stylesheet type="text/xsl"
    href="http://docbook.sourceforge.net/release/xsl/current/manpages/docbook.xsl"?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
-    "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+    "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd" [
 ]>
 <refentry id="xdg-open">
   <refentryinfo>
@@ -64,6 +64,14 @@
       xdg-open is for use inside a desktop session only.
       It is not recommended to use xdg-open as root.
     </para>
+    <para>
+	  As xdg-open can not handle arguments that begin with a <quote>-</quote> it is recommended to pass filepaths in one of the following ways:
+    </para>
+	  <itemizedlist>
+		  <listitem><para>Pass absolute paths, i.e. by using <command>realpath</command> as a preprocessor.</para></listitem>
+		  <listitem><para>Prefix known relative filepaths with a <quote>./</quote>. For example using <code>sed -E 's|^[^/]|./\0|'</code>.</para></listitem>
+		  <listitem><para>Pass a file URL.</para></listitem>
+	  </itemizedlist>
   </refsect1>
   <refsect1 id="options">
     <title>Options</title>
