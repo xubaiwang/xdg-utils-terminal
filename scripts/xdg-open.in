@@ -72,7 +72,7 @@ get_key()
 is_file_url_or_path()
 {
     if echo "$1" | grep -q '^file://' \
-            || ! echo "$1" | grep -Eq '^[[:alpha:]][[:alpha:][:digit:]+\.\-]*:'; then
+            || ! echo "$1" | LC_ALL=C grep -Eq '^[[:alpha:]][[:alpha:][:digit:]+\.\-]*:'; then
         return 0
     else
         return 1
@@ -406,7 +406,7 @@ open_generic_xdg_file_mime()
 
 open_generic_xdg_x_scheme_handler()
 {
-    scheme="`echo $1 | sed -n 's/\(^[[:alnum:]+\.-]*\):.*$/\1/p'`"
+    scheme="`echo $1 | LC_ALL=C sed -n 's/\(^[[:alpha:]][[:alnum:]+\.-]*\):.*$/\1/p'`"
     if [ -n "$scheme" ]; then
         filetype="x-scheme-handler/$scheme"
         open_generic_xdg_mime "" "$filetype" "$1"
