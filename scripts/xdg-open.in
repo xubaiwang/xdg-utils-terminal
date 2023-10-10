@@ -398,12 +398,6 @@ DEBUG 3 "$xdg_user_dir:$xdg_system_dirs"
     fi
 }
 
-open_generic_xdg_file_mime()
-{
-    filetype=`xdg-mime query filetype "$1" | sed "s/;.*//"`
-    open_generic_xdg_mime "$1" "$filetype"
-}
-
 open_generic_xdg_x_scheme_handler()
 {
     scheme="`echo $1 | LC_ALL=C sed -n 's/\(^[[:alpha:]][[:alnum:]+\.-]*\):.*$/\1/p'`"
