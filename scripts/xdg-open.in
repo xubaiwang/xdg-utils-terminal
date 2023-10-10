@@ -70,7 +70,7 @@ get_key()
 
 has_url_scheme()
 {
-	echo "$1" | grep -Eq '^[[:alpha:]][[:alpha:][:digit:]+\.\-]*:'
+	echo "$1" | LC_ALL=C grep -Eq '^[[:alpha:]][[:alpha:][:digit:]+\.\-]*:'
 }
 
 # Returns true if argument is a file:// URL or path
