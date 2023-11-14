@@ -30,13 +30,22 @@ _USAGE
 
 #@xdg-utils-common@
 
+update_kde_cache()
+{
+	DEBUG 1 "Running kbuildsycoca"
+	if [ "${KDE_SESSION_VERSION:-0}" -gt 3 ] ; then
+		eval 'kbuildsycoca${KDE_SESSION_VERSION}'$xdg_redirect_output
+	else
+		eval 'kbuildsycoca'$xdg_redirect_output
+	fi
+}
+
 update_mime_database()
 {
    if [ "$mode" = user ] && has_display; then
       detectDE
       if [ x"$DE" = x"kde" ] ; then
-         DEBUG 1 "Running kbuildsycoca"
-         eval 'kbuildsycoca${KDE_SESSION_VERSION}'$xdg_redirect_output
+         update_kde_cache
       fi
    fi
    for x in `echo "$PATH:/opt/gnome/bin" | sed 's/:/ /g'`; do
@@ -154,7 +163,10 @@ make_default_kde()
     # text/plain=gnome-gedit.desktop;gnu-emacs.desktop;
     vendor="$1"
     mimetype="$2"
-    if [ x"$KDE_SESSION_VERSION" = x"4" ]; then
+    if [ "${KDE_SESSION_VERSION:-0}" -gt 4 ] ; then
+        default_dir="$(qtpaths --writable-path ConfigLocation)"
+        default_file="$default_dir/mimeapps.list"
+    elif [ x"$KDE_SESSION_VERSION" = x"4" ]; then
         default_dir=`kde4-config --path xdgdata-apps 2> /dev/null | cut -d ':' -f 1`
         default_file="$default_dir/mimeapps.list"
     else
@@ -169,7 +181,7 @@ make_default_kde()
     DEBUG 1 "Updating $default_file"
     mkdir -p "$default_dir"
     [ -f "$default_file" ] || touch "$default_file"
-    if [ x"$KDE_SESSION_VERSION" = x"4" ]; then
+    if [ "${KDE_SESSION_VERSION:-0}" -gt 3 ]; then
         [ -f "$default_file" ] || touch "$default_file"
         awk -v application="$vendor" -v mimetype="$mimetype" '
     BEGIN {
@@ -228,7 +240,6 @@ make_default_kde()
         }
     }
 ' "$default_file" > "${default_file}.new" && mv "${default_file}.new" "$default_file"
-        eval 'kbuildsycoca4'$xdg_redirect_output
     else
         awk -v application="$vendor" -v mimetype="$mimetype" '
     BEGIN {
@@ -645,6 +656,9 @@ if [ "$action" = "makedefault" ]; then
             ;;
         esac
     done
+    if [ "$DE" = "kde" ] ; then
+        update_kde_cache
+    fi
     exit_success
 fi
 
