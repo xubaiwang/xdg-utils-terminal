@@ -1,4 +1,27 @@
 === xdg-utils 1.2.0 ===
+2023-11-15 Slatian
+  * all: Shellchecked xdg-utils-common.in
+  * xdg-open: shellcheck
+  * xdg-mime: Create a generic implementation for KDE 
+  * all: Move to markdown for README's
+  * xdg-mime: Improve Documentation around query file/default
+  * xdg-open: Document not handling '-' at the start of filenames
+  * xdg-open: Deduplicate URL recognition
+  * xdg-open: remove unused open_generic_xdg_file_mime
+  * xdg-open: use LC_ALL=C with URLs
+  * xdg-open: Fix URI/URL handling
+  * xdg-email: Remove default BROWSER logic, no longer needed
+  * xdg-mime: Improve synopsis
+
+2023-10-25 Harald Sitter 
+  * xdg-settings: read KDE browser settings the right way around
+
+2023-10-11 Najib Idrissi
+  * xdg-open: Improve WSL support
+
+2023-09-29 yan12125 
+   * xdg-mime: actually handle lists in mimeapps.list correctly
+
 2023-09-28 Alexandre Abrioux
    * xdg-open: handle spaces in .desktop file path
 
