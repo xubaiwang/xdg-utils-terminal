@@ -144,6 +144,9 @@
 	</listitem>
       </varlistentry>
     </variablelist>
+    <para>
+	  In case of success the process launched from the .desktop file will not be forked off and therefore may result in xdg-open running for a very long time. This behaviour intentionally differs from most desktop specific openers to allow terminal based applications to run using the same terminal xdg-open was called from.
+    </para>
   </refsect1>
   <refsect1 id="seealso">
     <title>See Also</title>
