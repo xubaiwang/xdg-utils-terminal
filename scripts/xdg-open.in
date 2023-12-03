@@ -377,7 +377,7 @@ search_desktop_file()
                 esac
                 args=$(( args - 1 ))
             done
-            [ $replaced -eq 1 ] || set -- "$@" "${target:-target_uri}"
+            [ $replaced -eq 1 ] || set -- "$@" "${target:-$target_uri}"
             env "$command" "$@"
             exit_success
         fi
