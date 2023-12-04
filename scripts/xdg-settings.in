@@ -278,6 +278,44 @@ set_browser_kde()
 }
 
 # }}} KDE
+# {{{ Deepin
+
+read_deepin_browser()
+{
+    dbus-send --print-reply=literal --dest=com.deepin.daemon.Mime /com/deepin/daemon/Mime com.deepin.daemon.Mime.GetDefaultApp string:"x-scheme-handler/http" | jq -r '.Id'
+}
+
+get_browser_deepin()
+{
+    browser="$(read_deepin_browser)"
+    if [ -n "$browser" ]; then
+        echo "$browser"
+        exit_success
+    else
+        exit_failure_operation_failed
+    fi
+}
+
+check_browser_deepin()
+{
+    if [ "$(read_deepin_browser)" = "$1" ]; then
+        exit_success
+    else
+        exit_failure_operation_failed
+    fi
+}
+
+set_browser_deepin()
+{
+    xdg-mime default "$1" x-scheme-handler/http x-scheme-handler/ftp x-scheme-handler/https text/html text/xml text/xhtml_xml text/xhtml+xml
+    if [ $? -ne 0 ]; then
+        exit_failure_operation_failed
+    else
+        exit_success
+    fi
+}
+
+# }}} Deepin
 # {{{ GNOME
 
 get_browser_gnome()
@@ -956,6 +994,10 @@ fi
 case "$DE" in
     kde)
     dispatch_specific kde "$@"
+    ;;
+
+    deepin)
+    dispatch_specific deepin "$@"
     ;;
 
     gnome)
