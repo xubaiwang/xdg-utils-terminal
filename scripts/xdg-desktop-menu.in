@@ -88,7 +88,7 @@ make_lazy_default()
             # App already listed as default
             continue;
         fi
-        default_file="$(readlink -f "$1/defaults.list")"
+        default_file="$(xdg_realpath "$1/defaults.list")"
 	if [ -f "$default_file" ] ; then
             DEBUG 1 "Updating $default_file"
             grep -v "$MIME=" $default_file > ${default_file}.new 2> /dev/null

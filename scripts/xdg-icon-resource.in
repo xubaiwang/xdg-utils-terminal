@@ -306,7 +306,7 @@ fi
 need_kde_icon_path()
 {
   local path
-  path=`readlink -f "$1" 2> /dev/null` # Normalize path
+  path="$(xdg_realpath "$1")" 2> /dev/null` # Normalize path
   DEBUG 2 "need_kde_icon_path $path"
   if [ -z "$path" ] ; then
      DEBUG 2 "need_kde_icon_path RETURN 1 (not needed, no xdg icon dir)"
@@ -323,7 +323,7 @@ need_kde_icon_path()
   fi
   needed=0 # Needed
   for y in $kde_icon_dirs ; do
-    x=`readlink -f "$y"` # Normalize path
+    x="$(xdg_realpath "$y")" # Normalize path
     DEBUG 3 "Normalize $y --> $x"
     if [ -n "$x" ] ; then
       if [ "$x" = "$path" ] ; then

@@ -299,7 +299,7 @@ make_default_generic()
     [ -n "$xdg_config_home" ] || xdg_config_home="$HOME/.config"
     default_file="$xdg_config_home/mimeapps.list"
     if [ -L "$default_file" ]; then
-        out_file=$(readlink -f "$default_file")
+        out_file="$(xdg_realpath "$default_file")"
     else
         out_file="$default_file"
     fi
@@ -587,7 +587,7 @@ case $1 in
             ;;
         esac
         check_input_file "$filename"
-        filename="$(readlink -f -- "$filename")"
+        filename="$(xdg_realpath "$filename")"
         ;;
 
       default)
