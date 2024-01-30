@@ -306,7 +306,7 @@ fi
 need_kde_icon_path()
 {
   local path
-  path="$(xdg_realpath "$1")" 2> /dev/null` # Normalize path
+  path="$(xdg_realpath "$1")" 2> /dev/null # Normalize path
   DEBUG 2 "need_kde_icon_path $path"
   if [ -z "$path" ] ; then
      DEBUG 2 "need_kde_icon_path RETURN 1 (not needed, no xdg icon dir)"
