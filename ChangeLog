@@ -1,4 +1,23 @@
 === xdg-utils 1.2.0 ===
+2024-01-23 Slatian
+  * all: Add xdg-realpath to better handle Canonicalizing filenames (#66)
+  * xdg-open: Use url.dll as url opener on wsl (#242)
+  * tests: Fix quoting issues in t-xdg-open.sh
+  * xdg-open: Added a reporting issues section to xdg-open in the hopes
+    that more issues will be attributed correctly
+  * xdg-mime: Added a secutity note on xdg-mime default to warn against confusing 
+    openers and runners
+  * xdg-open: Added paragraph explaining the wiered return behaviour of xdg-open
+  * xdg-email: shellcheck
+  * xdg-mime: shellcheck
+
+2024-01-23 ssk-wh
+  * xdg-settings:  Add support for deeping-desktop browser setting in
+    xdg-settings.
+
+2024-01-23 Nicholas Guriev
+  * all: Fix config.status warning about ignored --datarootdir setting 
+
 2023-11-15 Slatian
   * all: Shellchecked xdg-utils-common.in
   * xdg-open: shellcheck
