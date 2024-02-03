@@ -154,7 +154,7 @@
 	  Please keep in mind <command>xdg-open</command> inherits most of the flaws of its configuration and the underlying opener.
     </para>
     <para>
-      In case the command <code>xdg-mime query default "$(xdg-mime query filetype troublesome file)"</code> names the program responsible for any unexpected behaviour you can fix that by setting a different handler. (If the program is broken let the developers know)
+      In case the command <code>xdg-mime query default "$(xdg-mime query filetype path/to/troublesome_file)"</code> names the program responsible for any unexpected behaviour you can fix that by setting a different handler. (If the program is broken let the developers know)
     </para>
     <para>
        Also see the security note on <citerefentry><refentrytitle>xdg-mime</refentrytitle><manvolnum>1</manvolnum></citerefentry> for the <code>default</code> subcommand.
