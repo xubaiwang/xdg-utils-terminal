@@ -1,4 +1,3 @@
-
 #----------------------------------------------------------------------------
 #   Common utility functions included in all XDG wrapper scripts
 #----------------------------------------------------------------------------
@@ -249,7 +248,7 @@ check_common_commands()
             ;;
 
             --version)
-            echo "@NAME@ 1.2.0-beta1"
+            echo "@NAME@ 1.2.1"
             exit_success
             ;;
 
