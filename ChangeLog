@@ -1,3 +1,10 @@
+=== xdg-utils 1.2.1 ===
+2024-02-06 Slatian
+  * Proper quoting of `_MANUALPAGE` and `_USAGE` sections. (#243)
+
+2024-01-30 Harald Sitter 
+  * xdg-icon-resource: unbreak syntax by removing stray grave accent
+
 === xdg-utils 1.2.0 ===
 2024-01-23 Slatian
   * all: Add xdg-realpath to better handle Canonicalizing filenames (#66)
