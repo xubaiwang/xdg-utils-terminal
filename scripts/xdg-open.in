@@ -326,6 +326,7 @@ search_desktop_file()
 
     if [ -r "$file" ] ; then
         command="$(get_key "${file}" "Exec" | first_word)"
+        terminal="$(get_key "${file}" "Terminal" | first_word)"
         if command -v "$command" >/dev/null; then
             icon="$(get_key "${file}" "Icon")"
             # FIXME: Actually LC_MESSAGES should be used as described in
@@ -378,7 +379,11 @@ search_desktop_file()
                 args=$(( args - 1 ))
             done
             [ $replaced -eq 1 ] || set -- "$@" "${target:-$target_uri}"
-            env "$command" "$@"
+            if [ "$terminal" = "true" ]; then
+              env xdg-terminal-exec "$command" "$@"
+            else
+              env "$command" "$@"
+            fi
             exit_success
         fi
     fi
